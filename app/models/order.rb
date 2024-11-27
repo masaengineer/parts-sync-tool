@@ -1,5 +1,5 @@
 class Order < ApplicationRecord
-  belongs_to :channel, class_name: 'SalesChannel'
+  belongs_to :sales_channel, class_name: 'SalesChannel'
   belongs_to :user
   belongs_to :buyer
 

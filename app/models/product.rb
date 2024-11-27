@@ -1,5 +1,5 @@
 class Product < ApplicationRecord
-  belongs_to :product_categories
+  belongs_to :product_category, class_name: 'ProductCategory', foreign_key: 'product_categories_id'
   has_many :sku_part_number_links
   has_many :skus, through: :sku_part_number_links
   has_many :inventories
