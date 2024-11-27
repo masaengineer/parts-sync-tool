@@ -1,0 +1,13 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  order: one
+  fee_type: MyString
+  fee_rate: 9.99
+  option: 1
+
+two:
+  order: two
+  fee_type: MyString
+  fee_rate: 9.99
+  option: 1

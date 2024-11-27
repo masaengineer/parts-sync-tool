@@ -1,0 +1,17 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  oem_part_number: MyString
+  is_oem: false
+  domestic_title: MyString
+  international_title: MyString
+  product_status: MyString
+  product_categories: one
+
+two:
+  oem_part_number: MyString
+  is_oem: false
+  domestic_title: MyString
+  international_title: MyString
+  product_status: MyString
+  product_categories: two
