@@ -10,6 +10,8 @@ puts "🗑️ Cleaning database..."
   Shipment,
   OrderStatusHistory,
   OrderItem,
+  Remark,
+  Sale,
   Order,
   Inventory,
   SkuPartNumberLink,
@@ -22,9 +24,7 @@ puts "🗑️ Cleaning database..."
   ProductCategory,
   SalesChannelFee,
   SalesChannel,
-  Wholesaler,
-  Sale,
-  Remark
+  Wholesaler
 ].each(&:destroy_all)
 
 # セールスチャネルの作成
@@ -273,5 +273,27 @@ puts "📝 Creating quotations..."
     )
   end
 end
+
+# 販売情報の作成
+puts "💵 Creating sales..."
+Order.all.each do |order|
+  Sale.create!(
+    order: order,
+    price_original: rand(1000..50000),
+    currency_code: ["USD", "JPY", "EUR"].sample,
+    conversion_rate: rand(0.8..1.2).round(2),
+    price_jpy: (rand(1000..50000) * rand(0.8..1.2)).round,
+    conversion_date: Date.today - rand(1..30)
+  )
+end
+
+currencies_data = [
+  { currency_code: 'JPY', currency_name: '日本円', currency_symbol: '¥', is_active: true },
+  { currency_code: 'USD', currency_name: '米ドル', currency_symbol: '$', is_active: true },
+  { currency_code: 'EUR', currency_name: 'ユーロ', currency_symbol: '€', is_active: true },
+  { currency_code: 'GBP', currency_name: 'イギリスポンド', currency_symbol: '£', is_active: true }
+]
+
+Currency.create!(currencies_data)
 
 puts "✅ Seed data creation completed!"

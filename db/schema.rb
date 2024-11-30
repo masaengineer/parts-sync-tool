@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_11_28_134942) do
+ActiveRecord::Schema[7.2].define(version: 2024_11_29_150640) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -41,6 +41,16 @@ ActiveRecord::Schema[7.2].define(version: 2024_11_28_134942) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["address_id"], name: "index_buyers_on_address_id"
+  end
+
+  create_table "currencies", force: :cascade do |t|
+    t.string "currency_code", null: false
+    t.string "currency_name", null: false
+    t.string "currency_symbol"
+    t.boolean "is_active", default: true
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["currency_code"], name: "index_currencies_on_currency_code", unique: true
   end
 
   create_table "expenses", force: :cascade do |t|
@@ -106,22 +116,29 @@ ActiveRecord::Schema[7.2].define(version: 2024_11_28_134942) do
   create_table "payment_fees", force: :cascade do |t|
     t.bigint "order_id", null: false
     t.string "fee_type"
-    t.decimal "fee_rate"
-    t.integer "option"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "sales_channel_id"
+    t.string "fee_category"
+    t.bigint "currency_id"
+    t.datetime "fee_confirmed_at"
+    t.text "note"
+    t.index ["currency_id"], name: "index_payment_fees_on_currency_id"
+    t.index ["order_id", "fee_category", "fee_type"], name: "index_payment_fees_on_order_id_and_fee_category_and_fee_type"
     t.index ["order_id"], name: "index_payment_fees_on_order_id"
+    t.index ["sales_channel_id"], name: "index_payment_fees_on_sales_channel_id"
   end
 
   create_table "procurements", force: :cascade do |t|
-    t.bigint "order_id", null: false
     t.decimal "purchase_price"
     t.decimal "domestic_transfer_fee"
     t.decimal "forwarding_fee"
     t.decimal "photo_fee"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["order_id"], name: "index_procurements_on_order_id"
+    t.bigint "product_id", null: false
+    t.index ["product_id", "created_at"], name: "index_procurements_on_product_id_and_created_at"
+    t.index ["product_id"], name: "index_procurements_on_product_id"
   end
 
   create_table "product_categories", force: :cascade do |t|
@@ -193,11 +210,10 @@ ActiveRecord::Schema[7.2].define(version: 2024_11_28_134942) do
     t.bigint "order_id", null: false
     t.decimal "price_original"
     t.string "currency_code"
-    t.decimal "conversion_rate"
-    t.decimal "price_jpy"
-    t.date "conversion_date"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "currency_id"
+    t.index ["currency_id"], name: "index_sales_on_currency_id"
     t.index ["order_id"], name: "index_sales_on_order_id"
   end
 
@@ -281,8 +297,10 @@ ActiveRecord::Schema[7.2].define(version: 2024_11_28_134942) do
   add_foreign_key "orders", "buyers"
   add_foreign_key "orders", "sales_channels"
   add_foreign_key "orders", "users"
+  add_foreign_key "payment_fees", "currencies"
   add_foreign_key "payment_fees", "orders"
-  add_foreign_key "procurements", "orders"
+  add_foreign_key "payment_fees", "sales_channels"
+  add_foreign_key "procurements", "products"
   add_foreign_key "products", "manufacturers"
   add_foreign_key "products", "product_categories", column: "product_categories_id"
   add_foreign_key "quotation_item_changes", "quotation_items"
@@ -290,6 +308,7 @@ ActiveRecord::Schema[7.2].define(version: 2024_11_28_134942) do
   add_foreign_key "quotation_items", "quotations"
   add_foreign_key "quotations", "wholesalers"
   add_foreign_key "remarks", "orders"
+  add_foreign_key "sales", "currencies"
   add_foreign_key "sales", "orders"
   add_foreign_key "sales_channel_fees", "sales_channels"
   add_foreign_key "shipments", "orders"
