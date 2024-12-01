@@ -42,8 +42,6 @@ erDiagram
     Buyers {
         int id PK "インデックス"
         string name "購入者名"
-        int address_id FK "住所ID"
-        string email "メールアドレス"
     }
 
     Addresses {
@@ -55,6 +53,11 @@ erDiagram
         string postal_code "郵便番号"
         string country "国"
         string address_formats "住所フォーマット"
+        int addressable_id "関連先ID"
+        string addressable_type "関連先タイプ"
+        boolean is_primary "プライマリー住所フラグ"
+        datetime created_at "作成日時"
+        datetime updated_at "更新日時"
     }
 
     SKUs {
@@ -83,15 +86,12 @@ erDiagram
         datetime created_at "作成日時"
         datetime updated_at "更新日時"
         int manufacturer_id FK "メーカーID"
-        string storage_location "保管場所"
-        string storage_shelf "棚番号"
-        string storage_box "箱番号"
     }
 
     Manufacturers {
         int id PK "インデックス"
         string name "メーカー名"
-        datetime created_at "作成日時"
+        datetime created_at "作成日"
         datetime updated_at "更新日時"
     }
 
@@ -100,7 +100,9 @@ erDiagram
         int product_id FK "商品ID"
         int quantity "在庫数"
         date stock_order_date "発注日"
-        string stock_type "在庫タイプ（自社在庫/メーカー在庫/卸在庫）"
+        string stock_type "在庫タイプ"
+        datetime created_at "作成日時"
+        datetime updated_at "更新日時"
     }
 
     Product_categories {
@@ -182,10 +184,8 @@ erDiagram
     Users {
         int id PK "インデックス"
         string name "ユーザー名"
-        string email "メールアドレス"
-        string password_digest "パスワードダイジェスト"
         string profile_picture_url "プロフィール画像URL"
-        string role "ユーザー権限（管理者/スタッフ等）"
+        string role "ユーザー権限"
         string encrypted_password "暗号化パスワード"
         string reset_password_token "パスワードリセットトークン"
         datetime reset_password_sent_at "パスワードリセット送信日時"
@@ -214,10 +214,6 @@ erDiagram
     Wholesalers {
         int id PK "インデックス"
         string name "卸業者名"
-        string contact_info "連絡先情報"
-        string address "住所"
-        datetime created_at "作成日時"
-        datetime updated_at "更新日時"
     }
 
     QuotationItems {
@@ -247,7 +243,12 @@ erDiagram
     Orders ||--o{ Remarks : "order_id"
     Users ||--o{ Orders : "user_id"
     Buyers ||--o{ Orders : "buyer_id"
-    Addresses ||--o{ Buyers : "address_id"
+    Users ||--o{ Addresses : "addressable"
+    Users ||--o{ ContactInformations : "contactable"
+    Buyers ||--o{ Addresses : "addressable"
+    Buyers ||--o{ ContactInformations : "contactable"
+    Wholesalers ||--o{ Addresses : "addressable"
+    Wholesalers ||--o{ ContactInformations : "contactable"
     SKUs ||--o{ Sku_Product_Links : "sku_id"
     Sku_Product_Links }o--|| Products : "product_id"
     Products ||--o{  Inventories: "product_id"
@@ -277,3 +278,17 @@ erDiagram
 
     Currencies ||--o{ Sales : "currency_id"
     Currencies ||--o{ PaymentFees : "currency_id"
+
+    ContactInformations {
+        int id PK "インデックス"
+        int contactable_id "関連先ID"
+        string contactable_type "関連先タイプ"
+        string email "メールアドレス"
+        string phone "電話番号"
+        string fax "FAX番号"
+        string contact_person "担当者名"
+        text note "備考"
+        boolean is_primary "プライマリー連絡先フラグ"
+        datetime created_at "作成日時"
+        datetime updated_at "更新日時"
+    }

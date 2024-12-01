@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_11_29_150640) do
+ActiveRecord::Schema[7.2].define(version: 2024_11_30_150646) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -24,6 +24,10 @@ ActiveRecord::Schema[7.2].define(version: 2024_11_29_150640) do
     t.string "address_formats"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "addressable_type"
+    t.bigint "addressable_id"
+    t.boolean "is_primary", default: true
+    t.index ["addressable_type", "addressable_id"], name: "index_addresses_on_addressable"
   end
 
   create_table "advertising_costs", force: :cascade do |t|
@@ -36,11 +40,22 @@ ActiveRecord::Schema[7.2].define(version: 2024_11_29_150640) do
 
   create_table "buyers", force: :cascade do |t|
     t.string "name"
-    t.string "email"
-    t.bigint "address_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["address_id"], name: "index_buyers_on_address_id"
+  end
+
+  create_table "contact_informations", force: :cascade do |t|
+    t.string "contactable_type", null: false
+    t.bigint "contactable_id", null: false
+    t.string "email"
+    t.string "phone"
+    t.string "fax"
+    t.string "contact_person"
+    t.text "note"
+    t.boolean "is_primary", default: true
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["contactable_type", "contactable_id"], name: "index_contact_informations_on_contactable"
   end
 
   create_table "currencies", force: :cascade do |t|
@@ -78,15 +93,15 @@ ActiveRecord::Schema[7.2].define(version: 2024_11_29_150640) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "order_items", force: :cascade do |t|
+  create_table "order_sku_links", force: :cascade do |t|
     t.bigint "order_id", null: false
     t.bigint "sku_id", null: false
     t.integer "quantity"
     t.decimal "price"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["order_id"], name: "index_order_items_on_order_id"
-    t.index ["sku_id"], name: "index_order_items_on_sku_id"
+    t.index ["order_id"], name: "index_order_sku_links_on_order_id"
+    t.index ["sku_id"], name: "index_order_sku_links_on_sku_id"
   end
 
   create_table "order_status_histories", force: :cascade do |t|
@@ -249,13 +264,13 @@ ActiveRecord::Schema[7.2].define(version: 2024_11_29_150640) do
     t.index ["order_id"], name: "index_shipments_on_order_id"
   end
 
-  create_table "sku_part_number_links", force: :cascade do |t|
+  create_table "sku_product_links", force: :cascade do |t|
     t.bigint "sku_id", null: false
     t.bigint "product_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["product_id"], name: "index_sku_part_number_links_on_product_id"
-    t.index ["sku_id"], name: "index_sku_part_number_links_on_sku_id"
+    t.index ["product_id"], name: "index_sku_product_links_on_product_id"
+    t.index ["sku_id"], name: "index_sku_product_links_on_sku_id"
   end
 
   create_table "skus", force: :cascade do |t|
@@ -282,17 +297,14 @@ ActiveRecord::Schema[7.2].define(version: 2024_11_29_150640) do
 
   create_table "wholesalers", force: :cascade do |t|
     t.string "name"
-    t.string "contact_info"
-    t.text "address"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
   add_foreign_key "advertising_costs", "orders"
-  add_foreign_key "buyers", "addresses"
   add_foreign_key "inventories", "products"
-  add_foreign_key "order_items", "orders"
-  add_foreign_key "order_items", "skus"
+  add_foreign_key "order_sku_links", "orders"
+  add_foreign_key "order_sku_links", "skus"
   add_foreign_key "order_status_histories", "orders"
   add_foreign_key "orders", "buyers"
   add_foreign_key "orders", "sales_channels"
@@ -312,6 +324,6 @@ ActiveRecord::Schema[7.2].define(version: 2024_11_29_150640) do
   add_foreign_key "sales", "orders"
   add_foreign_key "sales_channel_fees", "sales_channels"
   add_foreign_key "shipments", "orders"
-  add_foreign_key "sku_part_number_links", "products"
-  add_foreign_key "sku_part_number_links", "skus"
+  add_foreign_key "sku_product_links", "products"
+  add_foreign_key "sku_product_links", "skus"
 end
