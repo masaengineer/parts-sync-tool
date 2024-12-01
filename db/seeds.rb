@@ -9,7 +9,6 @@ puts "🗑️ Cleaning database..."
   Procurement,
   Shipment,
   OrderStatusHistory,
-  OrderItem,
   Remark,
   Sale,
   Order,
@@ -158,13 +157,6 @@ puts "📝 Creating orders..."
     order_status: ["pending", "processing", "shipped", "delivered"].sample
   )
 
-  # 注文アイテムの作成
-  OrderItem.create!(
-    order: order,
-    sku: skus.sample,
-    quantity: rand(1..5),
-    price: rand(1000..50000)
-  )
 
   # 注文ステータス履歴の作成
   OrderStatusHistory.create!(

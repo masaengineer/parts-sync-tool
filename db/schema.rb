@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_11_30_150646) do
+ActiveRecord::Schema[7.2].define(version: 2024_12_01_072433) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -80,8 +80,7 @@ ActiveRecord::Schema[7.2].define(version: 2024_11_30_150646) do
   create_table "inventories", force: :cascade do |t|
     t.bigint "product_id", null: false
     t.integer "quantity"
-    t.date "stock_order_date"
-    t.string "stock_type"
+    t.string "location"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["product_id"], name: "index_inventories_on_product_id"
@@ -91,17 +90,6 @@ ActiveRecord::Schema[7.2].define(version: 2024_11_30_150646) do
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-  end
-
-  create_table "order_sku_links", force: :cascade do |t|
-    t.bigint "order_id", null: false
-    t.bigint "sku_id", null: false
-    t.integer "quantity"
-    t.decimal "price"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["order_id"], name: "index_order_sku_links_on_order_id"
-    t.index ["sku_id"], name: "index_order_sku_links_on_sku_id"
   end
 
   create_table "order_status_histories", force: :cascade do |t|
@@ -264,15 +252,6 @@ ActiveRecord::Schema[7.2].define(version: 2024_11_30_150646) do
     t.index ["order_id"], name: "index_shipments_on_order_id"
   end
 
-  create_table "sku_product_links", force: :cascade do |t|
-    t.bigint "sku_id", null: false
-    t.bigint "product_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["product_id"], name: "index_sku_product_links_on_product_id"
-    t.index ["sku_id"], name: "index_sku_product_links_on_sku_id"
-  end
-
   create_table "skus", force: :cascade do |t|
     t.string "sku_code"
     t.datetime "created_at", null: false
@@ -303,8 +282,6 @@ ActiveRecord::Schema[7.2].define(version: 2024_11_30_150646) do
 
   add_foreign_key "advertising_costs", "orders"
   add_foreign_key "inventories", "products"
-  add_foreign_key "order_sku_links", "orders"
-  add_foreign_key "order_sku_links", "skus"
   add_foreign_key "order_status_histories", "orders"
   add_foreign_key "orders", "buyers"
   add_foreign_key "orders", "sales_channels"
@@ -324,6 +301,4 @@ ActiveRecord::Schema[7.2].define(version: 2024_11_30_150646) do
   add_foreign_key "sales", "orders"
   add_foreign_key "sales_channel_fees", "sales_channels"
   add_foreign_key "shipments", "orders"
-  add_foreign_key "sku_product_links", "products"
-  add_foreign_key "sku_product_links", "skus"
 end
