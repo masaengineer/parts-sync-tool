@@ -10,25 +10,9 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_12_05_000001) do
+ActiveRecord::Schema[7.2].define(version: 2024_12_05_000005) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
-
-  create_table "buyers", force: :cascade do |t|
-    t.string "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "currencies", force: :cascade do |t|
-    t.string "currency_code", null: false
-    t.string "currency_name", null: false
-    t.string "currency_symbol"
-    t.boolean "is_active", default: true
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["currency_code"], name: "index_currencies_on_currency_code", unique: true
-  end
 
   create_table "expenses", force: :cascade do |t|
     t.integer "year"
@@ -93,27 +77,17 @@ ActiveRecord::Schema[7.2].define(version: 2024_12_05_000001) do
     t.index ["product_id"], name: "index_procurements_on_product_id"
   end
 
-  create_table "product_categories", force: :cascade do |t|
-    t.string "category_name"
-    t.text "description"
-    t.integer "parent_category_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "products", force: :cascade do |t|
     t.string "oem_part_number"
     t.boolean "is_oem"
     t.string "domestic_title"
     t.string "international_title"
     t.string "product_status"
-    t.bigint "product_categories_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "manufacturer_id", null: false
     t.index ["manufacturer_id"], name: "index_products_on_manufacturer_id"
     t.index ["oem_part_number"], name: "index_products_on_oem_part_number"
-    t.index ["product_categories_id"], name: "index_products_on_product_categories_id"
   end
 
   create_table "sales", force: :cascade do |t|
@@ -172,13 +146,10 @@ ActiveRecord::Schema[7.2].define(version: 2024_12_05_000001) do
 
   add_foreign_key "order_sku_links", "orders"
   add_foreign_key "order_sku_links", "skus"
-  add_foreign_key "orders", "buyers"
   add_foreign_key "orders", "users"
   add_foreign_key "payment_fees", "orders"
   add_foreign_key "procurements", "products"
   add_foreign_key "products", "manufacturers"
-  add_foreign_key "products", "product_categories", column: "product_categories_id"
-  add_foreign_key "sales", "currencies"
   add_foreign_key "sales", "orders"
   add_foreign_key "shipments", "orders"
   add_foreign_key "sku_product_links", "products"
