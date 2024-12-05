@@ -1,2 +1,0 @@
-class SalesChannel < ApplicationRecord
-end
