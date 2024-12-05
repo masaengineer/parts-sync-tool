@@ -61,7 +61,7 @@ erDiagram
 
     Procurements {
         int id PK "インデックス"
-        int product_id FK "商品ID"
+        int sku_id FK "SKUID"
         decimal purchase_price "仕入価格"
         decimal forwarding_fee "発送拠点までの輸送料"
         decimal photo_fee "写真撮影料"
@@ -115,4 +115,4 @@ erDiagram
     Orders ||--o{ Sales : "order_id"
     Orders ||--o{ PaymentFees : "order_id"
     Manufacturers ||--o{ Products : "manufacturer_id"
-    Products ||--o{ Procurements : "product_id"
+    SKUs ||--o{ Procurements : "sku_id"

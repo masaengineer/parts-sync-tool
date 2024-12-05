@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_12_05_061550) do
+ActiveRecord::Schema[7.2].define(version: 2024_12_05_075046) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -68,9 +68,8 @@ ActiveRecord::Schema[7.2].define(version: 2024_12_05_061550) do
     t.decimal "photo_fee"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "product_id", null: false
-    t.index ["product_id", "created_at"], name: "index_procurements_on_product_id_and_created_at"
-    t.index ["product_id"], name: "index_procurements_on_product_id"
+    t.bigint "sku_id"
+    t.index ["sku_id"], name: "index_procurements_on_sku_id"
   end
 
   create_table "products", force: :cascade do |t|
@@ -136,7 +135,7 @@ ActiveRecord::Schema[7.2].define(version: 2024_12_05_061550) do
   add_foreign_key "order_sku_links", "orders"
   add_foreign_key "order_sku_links", "skus"
   add_foreign_key "payment_fees", "orders"
-  add_foreign_key "procurements", "products"
+  add_foreign_key "procurements", "skus"
   add_foreign_key "products", "manufacturers"
   add_foreign_key "sales", "orders"
   add_foreign_key "shipments", "orders"
