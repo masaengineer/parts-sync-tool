@@ -11,9 +11,6 @@ erDiagram
         int id PK "インデックス"
         int order_id FK "注文ID"
         int sku_id FK "SKUID"
-        int quantity "数量"
-        decimal sku_net_amount "SKU net価格"
-        decimal sku_gross_amount "SKU gross価格"
         datetime created_at "作成日時"
         datetime updated_at "更新日時"
     }
@@ -21,10 +18,12 @@ erDiagram
     SKUs {
         int id PK "インデックス"
         string sku_code "SKUコード"
+        int quantity "数量"
+        decimal sku_net_amount "SKU net価格"
+        decimal sku_gross_amount "SKU gross価格"
         datetime created_at "作成日時"
         datetime updated_at "更新日時"
     }
-
     Sku_Product_Links {
         int id PK "インデックス"
         int sku_id FK "SKUID"
@@ -65,6 +64,8 @@ erDiagram
         decimal purchase_price "仕入価格"
         decimal forwarding_fee "発送拠点までの輸送料"
         decimal photo_fee "写真撮影料"
+        datetime created_at "作成日時"
+        datetime updated_at "更新日時"
     }
 
     Sales {
@@ -91,6 +92,8 @@ erDiagram
         int month "月"
         string item_name "費目名"
         decimal amount "金額"
+        datetime created_at "作成日時"
+        datetime updated_at "更新日時"
     }
 
     Users {
@@ -108,7 +111,6 @@ erDiagram
 
     Orders ||--o{ Order_sku_links : "id"
     Order_sku_links }o--|| SKUs : "sku_id"
-    Users ||--o{ Orders : "user_id"
     SKUs ||--o{ Sku_Product_Links : "sku_id"
     Sku_Product_Links }o--|| Products : "product_id"
     Orders ||--o{ Shipments : "order_id"
@@ -116,3 +118,4 @@ erDiagram
     Orders ||--o{ PaymentFees : "order_id"
     Manufacturers ||--o{ Products : "manufacturer_id"
     SKUs ||--o{ Procurements : "sku_id"
+
