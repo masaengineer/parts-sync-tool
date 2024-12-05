@@ -1,60 +1,19 @@
-# データベースをクリーンアップ（依存関係の逆順）
+# データベースをクリーンアップ
 puts "🗑️ Cleaning database..."
 [
-  QuotationItemChange,
-  QuotationItem,
-  Quotation,
-  AdvertisingCost,
+  OrderSkuLink,
+  Sale,
+  Shipment,
   PaymentFee,
   Procurement,
-  Shipment,
-  OrderStatusHistory,
-  Remark,
-  Sale,
   Order,
-  Inventory,
-  SkuPartNumberLink,
+  SkuProductLink,
   Sku,
   Product,
-  Buyer,
-  Address,
-  User,
   Manufacturer,
-  ProductCategory,
-  SalesChannelFee,
-  SalesChannel,
-  Wholesaler
+  User,
+  Expense
 ].each(&:destroy_all)
-
-# セールスチャネルの作成
-puts "🏪 Creating sales channels..."
-sales_channels = [
-  { channel_name: "Amazon Japan", export_domestic_flag: "domestic" },
-  { channel_name: "eBay", export_domestic_flag: "export" },
-  { channel_name: "楽天市場", export_domestic_flag: "domestic" }
-].map { |attrs| SalesChannel.create!(attrs) }
-
-# 住所の作成
-puts "📍 Creating addresses..."
-addresses = [
-  {
-    address_primary: "1-1-1 Shibuya",
-    address_secondary: "Apartment 101",
-    city: "Shibuya-ku",
-    state_province: "Tokyo",
-    postal_code: "150-0002",
-    country: "Japan",
-    address_formats: "japan_format"
-  },
-  {
-    address_primary: "123 Main St",
-    city: "Los Angeles",
-    state_province: "CA",
-    postal_code: "90001",
-    country: "USA",
-    address_formats: "us_format"
-  }
-].map { |attrs| Address.create!(attrs) }
 
 # ユーザーの作成
 puts "👥 Creating users..."
@@ -62,230 +21,126 @@ users = [
   {
     name: "Admin User",
     email: "admin@example.com",
-    password: "password123",
-    role: "admin"
+    password: "password123",  # deviseはpasswordを自動的に暗号化します
+    role: "admin",
+    profile_picture_url: nil
   },
   {
-    name: "Sales Staff",
-    email: "sales@example.com",
+    name: "Staff User",
+    email: "staff@example.com",
     password: "password123",
-    role: "staff"
+    role: "staff",
+    profile_picture_url: nil
   }
-].map { |attrs| User.create!(attrs) }
+]
 
-# 商品カテゴリーの作成
-puts "📁 Creating product categories..."
-categories = [
-  { category_name: "エンジンパーツ", description: "エンジン関連の部品" },
-  { category_name: "ブレーキパーツ", description: "ブレーキ関連の部品" }
-].map { |attrs| ProductCategory.create!(attrs) }
-
-# メーカーの作成
-puts "🏭 Creating manufacturers..."
-manufacturers = [
-  { name: "Toyota" },
-  { name: "Honda" },
-  { name: "Nissan" }
-].map { |attrs| Manufacturer.create!(attrs) }
-
-# 商品の作成
-puts "📦 Creating products..."
-products = [
-  {
-    oem_part_number: "ABC123",
-    is_oem: true,
-    domestic_title: "純正エンジンオイルフィルター",
-    international_title: "Genuine Engine Oil Filter",
-    product_status: "active",
-    product_categories_id: categories.first.id,
-    manufacturer: manufacturers.first
-  },
-  {
-    oem_part_number: "XYZ789",
-    is_oem: false,
-    domestic_title: "社外品ブレーキパッド",
-    international_title: "Aftermarket Brake Pads",
-    product_status: "active",
-    product_categories_id: categories.second.id,
-    manufacturer: manufacturers.second
-  }
-].map { |attrs| Product.create!(attrs) }
-
-# SKUの作成
-puts "🏷️ Creating SKUs..."
-skus = [
-  { sku_code: "SKU-001" },
-  { sku_code: "SKU-002" }
-].map { |attrs| Sku.create!(attrs) }
-
-# SKUと商品の紐付け
-puts "🔗 Linking SKUs to products..."
-products.zip(skus).each do |product, sku|
-  SkuPartNumberLink.create!(sku: sku, product: product)
+users = users.map do |attrs|
+  User.create!(attrs)
 end
 
-# 在庫の作成
-puts "📊 Creating inventory..."
-products.each do |product|
-  Inventory.create!(
-    product: product,
-    quantity: rand(10..100),
-    stock_order_date: Date.today - rand(1..30),
-    stock_type: ["regular", "backorder"].sample
+# 追加のテストユーザー
+18.times do |i|
+  User.create!(
+    name: "Test User #{i + 1}",
+    email: "test#{i + 1}@example.com",
+    password: "password123",
+    role: "staff",
+    profile_picture_url: nil
   )
 end
 
-# バイヤーの作成
-puts "🛍️ Creating buyers..."
-buyers = addresses.map do |address|
-  Buyer.create!(
-    name: Faker::Name.name,
-    email: Faker::Internet.email,
-    address: address
+# メーカーの作成
+puts "🏭 Creating manufacturers..."
+manufacturers = 20.times.map do |i|
+  Manufacturer.create!(
+    name: "Manufacturer #{i + 1}"
+  )
+end
+
+# 商品の作成
+puts "📦 Creating products..."
+products = 20.times.map do |i|
+  Product.create!(
+    oem_part_number: "PART-#{format('%04d', i + 1)}",
+    international_title: "International Product #{i + 1}",
+    manufacturer: manufacturers.sample
+  )
+end
+
+# SKUの作成
+puts "🏷️ Creating SKUs..."
+skus = 20.times.map do |i|
+  Sku.create!(
+    sku_code: "SKU-#{format('%04d', i + 1)}"
+  )
+end
+
+# SKUと商品の紐付け
+puts "🔗 Linking SKUs to products..."
+20.times do |i|
+  SkuProductLink.create!(
+    sku: skus[i],
+    product: products[i]
   )
 end
 
 # 注文の作成
 puts "📝 Creating orders..."
-5.times do
+20.times do |i|
   order = Order.create!(
-    order_number: "ORD-#{SecureRandom.hex(4).upcase}",
-    sale_date: Date.today - rand(1..30),
-    sales_channel: sales_channels.sample,
+    order_number: "ORD-#{format('%04d', i + 1)}",
+    sale_date: Date.today - rand(1..90),
     user: users.sample,
-    buyer: buyers.sample,
     order_status: ["pending", "processing", "shipped", "delivered"].sample
   )
 
-
-  # 注文ステータス履歴の作成
-  OrderStatusHistory.create!(
+  # OrderSkuLinkの作成
+  OrderSkuLink.create!(
     order: order,
-    order_status: order.order_status,
-    status_change_date: order.created_at,
-    changed_by: order.user.name
+    sku: skus.sample,
+    quantity: rand(1..10),
+    price: rand(1000..50000)
   )
 
   # 配送情報の作成
   Shipment.create!(
     order: order,
-    carrier: ["DHL", "FedEx", "UPS"].sample,
-    shipping_method: ["air", "ground"].sample,
-    weight: rand(0.1..10.0).round(2),
-    tracking_number: "TRK#{SecureRandom.hex(8).upcase}",
-    customer_domestic_shipping: rand(500..2000),
-    customer_international_shipping: rand(2000..10000)
+    tracking_number: "TRK-#{format('%04d', i + 1)}",
+    customer_international_shipping: rand(2000..20000)
   )
 
-  # 備考の作成
-  Remark.create!(
-    order: order,
-    partner_note: "Partner note for order #{order.order_number}",
-    internal_note: "Internal note for order #{order.order_number}"
-  )
-end
-
-# セールスチャネル手数料の作成
-puts "💰 Creating sales channel fees..."
-sales_channel_fees = sales_channels.map do |channel|
-  SalesChannelFee.create!(
-    sales_channel: channel,
-    fee_rate: rand(0.05..0.15)
-  )
-end
-
-# 調達の作成
-puts "📦 Creating procurements..."
-5.times do
-  Procurement.create!(
-    order: Order.all.sample,
-    purchase_price: rand(1000..50000),
-    domestic_transfer_fee: rand(100..500),
-    forwarding_fee: rand(50..200),
-    photo_fee: rand(10..50)
-  )
-end
-
-# 支払い手数料の作成
-puts "💳 Creating payment fees..."
-5.times do
+  # 支払い手数料の作成
   PaymentFee.create!(
-    order: Order.all.sample,
-    fee_type: ["credit_card", "bank_transfer"].sample,
-    fee_rate: rand(0.01..0.05),
-    option: rand(1..3)
-  )
-end
-
-# 広告費用の作成
-puts "📈 Creating advertising costs..."
-5.times do
-  AdvertisingCost.create!(
-    order: Order.all.sample,
-    product_ad_cost: rand(100..1000)
-  )
-end
-
-# 卸売業者の作成
-puts "🏢 Creating wholesalers..."
-wholesalers = [
-  { name: "Wholesaler A", contact_info: "contact@wholesalera.com", address: "123 Wholesale St, Tokyo" },
-  { name: "Wholesaler B", contact_info: "contact@wholesalerb.com", address: "456 Wholesale Ave, Osaka" }
-].map { |attrs| Wholesaler.create!(attrs) }
-
-# 見積もりの作成
-puts "📝 Creating quotations..."
-5.times do
-  quotation = Quotation.create!(
-    wholesaler: wholesalers.sample,
-    quotation_date: Date.today - rand(1..30),
-    status: ["pending", "approved", "rejected"].sample,
-    estimated_delivery: Date.today + rand(1..30),
-    wholesaler_remarks: "Sample remark",
-    notes: "Sample note"
+    order: order,
+    fee_category: ["credit_card", "bank_transfer", "convenience_store"].sample,
+    fee_amount: rand(100..1000)
   )
 
-  # 見積もりアイテムの作成
-  3.times do
-    product = Product.all.sample
-    quotation_item = QuotationItem.create!(
-      quotation: quotation,
-      product: product,
-      quantity: rand(1..10),
-      estimated_price: rand(1000..5000)
-    )
+  # 調達情報の作成
+  Procurement.create!(
+    product: products.sample,
+    purchase_price: rand(5000..100000),
+    forwarding_fee: rand(500..2000),
+    photo_fee: rand(100..500)
+  )
 
-    # 見積もりアイテム変更の作成
-    QuotationItemChange.create!(
-      quotation_item: quotation_item,
-      original_part_number: product.oem_part_number,
-      new_part_number: "NEW#{SecureRandom.hex(4).upcase}",
-      change_date: Date.today,
-      change_reason: "Sample reason"
-    )
-  end
-end
-
-# 販売情報の作成
-puts "💵 Creating sales..."
-Order.all.each do |order|
+  # 販売情報の作成
   Sale.create!(
     order: order,
-    price_original: rand(1000..50000),
-    currency_code: ["USD", "JPY", "EUR"].sample,
-    conversion_rate: rand(0.8..1.2).round(2),
-    price_jpy: (rand(1000..50000) * rand(0.8..1.2)).round,
-    conversion_date: Date.today - rand(1..30)
+    gross_amount: rand(10000..200000),
+    net_amount: rand(8000..180000)
   )
 end
 
-currencies_data = [
-  { currency_code: 'JPY', currency_name: '日本円', currency_symbol: '¥', is_active: true },
-  { currency_code: 'USD', currency_name: '米ドル', currency_symbol: '$', is_active: true },
-  { currency_code: 'EUR', currency_name: 'ユーロ', currency_symbol: '€', is_active: true },
-  { currency_code: 'GBP', currency_name: 'イギリスポンド', currency_symbol: '£', is_active: true }
-]
-
-Currency.create!(currencies_data)
+# 経費の作成
+puts "💰 Creating expenses..."
+20.times do |i|
+  Expense.create!(
+    year: [2023, 2024].sample,
+    month: rand(1..12),
+    item_name: ["事務用品", "通信費", "交通費", "広告費", "家賃", "水道光熱費"].sample,
+    amount: rand(1000..100000)
+  )
+end
 
 puts "✅ Seed data creation completed!"

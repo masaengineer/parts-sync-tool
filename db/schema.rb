@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_12_05_000005) do
+ActiveRecord::Schema[7.2].define(version: 2024_12_05_050207) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -79,10 +79,7 @@ ActiveRecord::Schema[7.2].define(version: 2024_12_05_000005) do
 
   create_table "products", force: :cascade do |t|
     t.string "oem_part_number"
-    t.boolean "is_oem"
-    t.string "domestic_title"
     t.string "international_title"
-    t.string "product_status"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "manufacturer_id", null: false
@@ -130,10 +127,8 @@ ActiveRecord::Schema[7.2].define(version: 2024_12_05_000005) do
 
   create_table "users", force: :cascade do |t|
     t.string "name"
-    t.string "email"
-    t.string "password_digest"
+    t.string "email", null: false
     t.string "profile_picture_url"
-    t.string "role"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "encrypted_password", default: "", null: false
