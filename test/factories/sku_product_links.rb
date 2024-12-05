@@ -1,5 +1,5 @@
 FactoryBot.define do
-  factory :manufacturer do
+  factory :sku_product_link do
     
   end
 end

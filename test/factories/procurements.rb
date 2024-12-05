@@ -1,5 +1,5 @@
 FactoryBot.define do
-  factory :manufacturer do
+  factory :procurement do
     
   end
 end

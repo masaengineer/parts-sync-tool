@@ -1,14 +1,14 @@
 # データベースをクリーンアップ
 puts "🗑️ Cleaning database..."
 [
-  OrderSkuLink,
+  Order_sku_link,
   Sale,
   Shipment,
   PaymentFee,
   Procurement,
   Order,
-  SkuProductLink,
-  Sku,
+  Sku_Product_Link,
+  SKU,
   Product,
   Manufacturer,
   User,
@@ -70,7 +70,7 @@ end
 # SKUの作成
 puts "🏷️ Creating SKUs..."
 skus = 20.times.map do |i|
-  Sku.create!(
+  SKU.create!(
     sku_code: "SKU-#{format('%04d', i + 1)}"
   )
 end
@@ -78,7 +78,7 @@ end
 # SKUと商品の紐付け
 puts "🔗 Linking SKUs to products..."
 20.times do |i|
-  SkuProductLink.create!(
+  Sku_Product_Link.create!(
     sku: skus[i],
     product: products[i]
   )
@@ -89,22 +89,22 @@ puts "📝 Creating orders..."
 20.times do |i|
   order = Order.create!(
     order_number: "ORD-#{format('%04d', i + 1)}",
-    sale_date: Date.today - rand(1..90),
-    user: users.sample,
-    order_status: ["pending", "processing", "shipped", "delivered"].sample
+    sale_date: Date.today - rand(1..90)
   )
 
-  # OrderSkuLinkの作成
-  OrderSkuLink.create!(
+  # Order_sku_linkの作成
+  Order_sku_link.create!(
     order: order,
     sku: skus.sample,
     quantity: rand(1..10),
-    price: rand(1000..50000)
+    sku_net_amount: rand(1000..50000),
+    sku_gross_amount: rand(1200..60000)  # netより少し高い金額
   )
 
   # 配送情報の作成
   Shipment.create!(
     order: order,
+    cpass_trade_id: rand(10000..99999),  # 追加
     tracking_number: "TRK-#{format('%04d', i + 1)}",
     customer_international_shipping: rand(2000..20000)
   )
@@ -127,8 +127,8 @@ puts "📝 Creating orders..."
   # 販売情報の作成
   Sale.create!(
     order: order,
-    gross_amount: rand(10000..200000),
-    net_amount: rand(8000..180000)
+    order_net_amount: rand(8000..180000),
+    order_gross_amount: rand(10000..200000),
   )
 end
 

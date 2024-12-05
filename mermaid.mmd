@@ -12,7 +12,8 @@ erDiagram
         int order_id FK "注文ID"
         int sku_id FK "SKUID"
         int quantity "数量"
-        decimal price "価格"
+        decimal sku_net_amount "SKU net価格"
+        decimal sku_gross_amount "SKU gross価格"
         datetime created_at "作成日時"
         datetime updated_at "更新日時"
     }
@@ -69,8 +70,8 @@ erDiagram
     Sales {
         int id PK "インデックス"
         int order_id FK "注文ID"
-        decimal net_amount "ネット価格"
-        decimal gross_amount "グロス価格"
+        decimal order_net_amount "注文net価格"
+        decimal order_gross_amount "注文gross価格"
         datetime created_at "作成日時"
         datetime updated_at "更新日時"
     }

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_12_05_050207) do
+ActiveRecord::Schema[7.2].define(version: 2024_12_05_061550) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -34,27 +34,23 @@ ActiveRecord::Schema[7.2].define(version: 2024_12_05_050207) do
     t.bigint "order_id", null: false
     t.bigint "sku_id", null: false
     t.integer "quantity", null: false
-    t.decimal "price", precision: 10, scale: 2, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.decimal "sku_net_amount", precision: 10, scale: 2
+    t.decimal "sku_gross_amount", precision: 10, scale: 2
     t.index ["order_id", "sku_id"], name: "index_order_sku_links_on_order_id_and_sku_id", unique: true
     t.index ["order_id"], name: "index_order_sku_links_on_order_id"
+    t.index ["sku_gross_amount"], name: "index_order_sku_links_on_sku_gross_amount"
     t.index ["sku_id"], name: "index_order_sku_links_on_sku_id"
+    t.index ["sku_net_amount"], name: "index_order_sku_links_on_sku_net_amount"
   end
 
   create_table "orders", force: :cascade do |t|
     t.string "order_number"
     t.date "sale_date"
-    t.bigint "sales_channel_id", null: false
-    t.bigint "user_id", null: false
-    t.bigint "buyer_id", null: false
-    t.string "order_status"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["buyer_id"], name: "index_orders_on_buyer_id"
     t.index ["order_number"], name: "index_orders_on_order_number"
-    t.index ["sales_channel_id"], name: "index_orders_on_sales_channel_id"
-    t.index ["user_id"], name: "index_orders_on_user_id"
   end
 
   create_table "payment_fees", force: :cascade do |t|
@@ -89,12 +85,10 @@ ActiveRecord::Schema[7.2].define(version: 2024_12_05_050207) do
 
   create_table "sales", force: :cascade do |t|
     t.bigint "order_id", null: false
-    t.decimal "net_amount"
+    t.decimal "order_net_amount"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "currency_id"
-    t.decimal "gross_amount"
-    t.index ["currency_id"], name: "index_sales_on_currency_id"
+    t.decimal "order_gross_amount"
     t.index ["order_id"], name: "index_sales_on_order_id"
   end
 
@@ -141,7 +135,6 @@ ActiveRecord::Schema[7.2].define(version: 2024_12_05_050207) do
 
   add_foreign_key "order_sku_links", "orders"
   add_foreign_key "order_sku_links", "skus"
-  add_foreign_key "orders", "users"
   add_foreign_key "payment_fees", "orders"
   add_foreign_key "procurements", "products"
   add_foreign_key "products", "manufacturers"
