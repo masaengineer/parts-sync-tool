@@ -11,9 +11,11 @@
   "dependencies": {
     "@hotwired/stimulus": "^3.2.2",
     "@hotwired/turbo-rails": "^8.0.12",
+    "@iconify/iconify": "^3.1.1",
     "autoprefixer": "^10.4.20",
     "daisyui": "^4.12.14",
     "postcss": "^8.4.49",
+    "simplebar": "^6.2.7",
     "tailwindcss": "^3.4.15"
   }
 }

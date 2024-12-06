@@ -1,10 +1,9 @@
 Rails.application.routes.draw do
+  root 'landing#index'
+  get 'landing', to: 'landing#index'
+  # deviseのルートを追加
   devise_for :users
-  get "landing/index"
-  resources :sales_reports, only: [:index]
 
-  # アプリケーションのルートパスを定義
-  root "sales_reports#index"
-
-  get "up" => "rails/health#show", as: :rails_health_check
+  get 'dashboard', to: 'dashboard#index', as: :dashboard
+  get 'components', to: 'components#index', as: :components
 end
