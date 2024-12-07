@@ -565,6 +565,13 @@ hasown@^2.0.2:
   dependencies:
     function-bind "^1.1.2"
 
+iconify-icon@^2.2.0:
+  version "2.2.0"
+  resolved "https://registry.yarnpkg.com/iconify-icon/-/iconify-icon-2.2.0.tgz#4bbb1314acd0fdffae9cd46d9e7a55cf16e49489"
+  integrity sha512-PDYyUWgsI8tp5uTwRAfwfrmjkC9WEzWbUFuByAiZAIuCFigho7u+ApIYJ9fKoZyyp8SBCpnq/dVHewNv4or6bg==
+  dependencies:
+    "@iconify/types" "^2.0.0"
+
 is-binary-path@~2.1.0:
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/is-binary-path/-/is-binary-path-2.1.0.tgz#ea1f7f3b80f064236e83470f86c09c254fb45b09"

@@ -1,151 +1,129 @@
-begin
-  ActiveRecord::Base.transaction do
-    # データベースをクリーンアップする順序を依存関係に基づいて整理
-    [
-      OrderSkuLink,
-      Sale,
-      Shipment,
-      PaymentFee,
-      Procurement,
-      Order,
-      SkuProductLink,
-      Sku,
-      Product,
-      Manufacturer,
-      User,
-      Expense
-    ].each(&:destroy_all)
+# db/seeds.rb
 
-    # ユーザーの作成
-    puts "👥 Creating users..."
-    users = [
-      {
-        name: "Admin User",
-        email: "admin@example.com",
-        password: "password123",  # deviseはpasswordを自動的に暗号化します
-        role: "admin",
-        profile_picture_url: nil
-      },
-      {
-        name: "Staff User",
-        email: "staff@example.com",
-        password: "password123",
-        role: "staff",
-        profile_picture_url: nil
-      }
-    ]
+# Clear existing data (開発用の例、必要に応じてコメントアウト)
+User.delete_all
+Manufacturer.delete_all
+Product.delete_all
+Sku.delete_all
+SkuProductLink.delete_all
+Order.delete_all
+OrderSkuLink.delete_all
+PaymentFee.delete_all
+Procurement.delete_all
+Sale.delete_all
+Shipment.delete_all
+Expense.delete_all
 
-    users = users.map do |attrs|
-      User.create!(attrs)
-    end
-
-    # 追加のテストユーザー
-    18.times do |i|
-      User.create!(
-        name: "Test User #{i + 1}",
-        email: "test#{i + 1}@example.com",
-        password: "password123",
-        role: "staff",
-        profile_picture_url: nil
-      )
-    end
-
-    # メーカーの作成
-    puts "🏭 Creating manufacturers..."
-    manufacturers = 20.times.map do |i|
-      Manufacturer.create!(
-        name: "Manufacturer #{i + 1}"
-      )
-    end
-
-    # 商品の作成
-    puts "📦 Creating products..."
-    products = 20.times.map do |i|
-      Product.create!(
-        oem_part_number: "PART-#{format('%04d', i + 1)}",
-        international_title: "International Product #{i + 1}",
-        manufacturer: manufacturers.sample
-      )
-    end
-
-    # SKUの作成
-    puts "🏷️ Creating SKUs..."
-    skus = 20.times.map do |i|
-      SKU.create!(
-        sku_code: "SKU-#{format('%04d', i + 1)}"
-      )
-    end
-
-    # SKUと商品の紐付け
-    puts "🔗 Linking SKUs to products..."
-    20.times do |i|
-      SkuProductLink.create!(
-        sku: skus[i],
-        product: products[i]
-      )
-    end
-
-    # 注文の作成
-    puts "📝 Creating orders..."
-    20.times do |i|
-      order = Order.create!(
-        order_number: "ORD-#{format('%04d', i + 1)}",
-        sale_date: Date.today - rand(1..90)
-      )
-
-      # Order_sku_linkの作成
-      OrderSkuLink.create!(
-        order: order,
-        sku: skus.sample,
-        quantity: rand(1..10),
-        sku_net_amount: rand(1000..50000),
-        sku_gross_amount: rand(1200..60000)  # netより少し高い金額
-      )
-
-      # 配送情報の作成
-      Shipment.create!(
-        order: order,
-        cpass_trade_id: rand(10000..99999),  # 追加
-        tracking_number: "TRK-#{format('%04d', i + 1)}",
-        customer_international_shipping: rand(2000..20000)
-      )
-
-      # 支払い手数料の作成
-      PaymentFee.create!(
-        order: order,
-        fee_category: ["credit_card", "bank_transfer", "convenience_store"].sample,
-        fee_amount: rand(100..1000)
-      )
-
-      # 調達情報の作成
-      Procurement.create!(
-        product: products.sample,
-        purchase_price: rand(5000..100000),
-        forwarding_fee: rand(500..2000),
-        photo_fee: rand(100..500)
-      )
-
-      # 販売情報の作成
-      Sale.create!(
-        order: order,
-        order_net_amount: rand(8000..180000),
-        order_gross_amount: rand(10000..200000),
-      )
-    end
-
-    # 経費の作成
-    puts "💰 Creating expenses..."
-    20.times do |i|
-      Expense.create!(
-        year: [2023, 2024].sample,
-        month: rand(1..12),
-        item_name: ["事務用品", "通信費", "交通費", "広告費", "家賃", "水道光熱費"].sample,
-        amount: rand(1000..100000)
-      )
-    end
-  end
-  puts "✅ Seed data creation completed!"
-rescue => e
-  puts "❌ Error during seed creation: #{e.message}"
-  raise e
+# 1. ユーザー30件作成
+30.times do |i|
+  User.create!(
+    email: "user#{i}@example.com",
+    first_name: "FirstName#{i}",
+    last_name: "LastName#{i}",
+    password: "password",
+    profile_picture_url: nil
+  )
 end
+
+# 2. Manufacturer作成(30件)
+manufacturers = 30.times.map do |i|
+  Manufacturer.create!(
+    name: "Manufacturer #{i+1}"
+  )
+end
+
+# 3. Product作成(30件)
+# ランダムなManufacturerを紐付け
+products = 30.times.map do |i|
+  Product.create!(
+    oem_part_number: "PN-#{i+1}",
+    international_title: "Product #{i+1}",
+    manufacturer: manufacturers.sample
+  )
+end
+
+# 4. SKU作成 (30件)
+skus = 30.times.map do |i|
+  Sku.create!(
+    sku_code: "SKU-#{i+1}",
+    quantity: rand(10..100),
+    sku_net_amount: rand(10..100) + rand.round(2),
+    sku_gross_amount: rand(10..150) + rand.round(2)
+  )
+end
+
+# 5. SKUとProductの関連付け(SkuProductLink)
+# シンプルに i番目のproductとi番目のskuを1対1でリンクする例
+30.times do |i|
+  SkuProductLink.create!(
+    sku: skus[i],
+    product: products[i]
+  )
+end
+
+# 6. Order作成(30件)
+orders = 30.times.map do |i|
+  Order.create!(
+    order_number: "ORDER-#{1000+i}",
+    sale_date: Date.today - i.days
+  )
+end
+
+# 7. OrderとSKUの関連付け (OrderSkuLink: 30件)
+# ランダムSKUを1つリンク(複数可)
+30.times do |i|
+  OrderSkuLink.create!(
+    order: orders[i],
+    sku: skus.sample
+  )
+end
+
+# 8. PaymentFee作成 (30件: 各Orderに1つ紐づける)
+30.times do |i|
+  PaymentFee.create!(
+    order: orders[i],
+    fee_category: "Transaction Fee #{i+1}",
+    fee_amount: rand(1..10) + rand.round(2)
+  )
+end
+
+# 9. Procurement作成 (30件: SKUに紐付け)
+30.times do |i|
+  Procurement.create!(
+    sku: skus.sample,
+    purchase_price: rand(1..50) + rand.round(2),
+    forwarding_fee: rand(1..5) + rand.round(2),
+    photo_fee: rand(0.5..2.0).round(2)
+  )
+end
+
+# 10. Sale作成 (30件: Orderに紐づけ)
+30.times do |i|
+  Sale.create!(
+    order: orders[i],
+    order_net_amount: (50 + i*2).to_f,
+    order_gross_amount: (60 + i*2.5).to_f
+  )
+end
+
+# 11. Shipment作成 (30件: Orderに紐づけ)
+30.times do |i|
+  Shipment.create!(
+    order: orders[i],
+    tracking_number: "TRACK-#{i+1000}",
+    customer_international_shipping: rand(5..20) + rand.round(2),
+    cpass_trade_id: 1000 + i
+  )
+end
+
+# 12. Expense作成 (30件)
+30.times do |i|
+  Expense.create!(
+    year: 2024,
+    month: (i % 12) + 1,
+    item_name: "Office Supplies #{i+1}",
+    amount: rand(10..500) + rand.round(2)
+  )
+end
+
+puts "Seeding completed successfully!"
