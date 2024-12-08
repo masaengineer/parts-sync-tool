@@ -1,6 +1,5 @@
 class PaymentFee < ApplicationRecord
   belongs_to :order
-  belongs_to :sales_channel
   belongs_to :currency
 
   validates :fee_amount, presence: true, numericality: true

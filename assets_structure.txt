@@ -1,0 +1,25 @@
+app/javascript
+├── application.js
+├── controllers
+│   ├── application.js
+│   ├── hello_controller.js
+│   ├── index.js
+│   └── theme_controller.js
+└── nexus
+    ├── app.js
+    ├── components
+    │   ├── password-field.js
+    │   └── table.js
+    ├── index.js
+    └── pages
+        ├── charts
+        │   ├── apex-area.js
+        │   ├── apex-bar.js
+        │   ├── apex-column.js
+        │   ├── apex-line.js
+        │   └── apex-pie.js
+        ├── dashboards
+        │   └── ecommerce.js
+        └── landing.js
+
+7 directories, 16 files

@@ -2,7 +2,7 @@
 import "@hotwired/turbo-rails"
 import "./controllers"
 
-import "./nexus"
+import "./nexus/index"
 
 import 'iconify-icon';
 import SimpleBar from 'simplebar';
