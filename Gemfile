@@ -58,6 +58,8 @@ group :development do
   # Use console on exceptions pages [https://github.com/rails/web-console]
   gem "web-console"
   gem "rails-erd"  # ER図を生成するためのgem
+  gem "letter_opener"  # 開発環境でメールをブラウザで確認するためのgem
+  gem "letter_opener_web"  # letter_openerをWeb経由で確認するためのgem
 end
 
 group :test do

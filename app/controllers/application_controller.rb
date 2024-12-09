@@ -8,8 +8,12 @@ class ApplicationController < ActionController::Base
 
   def configure_permitted_parameters
     # sign_up時に許可するパラメータの追加
-    devise_parameter_sanitizer.permit(:sign_up, keys: [:username, :first_name, :last_name])
+    devise_parameter_sanitizer.permit(:sign_up, keys: [:first_name, :last_name])
     # または login 時や account_update 時にも必要なら追加可能
     # devise_parameter_sanitizer.permit(:account_update, keys: [:username, :first_name, :last_name])
+  end
+
+  def after_sign_out_path_for(resource_or_scope)
+    new_user_session_path
   end
 end
