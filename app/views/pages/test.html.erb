@@ -1,0 +1,50 @@
+<div class="container">
+  <h1 class="text-4xl font-bold">daisyUIボタン</h1>
+  <div class="flex gap-2 mt-4">
+    <button class="btn btn-primary">Primary</button>
+    <button class="btn btn-secondary">Secondary</button>
+    <button class="btn btn-accent">Accent</button>
+    <button class="btn btn-ghost">Ghost</button>
+    <button class="btn btn-link">Link</button>
+  </div>
+
+  <h1 class="text-4xl font-bold mt-24">TailwindCSSボタン</h1>
+  <div class="flex gap-2 mt-4">
+    <!-- 基本的なボタン -->
+    <button class="px-6 py-3 bg-blue-600 text-white font-bold rounded-lg shadow-lg transform hover:scale-105 transition-transform duration-200 hover:bg-blue-700 focus:outline-none focus:ring-4 focus:ring-blue-500 focus:ring-opacity-50">
+      基本ボタン
+    </button>
+
+    <!-- アウトラインボタン -->
+    <button class="px-4 py-2 border-2 border-blue-500 text-blue-500 rounded-lg hover:bg-blue-50 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50">
+      アウトライン
+    </button>
+
+    <!-- 丸みのあるボタン -->
+    <button class="px-6 py-2 bg-green-500 text-white rounded-full hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-opacity-50">
+      丸ボタン
+    </button>
+
+    <!-- アイコン付きボタン -->
+    <button class="flex items-center gap-2 px-4 py-2 bg-purple-500 text-white rounded-lg hover:bg-purple-600 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-opacity-50">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-11a1 1 0 10-2 0v2H7a1 1 0 100 2h2v2a1 1 0 102 0v-2h2a1 1 0 100-2h-2V7z" clip-rule="evenodd" />
+      </svg>
+      アイコン付き
+    </button>
+  </div>
+
+  <!-- サイズバリエーション -->
+  <div class="flex items-center gap-2 mt-4">
+    <button class="px-2 py-1 text-sm bg-red-500 text-white rounded hover:bg-red-600">小</button>
+    <button class="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600">中</button>
+    <button class="px-6 py-3 text-lg bg-red-500 text-white rounded hover:bg-red-600">大</button>
+  </div>
+
+  <!-- 無効状態のボタン -->
+  <div class="flex gap-2 mt-4">
+    <button disabled class="px-4 py-2 bg-gray-400 text-white rounded-lg cursor-not-allowed">
+      無効ボタン
+    </button>
+  </div>
+</div>

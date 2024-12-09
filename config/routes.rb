@@ -1,10 +1,12 @@
 Rails.application.routes.draw do
+  root 'pages#landing'
+  get 'landing', to: 'pages#landing'
+  get 'test', to: 'pages#test'
+
+  # deviseのルートを追加
   devise_for :users
-  get "landing/index"
-  resources :sales_reports, only: [:index]
 
-  # アプリケーションのルートパスを定義
-  root "sales_reports#index"
-
-  get "up" => "rails/health#show", as: :rails_health_check
+  if Rails.env.development?
+    mount LetterOpenerWeb::Engine, at: "/letter_opener"
+  end
 end

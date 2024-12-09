@@ -99,7 +99,8 @@ erDiagram
     Users {
         int id PK "インデックス"
         string email "メールアドレス (unique, null: false)"
-        string name "ユーザー名"
+        string first_name "名"
+        string last_name "姓"
         string encrypted_password "暗号化パスワード (null: false)"
         string reset_password_token "パスワードリセットトークン (unique)"
         datetime reset_password_sent_at "パスワードリセット送信日時"
