@@ -1,0 +1,131 @@
+<div>
+  <div class="flex items-center justify-between">
+    <h3 class="text-lg font-medium">売上レポート</h3>
+    <div aria-label="Breadcrumbs" class="breadcrumbs hidden p-0 text-sm sm:inline">
+      <ul>
+        <li><%= link_to "ダッシュボード", root_path %></li>
+        <li>売上レポート</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="mt-5">
+    <div aria-label="Card" class="card card-bordered mt-5 bg-base-100">
+      <div class="card-body p-0">
+        <div class="flex items-center justify-between px-5 pt-5">
+          <%# 検索フォーム %>
+          <div class="inline-flex items-center gap-3">
+            <%= form_with url: sales_report_index_path, method: :get, class: "flex items-center gap-3" do |f| %>
+              <div class="form-control flex flex-row items-center rounded-box border border-base-content/20 ps-3">
+                <iconify-icon icon="lucide:search" height="15" class="text-base-content/60"></iconify-icon>
+                <%= f.search_field :query,
+                    placeholder: "注文を検索",
+                    class: "input input-sm w-full transition-all focus:border-transparent focus:outline-0 focus:outline-offset-0",
+                    "aria-label": "検索" %>
+              </div>
+
+              <div class="hidden sm:block">
+                <%= f.select :category,
+                    options_for_select([
+                      ["カテゴリー", ""],
+                      ["ファッション", "fashion"],
+                      ["日用品", "daily_need"],
+                      ["化粧品", "cosmetic"],
+                      ["電化製品", "electronics"],
+                      ["食品", "food"]
+                    ]),
+                    {},
+                    {
+                      class: "select select-bordered w-48",
+                      "data-choice": true,
+                      "aria-label": "カテゴリー選択"
+                    } %>
+              </div>
+            <% end %>
+          </div>
+
+          <%# ダッシュボードボタン %>
+          <div class="inline-flex items-center gap-3">
+            <%= link_to "#", class: "btn btn-primary btn-sm gap-2" do %>
+              <iconify-icon icon="lucide:airplay" height="18"></iconify-icon>
+              <span class="hidden sm:inline-block">ダッシュボード</span>
+            <% end %>
+          </div>
+        </div>
+
+        <%# テーブル %>
+        <div class="overflow-auto">
+          <table class="table mt-2 rounded-box" id="order_table" data-component="table">
+            <thead>
+              <tr>
+                <th>
+                  <%= check_box_tag "order_check_all", nil, false,
+                      class: "checkbox checkbox-xs",
+                      "data-slot": "all-checkbox",
+                      "aria-label": "すべて選択" %>
+                </th>
+                <th><span class="text-sm font-medium text-base-content/80">注文番号</span></th>
+                <th><span class="text-sm font-medium text-base-content/80">SKU</span></th>
+                <th><span class="text-sm font-medium text-base-content/80">品番</span></th>
+                <th><span class="text-sm font-medium text-base-content/80">メーカー</span></th>
+                <th><span class="text-sm font-medium text-base-content/80">商品名</span></th>
+                <th><span class="text-sm font-medium text-base-content/80">販売価格</span></th>
+                <th><span class="text-sm font-medium text-base-content/80">仕入れ価格</span></th>
+                <th><span class="text-sm font-medium text-base-content/80">利益</span></th>
+                <th><span class="text-sm font-medium text-base-content/80">利益率</span></th>
+                <th><span class="text-sm font-medium text-base-content/80">アクション</span></th>
+              </tr>
+            </thead>
+            <tbody>
+              <% Order.report_data.each do |data| %>
+                <tr class="cursor-pointer hover:bg-base-200/40">
+                  <th>
+                    <%= check_box_tag "order_ids[]", data[:order_id], false,
+                        class: "checkbox checkbox-xs",
+                        "data-slot": "single-checkbox",
+                        "aria-label": "選択" %>
+                  </th>
+                  <td>
+                    <div class="font-medium">#<%= data[:order_number] %></div>
+                  </td>
+                  <td>
+                    <div class="font-medium"><%= data[:sku] %></div>
+                  </td>
+                  <td>
+                    <div class="font-medium"><%= data[:product_number] %></div>
+                  </td>
+                  <td>
+                    <div class="font-medium"><%= data[:maker] %></div>
+                  </td>
+                  <td>
+                    <div class="font-medium"><%= data[:product_name] %></div>
+                  </td>
+                  <td>
+                    <div class="font-medium">¥<%= number_with_delimiter(data[:order_net_amount_jpy]) %></div>
+                  </td>
+                  <td>
+                    <div class="font-medium">¥<%= number_with_delimiter(data[:product_cost_price_jpy]) %></div>
+                  </td>
+                  <td>
+                    <div class="font-medium">¥<%= number_with_delimiter(data[:order_net_profit_jpy]) %></div>
+                  </td>
+                  <td>
+                    <div class="font-medium"><%= number_to_percentage(data[:order_net_profit_rate], precision: 1) %></div>
+                  </td>
+                  <td>
+                    <div class="flex items-center gap-2">
+                      <%= link_to "#", class: "btn btn-ghost btn-xs" do %>
+                        <iconify-icon icon="lucide:eye" width="14"></iconify-icon>
+                      <% end %>
+                    </div>
+                  </td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
