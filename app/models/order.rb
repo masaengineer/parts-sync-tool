@@ -1,3 +1,14 @@
+# == Schema Information
+#
+# Table name: orders
+#
+#  id              :bigint           not null, primary key
+#  order_number    :string
+#  sale_date       :date
+#  created_at      :datetime         not null
+#  updated_at      :datetime         not null
+#  tracking_number :string
+#
 class Order < ApplicationRecord
   has_many :order_sku_links, dependent: :destroy
   has_many :skus, through: :order_sku_links

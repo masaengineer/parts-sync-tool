@@ -1,3 +1,6 @@
+# == Route Map
+#
+
 Rails.application.routes.draw do
   get "sales_report/index"
   root 'pages#landing'
