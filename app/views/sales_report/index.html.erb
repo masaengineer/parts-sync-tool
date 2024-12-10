@@ -77,7 +77,7 @@
               </tr>
             </thead>
             <tbody>
-              <% Order.report_data.each do |data| %>
+              <% @report_data.each do |data| %>
                 <tr class="cursor-pointer hover:bg-base-200/40">
                   <th>
                     <%= check_box_tag "order_ids[]", data[:order_id], false,
