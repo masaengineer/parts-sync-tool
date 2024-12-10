@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_12_10_222222) do
+ActiveRecord::Schema[7.2].define(version: 2024_12_10_222225) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -50,7 +50,6 @@ ActiveRecord::Schema[7.2].define(version: 2024_12_10_222222) do
     t.date "sale_date"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "tracking_number"
     t.index ["order_number"], name: "index_orders_on_order_number"
   end
 
@@ -93,11 +92,11 @@ ActiveRecord::Schema[7.2].define(version: 2024_12_10_222222) do
   end
 
   create_table "shipments", force: :cascade do |t|
-    t.bigint "order_id", null: false
     t.decimal "customer_international_shipping"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "cpass_trade_id"
+    t.bigint "order_id"
     t.index ["order_id"], name: "index_shipments_on_order_id"
   end
 
@@ -144,7 +143,6 @@ ActiveRecord::Schema[7.2].define(version: 2024_12_10_222222) do
   add_foreign_key "procurements", "skus"
   add_foreign_key "products", "manufacturers"
   add_foreign_key "sales", "orders"
-  add_foreign_key "shipments", "orders"
   add_foreign_key "sku_product_links", "products"
   add_foreign_key "sku_product_links", "skus"
 end

@@ -10,6 +10,14 @@
 #  updated_at     :datetime         not null
 #  sku_id         :bigint
 #
+# Indexes
+#
+#  index_procurements_on_sku_id  (sku_id)
+#
+# Foreign Keys
+#
+#  fk_rails_...  (sku_id => skus.id)
+#
 require "test_helper"
 
 class ProcurementTest < ActiveSupport::TestCase

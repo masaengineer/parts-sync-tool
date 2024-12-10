@@ -10,6 +10,12 @@
 #  sku_net_amount   :decimal(10, 2)
 #  sku_gross_amount :decimal(10, 2)
 #
+# Indexes
+#
+#  index_skus_on_sku_code          (sku_code)
+#  index_skus_on_sku_gross_amount  (sku_gross_amount)
+#  index_skus_on_sku_net_amount    (sku_net_amount)
+#
 class Sku < ApplicationRecord
   has_many :order_sku_links
   has_many :orders, through: :order_sku_links

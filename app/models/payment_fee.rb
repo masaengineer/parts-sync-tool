@@ -9,6 +9,14 @@
 #  fee_category :string
 #  fee_amount   :decimal(, )
 #
+# Indexes
+#
+#  index_payment_fees_on_order_id  (order_id)
+#
+# Foreign Keys
+#
+#  fk_rails_...  (order_id => orders.id)
+#
 class PaymentFee < ApplicationRecord
   belongs_to :order, foreign_key: :order_id
 
