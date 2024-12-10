@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_12_07_084950) do
+ActiveRecord::Schema[7.2].define(version: 2024_12_10_222222) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -50,6 +50,7 @@ ActiveRecord::Schema[7.2].define(version: 2024_12_07_084950) do
     t.date "sale_date"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "tracking_number"
     t.index ["order_number"], name: "index_orders_on_order_number"
   end
 
@@ -93,7 +94,6 @@ ActiveRecord::Schema[7.2].define(version: 2024_12_07_084950) do
 
   create_table "shipments", force: :cascade do |t|
     t.bigint "order_id", null: false
-    t.string "tracking_number"
     t.decimal "customer_international_shipping"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

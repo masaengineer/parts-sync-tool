@@ -60,6 +60,7 @@ group :development do
   gem "rails-erd"  # ER図を生成するためのgem
   gem "letter_opener"  # 開発環境でメールをブラウザで確認するためのgem
   gem "letter_opener_web"  # letter_openerをWeb経由で確認するためのgem
+  gem 'annotate'  # モデルファイルに対してスキーマ情報のコメントを自動生成するためのgem
 end
 
 group :test do

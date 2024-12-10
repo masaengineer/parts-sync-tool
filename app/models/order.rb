@@ -1,11 +1,9 @@
 class Order < ApplicationRecord
-  DOLLAR_TO_YEN_RATE = 150
-
   has_many :order_sku_links, dependent: :destroy
   has_many :skus, through: :order_sku_links
-  has_many :sales
-  has_many :shipments
-  has_many :payment_fees
+  has_one :sale
+  has_one :shipment
+  has_one :payment_fee
 
   validates :order_number, presence: true
   validates :sale_date, presence: true
