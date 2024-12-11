@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   devise_for :users
 
   resources :sales_reports, only: [:index]
+  resources :orders, only: [:index]
 
   if Rails.env.development?
     mount LetterOpenerWeb::Engine, at: "/letter_opener"
