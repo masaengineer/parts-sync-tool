@@ -2,12 +2,12 @@
 #
 
 Rails.application.routes.draw do
-  root 'pages#landing'
-  resources :pages, only: [:landing]
-  resources :sales_reports, only: [:index]
+  root 'landing#index'
 
-  # deviseのルートを追加
   devise_for :users
+
+  resources :sales_reports, only: [:index]
+  resources :orders
 
   if Rails.env.development?
     mount LetterOpenerWeb::Engine, at: "/letter_opener"
