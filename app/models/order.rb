@@ -19,7 +19,6 @@ class Order < ApplicationRecord
   has_one :sale
   has_one :shipment
 
-
   validates :order_number, presence: true
   validates :sale_date, presence: true
 end

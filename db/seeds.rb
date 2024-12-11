@@ -65,7 +65,8 @@ end
 orders = 30.times.map do |i|
   Order.create!(
     order_number: "ORDER-#{1000+i}",
-    sale_date: Date.today - i.days
+    sale_date: Date.today - i.days,
+    tracking_number: "TRACK-#{i+1000}" # トラッキングナンバーをOrderに移動
   )
 end
 
@@ -110,7 +111,6 @@ end
 30.times do |i|
   Shipment.create!(
     order: orders[i],
-    tracking_number: "TRACK-#{i+1000}",
     customer_international_shipping: rand(5..20) + rand.round(2),
     cpass_trade_id: 1000 + i
   )

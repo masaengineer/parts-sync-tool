@@ -1,0 +1,29 @@
+<h2>注文別レポート</h2>
+<table>
+  <thead>
+    <tr>
+      <th>Order Number</th>
+      <th>売上</th>
+      <th>手数料</th>
+      <th>送料</th>
+      <th>原価合計</th>
+      <th>販売個数</th> <!-- 新たなカラム -->
+      <th>利益</th>
+      <th>利益率(%)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @orders_data.each do |data| %>
+      <tr class="order-row" data-order-id="<%= data[:order].id %>">
+        <td><%= data[:order].order_number %></td>
+        <td><%= number_to_currency(data[:revenue]) %></td>
+        <td><%= number_to_currency(data[:payment_fees]) %></td>
+        <td><%= number_to_currency(data[:shipping_cost]) %></td>
+        <td><%= number_to_currency(data[:procurement_cost]) %></td>
+        <td><%= data[:quantity] %></td> <!-- 販売個数表示 -->
+        <td><%= number_to_currency(data[:profit]) %></td>
+        <td><%= data[:profit_rate].round(2) %>%</td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

@@ -28,7 +28,8 @@ services:
     environment:
       TZ: Asia/Tokyo
     ports:
-      - "3000:3000"
+      - "3000:3000"    # Rails用
+      - "12345:12345"  # rdbgデバッグ用TCPポート
     depends_on:
       db:
         condition: service_healthy

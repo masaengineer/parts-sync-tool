@@ -2,10 +2,9 @@
 #
 
 Rails.application.routes.draw do
-  get "sales_report/index"
   root 'pages#landing'
-  resources :landing, only: [:index]
-  resources :sales_report, only: [:index]
+  resources :pages, only: [:landing]
+  resources :sales_reports, only: [:index]
 
   # deviseのルートを追加
   devise_for :users
