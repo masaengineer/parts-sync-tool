@@ -1,7 +1,7 @@
 class SalesReportsController < ApplicationController
   def index
     @q = Order.ransack(params[:q])
-    @orders = @q.result
+    @orders = @q.result.page(params[:page]).per(10)
       .includes(
         :sale,
         :shipment,
