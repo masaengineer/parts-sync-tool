@@ -7,10 +7,10 @@ class ApplicationController < ActionController::Base
   protected
 
   def configure_permitted_parameters
-    # sign_up時に許可するパラメータの追加
-    devise_parameter_sanitizer.permit(:sign_up, keys: [:first_name, :last_name])
-    # または login 時や account_update 時にも必要なら追加可能
-    # devise_parameter_sanitizer.permit(:account_update, keys: [:username, :first_name, :last_name])
+    # サインアップ時のパラメータ許可
+    devise_parameter_sanitizer.permit(:sign_up, keys: [:last_name, :first_name])
+    # アカウント更新時のパラメータ許可
+    devise_parameter_sanitizer.permit(:account_update, keys: [:last_name, :first_name])
   end
 
   def after_sign_out_path_for(resource_or_scope)

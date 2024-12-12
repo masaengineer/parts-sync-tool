@@ -1,4 +1,4 @@
-<div class="navbar z-10 border-b border-base-200 px-3">
+<div class="navbar z-10 border-b border-base-200 px-3 mt-8 ">
   <%# 左側のコンテンツ %>
   <div class="navbar-start gap-3">
     <%# 検索ボタン %>
@@ -44,8 +44,7 @@
         </label>
 
         <ul class="menu dropdown-content mt-4 w-52 rounded-box bg-base-100 p-2 shadow">
-          <li><%= link_to "プロフィール", profile_path %></li>
-          <li><%= link_to "設定", settings_path %></li>
+          <li><%= link_to "プロフィール", user_path(current_user) %></li>
           <hr class="-mx-2 my-1 border-base-content/10" />
           <li><%= button_to "ログアウト", destroy_user_session_path, method: :delete, class: "text-error" %></li>
         </ul>

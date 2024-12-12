@@ -1,2 +1,40 @@
-<h1>Users#show</h1>
-<p>Find me in app/views/users/show.html.erb</p>
+<div class="container mx-auto px-4 py-8">
+  <h1 class="text-2xl font-bold mb-6">アカウント設定</h1>
+
+  <div class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+    <%= form_for(@user, url: registration_path(@user), html: { method: :put }) do |f| %>
+      <%# 名前変更フォーム %>
+      <div class="mb-8">
+        <h2 class="text-xl font-semibold mb-4">名前の変更</h2>
+        <div class="mb-4">
+          <%= f.label :last_name, "姓", class: "block text-gray-700 text-sm font-bold mb-2" %>
+          <%= f.text_field :last_name, class: "input input-bordered w-full" %>
+        </div>
+
+        <div class="mb-4">
+          <%= f.label :first_name, "名", class: "block text-gray-700 text-sm font-bold mb-2" %>
+          <%= f.text_field :first_name, class: "input input-bordered w-full" %>
+        </div>
+      </div>
+
+      <%# メールアドレス変更フォーム %>
+      <div class="mb-8">
+        <h2 class="text-xl font-semibold mb-4">メールアドレスの変更</h2>
+        <div class="mb-4">
+          <%= f.label :email, "新しいメールアドレス", class: "block text-gray-700 text-sm font-bold mb-2" %>
+          <%= f.email_field :email, autocomplete: "email", class: "input input-bordered w-full" %>
+        </div>
+      </div>
+
+      <%# 現在のパスワード確認 %>
+      <div class="mb-4">
+        <%= f.label :current_password, "現在のパスワード（変更を確認するため）", class: "block text-gray-700 text-sm font-bold mb-2" %>
+        <%= f.password_field :current_password, autocomplete: "current-password", class: "input input-bordered w-full" %>
+      </div>
+
+      <div class="flex justify-end">
+        <%= f.submit "設定を更新", class: "btn btn-primary" %>
+      </div>
+    <% end %>
+  </div>
+</div>
