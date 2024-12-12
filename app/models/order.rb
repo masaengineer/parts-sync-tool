@@ -21,4 +21,17 @@ class Order < ApplicationRecord
 
   validates :order_number, presence: true
   validates :sale_date, presence: true
+
+  def self.ransackable_attributes(auth_object = nil)
+    %w[
+      order_number
+      sale_date
+      created_at
+      updated_at
+    ]
+  end
+
+  def self.ransackable_associations(auth_object = nil)
+    %w[sale order_sku_links skus]
+  end
 end
