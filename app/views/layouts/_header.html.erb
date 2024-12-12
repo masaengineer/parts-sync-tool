@@ -1,0 +1,78 @@
+<div class="navbar z-10 border-b border-base-200 px-3">
+  <%# 左側のコンテンツ %>
+  <div class="navbar-start gap-3">
+    <%# 検索ボタン %>
+    <button
+      onclick="search_modal.showModal()"
+      class="btn btn-outline btn-sm hidden h-9 w-48 items-center justify-start gap-3 sm:flex">
+      <i class="fa-solid fa-magnifying-glass text-base-content/60"></i>
+      <span class="text-base-content/60">検索</span>
+    </button>
+
+    <%# モバイル用検索ボタン %>
+    <button
+      onclick="search_modal.showModal()"
+      class="btn btn-circle btn-outline btn-sm flex sm:hidden">
+      <i class="fa-solid fa-magnifying-glass text-base-content/60"></i>
+    </button>
+  </div>
+
+  <%# 中央のコンテンツ（必要に応じて） %>
+  <div class="navbar-center">
+    <%= link_to root_path, class: "text-xl font-bold" do %>
+      YourAppName
+    <% end %>
+  </div>
+
+  <%# 右側のコンテンツ %>
+  <div class="navbar-end gap-1.5">
+    <%# ダークモードトグル %>
+    <button
+      data-action="theme-toggle"
+      class="btn btn-circle btn-ghost btn-sm">
+      <i class="fa-regular fa-sun hidden dark:inline"></i>
+      <i class="fa-regular fa-moon inline dark:hidden"></i>
+    </button>
+
+    <%# ユーザーメニュー %>
+    <% if user_signed_in? %>
+      <div class="dropdown dropdown-end">
+        <label tabindex="0" class="btn btn-ghost rounded-btn px-1.5">
+          <div class="flex items-center gap-2">
+            <span class="text-sm"><%= current_user.first_name %></span>
+          </div>
+        </label>
+
+        <ul class="menu dropdown-content mt-4 w-52 rounded-box bg-base-100 p-2 shadow">
+          <li><%= link_to "プロフィール", profile_path %></li>
+          <li><%= link_to "設定", settings_path %></li>
+          <hr class="-mx-2 my-1 border-base-content/10" />
+          <li><%= button_to "ログアウト", destroy_user_session_path, method: :delete, class: "text-error" %></li>
+        </ul>
+      </div>
+    <% else %>
+      <%= link_to "ログイン", new_user_session_path, class: "btn btn-primary btn-sm" %>
+    <% end %>
+  </div>
+</div>
+
+<%# 検索モーダル %>
+<dialog id="search_modal" class="modal">
+  <div class="modal-box p-0">
+    <div class="form-control flex-row items-center p-2 px-5">
+      <i class="fa-solid fa-magnifying-glass text-base-content/70"></i>
+      <input
+        type="text"
+        placeholder="検索"
+        class="input input-sm w-full focus:outline-none" />
+      <form method="dialog">
+        <button class="btn btn-circle btn-ghost btn-sm">
+          <i class="fa-solid fa-times"></i>
+        </button>
+      </form>
+    </div>
+  </div>
+  <form method="dialog" class="modal-backdrop">
+    <button>close</button>
+  </form>
+</dialog>
