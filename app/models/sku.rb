@@ -24,4 +24,19 @@ class Sku < ApplicationRecord
   has_many :procurements
 
   validates :sku_code, presence: true, uniqueness: true
+
+  def self.ransackable_attributes(auth_object = nil)
+    %w[
+      sku_code
+      quantity
+      sku_net_amount
+      sku_gross_amount
+      created_at
+      updated_at
+    ]
+  end
+
+  def self.ransackable_associations(auth_object = nil)
+    %w[order_sku_links orders procurements sku_product_links products]
+  end
 end

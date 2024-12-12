@@ -1,9 +1,15 @@
 class SalesReportsController < ApplicationController
   def index
-    @orders = Order.all
-    # @q = Order.ransack(params[:q])
-    # @orders = @q.result
-    #   .includes(:sale, :shipment, :payment_fees, order_sku_links: { sku: :procurements })
+    @q = Order.ransack(params[:q])
+    @orders = @q.result
+      .includes(
+        :sale,
+        :shipment,
+        :payment_fees,
+        order_sku_links: {
+          sku: [:procurements, :products]
+        }
+      )
 
     # 注文別レポートデータ作成
     @orders_data = @orders.map do |order|

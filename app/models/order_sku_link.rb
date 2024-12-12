@@ -22,4 +22,17 @@
 class OrderSkuLink < ApplicationRecord
   belongs_to :order
   belongs_to :sku
+
+  def self.ransackable_attributes(auth_object = nil)
+    %w[
+      created_at
+      updated_at
+      order_id
+      sku_id
+    ]
+  end
+
+  def self.ransackable_associations(auth_object = nil)
+    %w[order sku]
+  end
 end
