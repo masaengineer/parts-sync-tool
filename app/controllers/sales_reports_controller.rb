@@ -7,7 +7,7 @@ class SalesReportsController < ApplicationController
         :shipment,
         :payment_fees,
         order_sku_links: {
-          sku: [:procurements, :products]
+          sku: [:procurements, { sku_product_links: :product }]
         }
       )
 
