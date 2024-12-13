@@ -1,0 +1,35 @@
+<% if flash.present? %>
+  <div class="flash-messages">
+    <% flash.each do |key, value| %>
+      <% class_name = case key.to_sym
+        when :notice then "alert alert-success shadow-lg"
+        when :alert then "alert alert-error shadow-lg"
+        else "alert shadow-lg"
+      end %>
+
+      <div class="<%= class_name %> mb-2">
+        <div class="flex w-full items-center justify-between">
+          <div class="flex items-center gap-2">
+            <%# アイコン %>
+            <% icon_class = case key.to_sym
+              when :notice then "fa-circle-check"
+              when :alert then "fa-circle-exclamation"
+              else "fa-circle-info"
+            end %>
+            <i class="fa-solid <%= icon_class %>"></i>
+
+            <%# メッセージ %>
+            <span><%= value %></span>
+          </div>
+
+          <%# 閉じるボタン %>
+          <button class="btn btn-ghost btn-sm"
+                  data-action="click->flash#dismiss"
+                  data-flash-target="dismissButton">
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+        </div>
+      </div>
+    <% end %>
+  </div>
+<% end %>

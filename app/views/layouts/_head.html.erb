@@ -1,0 +1,27 @@
+<title><%= content_for(:title) || "Parts Sync" %></title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<%= csrf_meta_tags %>
+<%= csp_meta_tag %>
+
+<%# スタイルシートとJavaScript %>
+<%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+<%= javascript_include_tag "application", "data-turbo-track": "reload", type: "module" %>
+
+<%# ファビコン %>
+<link rel="shortcut icon"
+      href="logo/favicon-dark.png"
+      media="(prefers-color-scheme: dark)" />
+<link rel="shortcut icon"
+      href="logo/favicon-light.png"
+      media="(prefers-color-scheme: light)" />
+
+<%# テーマ設定のスクリプト %>
+<script>
+  try {
+    document.documentElement.setAttribute(
+      "data-theme",
+      JSON.parse(localStorage.getItem("__NEXUS__HTML__ADMIN__LAYOUT__")).theme
+    )
+  } catch (e) {}
+</script>
