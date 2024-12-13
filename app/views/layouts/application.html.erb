@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html data-theme="nexus">
   <head>
     <title><%= content_for(:title) || "Parts Sync New" %></title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -24,7 +24,15 @@
   </head>
 
   <body>
-    <%= render 'layouts/headerg' %>
+    <div class="flash-messages">
+      <% flash.each do |key, value| %>
+        <% class_name = case key.to_sym
+          when :notice then "alert alert-success shadow-lg"
+          when :alert then "alert alert-error shadow-lg"
+          else "alert shadow-lg"
+      end %>
+      <div class="<%= class_name %>"><%= value %></div>
+    <% end %>
     <%= yield %>
   </body>
 </html>
