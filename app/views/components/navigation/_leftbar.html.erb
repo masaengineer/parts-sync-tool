@@ -1,0 +1,43 @@
+<div class="leftmenu-wrapper">
+  <%= link_to root_path, class: "flex h-16 items-center justify-center" do %>
+    <div class="inline">
+      <%= image_tag "logo/logo-dark.svg", alt: "logo-dark", class: "hidden h-6 dark:inline" %>
+      <%= image_tag "logo/logo-light.svg", alt: "logo-light", class: "inline h-6 dark:hidden" %>
+    </div>
+  <% end %>
+
+  <div data-simplebar class="h-[calc(100vh-64px)] lg:h-[calc(100vh-230px)]">
+    <ul class="menu mb-6">
+      <li class="menu-title font-semibold">レポート</li>
+
+      <li class="mb-0.5">
+        <details>
+          <summary>
+            <div class="flex items-center gap-2">
+              <iconify-icon icon="lucide:chart-bar" height="18"></iconify-icon>
+              売上レポート
+            </div>
+          </summary>
+          <ul>
+            <li class="mb-0.5">
+              <%= link_to sales_reports_path, class: "hover:bg-base-content/15" do %>
+                <div class="flex items-center gap-2">
+                  注文別レポート
+                </div>
+              <% end %>
+            </li>
+            <li class="mb-0.5">
+              <%= link_to plreports_path, class: "hover:bg-base-content/15" do %>
+                <div class="flex items-center gap-2">
+                  PLレポート
+                </div>
+              <% end %>
+            </li>
+          </ul>
+        </details>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<div class="leftbar-backdrop"></div>

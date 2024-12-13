@@ -1,38 +1,22 @@
 <!DOCTYPE html>
 <html data-theme="nexus">
   <head>
-    <title><%= content_for(:title) || "Parts Sync New" %></title>
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <%= csrf_meta_tags %>
-    <%= csp_meta_tag %>
-
-    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
-    <%= javascript_include_tag "application", "data-turbo-track": "reload", type: "module" %>
-    <link rel="shortcut icon"
-          href="logo/favicon-dark.png"
-          media="(prefers-color-scheme: dark)" />
-    <link rel="shortcut icon"
-          href="logo/favicon-light.png"
-          media="(prefers-color-scheme: light)" />
-
-    <script>
-      try {
-        document.documentElement.setAttribute("data-theme", JSON.parse(localStorage.getItem("__NEXUS__HTML__ADMIN__LAYOUT__")).theme)
-      } catch (e) {}
-    </script>
+    <%= render 'layouts/head' %>
   </head>
-
   <body>
-    <div class="flash-messages">
-      <% flash.each do |key, value| %>
-        <% class_name = case key.to_sym
-          when :notice then "alert alert-success shadow-lg"
-          when :alert then "alert alert-error shadow-lg"
-          else "alert shadow-lg"
-      end %>
-      <div class="<%= class_name %>"><%= value %></div>
-    <% end %>
-    <%= yield %>
+    <div class="size-full"></div>
+      <div class="flex overflow-hidden" data-controller="sidebar">
+        <%= render 'components/navigation/leftbar' %>
+        <div class="main-wrapper overflow-auto">
+          <%= render 'components/navigation/header' %>
+          <div class="flex h-full flex-col">
+            <%= render "shared/flash_messages" %>
+            <div class="content-wrapper p-6">
+              <%= yield %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </body>
 </html>
