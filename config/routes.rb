@@ -2,11 +2,11 @@
 #
 
 Rails.application.routes.draw do
-  resources :users, only: [:index, :show, :edit, :update]
+  devise_for :users
+  resources :users, only: [:index, :show]
   resources :plreports, only: [:index]
   root 'landing#index'
 
-  devise_for :users
   resources :sales_reports, only: [:index]
 
   if Rails.env.development?
