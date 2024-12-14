@@ -1,4 +1,4 @@
-<% content_for :title, "Login - Parts Sync" %>
+<% content_for :title, t('devise.sessions.new.title') %>
 
 <div class="grid min-h-screen grid-cols-12 overflow-auto">
   <div class="relative hidden bg-[#FFE9D1] dark:bg-[#14181c] lg:col-span-7 lg:block xl:col-span-8 2xl:col-span-9">
@@ -40,33 +40,32 @@
         </button>
       </div>
 
-      <h3 class="mt-8 text-center text-xl font-semibold md:mt-12 lg:mt-24">Login</h3>
+      <h3 class="mt-8 text-center text-xl font-semibold md:mt-12 lg:mt-24">
+        <%= t('devise.sessions.new.sign_in') %>
+      </h3>
       <h3 class="mt-2 text-center text-sm text-base-content/70">
-        Seamless Access, Secure Connection: Your Gateway to a Personalized Experience.
+        <%= t('devise.sessions.new.welcome_message') %>
       </h3>
 
       <div class="mt-6 md:mt-10">
         <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
           <div class="form-control">
-            <%= f.label :email, class: "label" do %>
-              <span class="label-text cursor-pointer">Email Address</span>
-            <% end %>
+            <%= f.label :email, t('activerecord.attributes.user.email'), class: "label" %>
             <div class="form-control flex flex-row items-center rounded-box border border-base-content/20 ps-3">
               <iconify-icon icon="lucide:mail" height="18" class="text-base-content/80"></iconify-icon>
-              <%= f.email_field :email, autofocus: true, autocomplete: "email", placeholder: "Email Address",
+              <%= f.email_field :email, autofocus: true, autocomplete: "email",
+                  placeholder: t('activerecord.attributes.user.email'),
                   class: "input input-sm w-full transition-all focus:border-transparent focus:outline-0 focus:outline-offset-0" %>
             </div>
           </div>
 
           <div class="form-control mt-3">
-            <%= f.label :password, class: "label" do %>
-              <span class="label-text cursor-pointer">Password</span>
-            <% end %>
+            <%= f.label :password, t('activerecord.attributes.user.password'), class: "label" %>
             <div class="form-control flex flex-row items-center rounded-box border border-base-content/20 pe-3 ps-3" data-component="password-field">
               <iconify-icon icon="lucide:key-round" height="18" class="text-base-content/80"></iconify-icon>
-              <%= f.password_field :password, autocomplete: "current-password", placeholder: "Password",
-                  class: "input input-sm w-full transition-all focus:border-transparent focus:outline-0 focus:outline-offset-0",
-                  data: { slot: "input" } %>
+              <%= f.password_field :password, autocomplete: "current-password",
+                  placeholder: t('activerecord.attributes.user.password'),
+                  class: "input input-sm w-full transition-all focus:border-transparent focus:outline-0 focus:outline-offset-0" %>
               <button id="toggle_password_field_type" type="button" data-slot-value="hide" data-slot="visibility-toggle"
                       aria-label="Show/Hide password" class="group btn btn-circle btn-ghost btn-xs hover:bg-base-content/10">
                 <iconify-icon icon="lucide:eye" height="16" class="inline text-base-content/80 group-data-[slot-value=show]:hidden"></iconify-icon>
@@ -74,36 +73,37 @@
               </button>
             </div>
             <label class="label">
-              <span class="label-text"></span>
-              <%= link_to "Forgot Password?", new_password_path(resource_name), class: "label-text text-xs text-base-content/80" %>
+              <%= link_to t('devise.shared.links.forgot_password'),
+                  new_password_path(resource_name),
+                  class: "label-text text-xs text-base-content/80" %>
             </label>
           </div>
 
           <% if devise_mapping.rememberable? %>
             <div class="mt-4 flex items-center gap-3 md:mt-6">
               <%= f.check_box :remember_me, class: "checkbox-primary checkbox checkbox-xs" %>
-              <%= f.label :remember_me do %>
-                I agree with
-                <span class="cursor-pointer text-primary underline">terms and conditions</span>
-              <% end %>
+              <%= f.label :remember_me, t('activerecord.attributes.user.remember_me') %>
             </div>
           <% end %>
 
           <div class="mt-4 md:mt-6">
-            <%= f.submit "Login", class: "btn btn-primary btn-block gap-2 text-base" %>
+            <%= f.submit t('devise.sessions.new.sign_in'),
+                class: "btn btn-primary btn-block gap-2 text-base" %>
           </div>
         <% end %>
 
         <div class="mt-4">
           <button class="btn btn-outline btn-md btn-block flex items-center gap-3 border-base-content/10 !text-base-content hover:border-transparent hover:bg-base-content/10">
             <%= image_tag "brand-logo/google-mini.svg", alt: "", loading: "lazy", class: "size-6" %>
-            <span class="text-base">Login with Google</span>
+            <span class="text-base"><%= t('devise.shared.links.sign_in_with_provider', provider: 'Google') %></span>
           </button>
         </div>
 
         <p class="mt-4 text-center text-sm text-base-content/80 md:mt-6">
-          Haven't an account
-          <%= link_to "Create One", new_registration_path(resource_name), class: "text-primary hover:underline" %>
+          <%= t('devise.sessions.new.no_account') %>
+          <%= link_to t('devise.shared.links.sign_up'),
+              new_registration_path(resource_name),
+              class: "text-primary hover:underline" %>
         </p>
       </div>
     </div>

@@ -3,7 +3,7 @@
   <button tabindex="0" class="btn btn-ghost btn-circle avatar">
     <div class="w-8 rounded-full">
       <% if current_user.profile_picture_url.present? %>
-        <%= image_tag current_user.profile_picture_url, alt: "profile" %>
+        <%= image_tag current_user.profile_picture_url, alt: t('shared.header.profile') %>
       <% else %>
         <%# デフォルトのアバターアイコン %>
         <div class="flex h-full w-full items-center justify-center bg-primary/10">
@@ -27,20 +27,20 @@
     <li>
       <%= link_to user_path(current_user) do %>
         <i class="fa-regular fa-user"></i>
-        プロフィール
+        <%= t('shared.header.profile') %>
       <% end %>
     </li>
     <li>
       <%= link_to edit_user_registration_path do %>
         <i class="fa-regular fa-gear"></i>
-        アカウント設定
+        <%= t('shared.header.account_settings') %>
       <% end %>
     </li>
     <div class="divider my-0"></div>
     <li>
       <%= button_to destroy_user_session_path, method: :delete, class: "text-error" do %>
         <i class="fa-regular fa-arrow-right-from-bracket"></i>
-        ログアウト
+        <%= t('shared.header.logout') %>
       <% end %>
     </li>
   </ul>

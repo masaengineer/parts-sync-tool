@@ -1,0 +1,42 @@
+ja:
+  shared:
+    header:
+      reports: レポート
+      sales_report: 売上レポート
+      pl_report: PLレポート
+      profile: プロフィール
+      account_settings: アカウント設定
+      logout: ログアウト
+      dark_mode: ダークモード
+      light_mode: ライトモード
+    navigation:
+      dashboard: ダッシュボード
+      orders: 注文管理
+      products: 商品管理
+      manufacturers: メーカー管理
+      reports: レポート管理
+    buttons:
+      search: 検索
+      reset: リセット
+      save: 保存
+      cancel: キャンセル
+      edit: 編集
+      delete: 削除
+      back: 戻る
+      new: 新規作成
+      confirm: 確認
+      close: 閉じる
+    flash:
+      success: 正常に処理されました
+      error: エラーが発生しました
+      created: '%{resource}を作成しました'
+      updated: '%{resource}を更新しました'
+      deleted: '%{resource}を削除しました'
+    confirmations:
+      delete: '本当に削除してもよろしいですか？'
+    pagination:
+      first: '最初'
+      last: '最後'
+      previous: '前'
+      next: '次'
+      truncate: '...'

@@ -1,0 +1,41 @@
+ja:
+  orders:
+    index:
+      title: 注文一覧
+      search:
+        title: 検索条件
+        order_number: 注文番号
+        customer_name: 顧客名
+        sale_date_from: 注文日（から）
+        sale_date_to: 注文日（まで）
+        order_status: 注文状態
+        payment_status: 支払状態
+      table:
+        order_number: 注文番号
+        customer_name: 顧客名
+        sale_date: 注文日
+        total_amount: 合計金額
+        order_status: 注文状態
+        payment_status: 支払状態
+        actions: 操作
+    show:
+      title: 注文詳細
+      basic_info: 基本情報
+      shipping_info: 配送情報
+      payment_info: 支払情報
+      order_items: 注文商品
+      table:
+        product_name: 商品名
+        sku_code: SKUコード
+        quantity: 数量
+        unit_price: 単価
+        subtotal: 小計
+    new:
+      title: 新規注文作成
+    edit:
+      title: 注文編集
+    form:
+      customer_info: お客様情報
+      shipping_info: 配送情報
+      payment_info: 支払情報
+      order_items: 注文商品

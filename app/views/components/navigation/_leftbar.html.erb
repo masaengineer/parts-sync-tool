@@ -8,28 +8,28 @@
 
   <div data-simplebar class="h-[calc(100vh-64px)] lg:h-[calc(100vh-230px)]">
     <ul class="menu mb-6">
-      <li class="menu-title font-semibold">レポート</li>
+      <li class="menu-title font-semibold"><%= t('shared.navigation.reports') %></li>
 
       <li class="mb-0.5">
         <details>
           <summary>
             <div class="flex items-center gap-2">
               <iconify-icon icon="lucide:chart-bar" height="18"></iconify-icon>
-              売上レポート
+              <%= t('shared.header.sales_report') %>
             </div>
           </summary>
           <ul>
             <li class="mb-0.5">
               <%= link_to sales_reports_path, class: "hover:bg-base-content/15" do %>
                 <div class="flex items-center gap-2">
-                  注文別レポート
+                  <%= t('reports.sales.title') %>
                 </div>
               <% end %>
             </li>
             <li class="mb-0.5">
               <%= link_to plreports_path, class: "hover:bg-base-content/15" do %>
                 <div class="flex items-center gap-2">
-                  PLレポート
+                  <%= t('reports.pl.title') %>
                 </div>
               <% end %>
             </li>
