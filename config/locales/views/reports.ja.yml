@@ -1,0 +1,37 @@
+ja:
+  reports:
+    sales:
+      title: 注文別レポート
+      search:
+        title: 検索条件
+        order_number: 注文番号
+        sku_code: SKUコード
+        sale_date_from: 販売日（から）
+        sale_date_to: 販売日（まで）
+      table:
+        order_number: 注文番号
+        revenue: 売上
+        payment_fees: 手数料
+        shipping_cost: 送料
+        procurement_cost: 原価合計
+        quantity: 販売個数
+        profit: 利益
+        profit_rate: 利益率(%)
+        actions: 操作
+      totals:
+        total_revenue: 総売上
+        total_profit: 総利益
+        average_profit_rate: 平均利益率
+    pl:
+      title: PLレポート
+      year_selection: '%{year}年 簡易PLレポート'
+      metrics:
+        revenue: 売上高
+        procurement_cost: 原価
+        gross_profit: 粗利
+        expenses: 販管費
+        contribution_margin: 限界利益
+        contribution_margin_rate: 限界利益率(%)
+      table:
+        month: 月
+        total: 合計

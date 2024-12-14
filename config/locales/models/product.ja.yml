@@ -1,0 +1,17 @@
+ja:
+  activerecord:
+    models:
+      product: 商品
+      sku: SKU
+    attributes:
+      product:
+        oem_part_number: OEM品番
+        international_title: 商品タイトル
+        manufacturer: メーカー
+        created_at: 作成日時
+        updated_at: 更新日時
+      sku:
+        sku_code: SKUコード
+        quantity: 数量
+        sku_net_amount: 純額
+        sku_gross_amount: 総額

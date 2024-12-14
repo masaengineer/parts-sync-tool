@@ -1,0 +1,30 @@
+ja:
+  activerecord:
+    models:
+      order: 注文
+      product: 商品
+      manufacturer: メーカー
+    attributes:
+      order:
+        order_number: 注文番号
+        sale_date: 注文確定日
+        tracking_number: 追跡番号
+      product:
+        oem_part_number: OEM品番
+        international_title: 商品タイトル
+      manufacturer:
+        name: メーカー名
+
+  views:
+    pagination:
+      first: '&laquo; 最初'
+      previous: '&lsaquo; 前'
+      next: '次 &rsaquo;'
+      last: '最後 &raquo;'
+      truncate: '...'
+
+  time:
+    formats:
+      default: '%Y/%m/%d %H:%M:%S'
+      short: '%m/%d %H:%M'
+      date_only: '%Y/%m/%d'

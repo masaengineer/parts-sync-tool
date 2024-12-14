@@ -1,0 +1,40 @@
+ja:
+  products:
+    index:
+      title: 商品一覧
+      search:
+        title: 検索条件
+        oem_part_number: OEM品番
+        international_title: 商品名
+        manufacturer: メーカー
+      table:
+        oem_part_number: OEM品番
+        international_title: 商品名
+        manufacturer: メーカー
+        sku_count: SKU数
+        total_quantity: 総在庫数
+        actions: 操作
+    show:
+      title: 商品詳細
+      basic_info: 基本情報
+      sku_list: SKU一覧
+      table:
+        sku_code: SKUコード
+        quantity: 在庫数
+        net_amount: 純額
+        gross_amount: 総額
+        actions: 操作
+    new:
+      title: 新規商品登録
+    edit:
+      title: 商品編集
+    form:
+      basic_info: 基本情報
+      sku_info: SKU情報
+      add_sku: SKUを追加
+      remove_sku: SKUを削除
+    import:
+      title: 商品一括登録
+      file_select: ファイルを選択
+      template_download: テンプレートをダウンロード
+      instructions: 登録手順

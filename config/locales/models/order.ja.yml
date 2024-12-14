@@ -1,0 +1,27 @@
+ja:
+  activerecord:
+    models:
+      order: 注文
+    attributes:
+      order:
+        order_number: 注文番号
+        sale_date: 注文確定日
+        tracking_number: 追跡番号
+        customer_name: 顧客名
+        shipping_address: 配送先住所
+        order_status: 注文状態
+        payment_status: 支払状態
+        created_at: 作成日時
+        updated_at: 更新日時
+    enums:
+      order:
+        order_status:
+          pending: 処理待ち
+          confirmed: 確認済み
+          shipped: 発送済み
+          delivered: 配達完了
+          cancelled: キャンセル
+        payment_status:
+          unpaid: 未払い
+          paid: 支払済み
+          refunded: 返金済み

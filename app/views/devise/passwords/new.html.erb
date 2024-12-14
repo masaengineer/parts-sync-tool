@@ -1,3 +1,5 @@
+<% content_for :title, t('devise.passwords.new.title') %>
+
 <div class="grid min-h-screen grid-cols-12 overflow-auto">
   <!--  Start: Forgot Password Side Image Panel -->
   <div class="relative hidden bg-[#FFE9D1] dark:bg-[#14181c] lg:col-span-7 lg:block xl:col-span-8 2xl:col-span-9">
@@ -48,44 +50,35 @@
         </button>
         <!--  End: Theme Toggle -->
       </div>
-      <h3 class="mt-8 text-center text-xl font-semibold md:mt-12 lg:mt-24">Forgot Password</h3>
+      <h3 class="mt-8 text-center text-xl font-semibold md:mt-12 lg:mt-24">
+        <%= t('devise.passwords.new.forgot_password') %>
+      </h3>
       <h3 class="mt-2 text-center text-sm text-base-content/70">
-        Seamless Access, Secure Connection: Your Gateway to a Personalized Experience.
+        <%= t('devise.passwords.new.instruction') %>
       </h3>
       <div class="mt-6 md:mt-10">
-        <!--  Start: Forgot Password Form -->
         <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
           <div class="form-control">
-            <label for="email" class="label">
-              <span class="label-text cursor-pointer">Email Address</span>
-            </label>
+            <%= f.label :email, t('activerecord.attributes.user.email'), class: "label" %>
             <div class="form-control flex flex-row items-center rounded-box border border-base-content/20 ps-3">
-              <iconify-icon icon="lucide:mail" height="18" class="text-base-content/80"></iconify-icon>
-              <%= f.email_field :email, placeholder: "Email Address", class: "input input-sm w-full transition-all focus:border-transparent focus:outline-0 focus:outline-offset-0", id: "email" %>
+              <iconify-icon icon="lucide:mail" class="text-base-content/80 w-4 h-4"></iconify-icon>
+              <%= f.email_field :email,
+                  placeholder: t('activerecord.attributes.user.email'),
+                  class: "input input-sm w-full transition-all focus:border-transparent focus:outline-0 focus:outline-offset-0" %>
             </div>
           </div>
-          <div class="mt-4 flex items-center gap-3 md:mt-6">
-            <input
-              id="agreement"
-              class="checkbox-primary checkbox checkbox-xs"
-              type="checkbox"
-              name="agreement" />
-            <label for="agreement">
-              I agree with
-              <span class="cursor-pointer text-primary underline">terms and conditions</span>
-            </label>
-          </div>
-
-          <!--  End: Forgot Password Form -->
 
           <div class="mt-4 md:mt-6">
-            <%= f.submit 'Send a reset link', class: "btn btn-primary btn-block gap-2 text-base" %>
+            <%= f.submit t('devise.passwords.new.send_reset_link'),
+                class: "btn btn-primary btn-block gap-2 text-base" %>
           </div>
         <% end %>
 
         <p class="mt-4 text-center text-sm text-base-content/80 md:mt-6">
-          I have already to
-          <%= link_to "Login", new_session_path(resource_name), class: "text-primary hover:underline" %>
+          <%= t('devise.passwords.new.back_to_login') %>
+          <%= link_to t('devise.shared.links.sign_in'),
+              new_session_path(resource_name),
+              class: "text-primary hover:underline" %>
         </p>
       </div>
     </div>
