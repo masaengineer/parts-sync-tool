@@ -7,7 +7,7 @@ Rails.application.routes.draw do
   resources :plreports, only: [:index]
   root 'landing#index'
 
-  resources :sales_reports, only: [:index]
+  resources :sales_reports, only: [:index, :show]
 
   if Rails.env.development?
     mount LetterOpenerWeb::Engine, at: "/letter_opener"
