@@ -64,4 +64,15 @@ class SalesReportsController < ApplicationController
       end
     end
   end
+
+  def show
+    @order = Order.includes(
+      order_sku_links: {
+        sku: {
+          sku_product_links: :product
+        }
+      }
+    ).find(params[:id])
+    render partial: "order_detail_modal", locals: { order: @order }
+  end
 end
