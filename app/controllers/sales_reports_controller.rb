@@ -10,7 +10,7 @@ class SalesReportsController < ApplicationController
           sku: [:procurements, { sku_product_links: :product }]
         }
       )
-
+      
     # 注文別レポートデータ作成
     @orders_data = @orders.map do |order|
       order_revenue = order.sale&.order_net_amount.to_f
