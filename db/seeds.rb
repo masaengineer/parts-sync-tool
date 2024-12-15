@@ -1,18 +1,20 @@
 # db/seeds.rb
 
-# Clear existing data (開発用の例、必要に応じてコメントアウト)
-User.delete_all
-Manufacturer.delete_all
-Product.delete_all
-Sku.delete_all
+# 依存するもの（子）から順に削除していく
 SkuProductLink.delete_all
-Order.delete_all
 OrderSkuLink.delete_all
 PaymentFee.delete_all
 Procurement.delete_all
 Sale.delete_all
 Shipment.delete_all
 Expense.delete_all
+Sku.delete_all
+Product.delete_all
+Manufacturer.delete_all
+Order.delete_all
+User.delete_all
+
+# ここから再作成
 
 # 1. ユーザー30件作成
 30.times do |i|
@@ -25,15 +27,14 @@ Expense.delete_all
   )
 end
 
-# 2. Manufacturer作成(30件)
+# 2. Manufacturer
 manufacturers = 30.times.map do |i|
   Manufacturer.create!(
     name: "Manufacturer #{i+1}"
   )
 end
 
-# 3. Product作成(30件)
-# ランダムなManufacturerを紐付け
+# 3. Product
 products = 30.times.map do |i|
   Product.create!(
     oem_part_number: "PN-#{i+1}",
@@ -42,7 +43,7 @@ products = 30.times.map do |i|
   )
 end
 
-# 4. SKU作成 (30件)
+# 4. SKU
 skus = 30.times.map do |i|
   Sku.create!(
     sku_code: "SKU-#{i+1}",
@@ -52,8 +53,7 @@ skus = 30.times.map do |i|
   )
 end
 
-# 5. SKUとProductの関連付け(SkuProductLink)
-# シンプルに i番目のproductとi番目のskuを1対1でリンクする例
+# 5. SkuProductLink
 30.times do |i|
   SkuProductLink.create!(
     sku: skus[i],
@@ -61,17 +61,16 @@ end
   )
 end
 
-# 6. Order作成(30件)
+# 6. Order
 orders = 30.times.map do |i|
   Order.create!(
     order_number: "ORDER-#{1000+i}",
     sale_date: Date.today - i.days,
-    tracking_number: "TRACK-#{i+1000}" # トラッキングナンバーをOrderに移動
+
   )
 end
 
-# 7. OrderとSKUの関連付け (OrderSkuLink: 30件)
-# ランダムSKUを1つリンク(複数可)
+# 7. OrderSkuLink
 30.times do |i|
   OrderSkuLink.create!(
     order: orders[i],
@@ -79,7 +78,7 @@ end
   )
 end
 
-# 8. PaymentFee作成 (30件: 各Orderに1つ紐づける)
+# 8. PaymentFee
 30.times do |i|
   PaymentFee.create!(
     order: orders[i],
@@ -88,7 +87,7 @@ end
   )
 end
 
-# 9. Procurement作成 (30件: SKUに紐付け)
+# 9. Procurement
 30.times do |i|
   Procurement.create!(
     sku: skus.sample,
@@ -98,7 +97,7 @@ end
   )
 end
 
-# 10. Sale作成 (30件: Orderに紐づけ)
+# 10. Sale
 30.times do |i|
   Sale.create!(
     order: orders[i],
@@ -107,16 +106,17 @@ end
   )
 end
 
-# 11. Shipment作成 (30件: Orderに紐づけ)
+# 11. Shipment
 30.times do |i|
   Shipment.create!(
     order: orders[i],
     customer_international_shipping: rand(5..20) + rand.round(2),
-    cpass_trade_id: 1000 + i
+    cpass_trade_id: 1000 + i,
+    tracking_number: "TRACK-#{i+1000}"
   )
 end
 
-# 12. Expense作成 (30件)
+# 12. Expense
 30.times do |i|
   Expense.create!(
     year: 2024,

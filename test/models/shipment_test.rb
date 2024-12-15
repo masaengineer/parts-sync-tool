@@ -8,6 +8,7 @@
 #  updated_at                      :datetime         not null
 #  cpass_trade_id                  :integer
 #  order_id                        :bigint
+#  tracking_number                 :string
 #
 # Indexes
 #
