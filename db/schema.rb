@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_12_15_091655) do
+ActiveRecord::Schema[7.2].define(version: 2024_12_17_093910) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -69,17 +69,8 @@ ActiveRecord::Schema[7.2].define(version: 2024_12_15_091655) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "sku_id"
+    t.decimal "handling_fee", precision: 10, scale: 2
     t.index ["sku_id"], name: "index_procurements_on_sku_id"
-  end
-
-  create_table "products", force: :cascade do |t|
-    t.string "oem_part_number"
-    t.string "international_title"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.bigint "manufacturer_id", null: false
-    t.index ["manufacturer_id"], name: "index_products_on_manufacturer_id"
-    t.index ["oem_part_number"], name: "index_products_on_oem_part_number"
   end
 
   create_table "sales", force: :cascade do |t|
@@ -101,16 +92,6 @@ ActiveRecord::Schema[7.2].define(version: 2024_12_15_091655) do
     t.index ["order_id"], name: "index_shipments_on_order_id"
   end
 
-  create_table "sku_product_links", force: :cascade do |t|
-    t.bigint "sku_id", null: false
-    t.bigint "product_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["product_id"], name: "index_sku_product_links_on_product_id"
-    t.index ["sku_id", "product_id"], name: "index_sku_product_links_on_sku_id_and_product_id", unique: true
-    t.index ["sku_id"], name: "index_sku_product_links_on_sku_id"
-  end
-
   create_table "skus", force: :cascade do |t|
     t.string "sku_code"
     t.datetime "created_at", null: false
@@ -118,6 +99,9 @@ ActiveRecord::Schema[7.2].define(version: 2024_12_15_091655) do
     t.integer "quantity"
     t.decimal "sku_net_amount", precision: 10, scale: 2
     t.decimal "sku_gross_amount", precision: 10, scale: 2
+    t.string "international_title"
+    t.bigint "manufacturer_id", null: false
+    t.index ["manufacturer_id"], name: "index_skus_on_manufacturer_id"
     t.index ["sku_code"], name: "index_skus_on_sku_code"
     t.index ["sku_gross_amount"], name: "index_skus_on_sku_gross_amount"
     t.index ["sku_net_amount"], name: "index_skus_on_sku_net_amount"
@@ -142,8 +126,6 @@ ActiveRecord::Schema[7.2].define(version: 2024_12_15_091655) do
   add_foreign_key "order_sku_links", "skus"
   add_foreign_key "payment_fees", "orders"
   add_foreign_key "procurements", "skus"
-  add_foreign_key "products", "manufacturers"
   add_foreign_key "sales", "orders"
-  add_foreign_key "sku_product_links", "products"
-  add_foreign_key "sku_product_links", "skus"
+  add_foreign_key "skus", "manufacturers"
 end

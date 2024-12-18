@@ -2,27 +2,32 @@
 #
 # Table name: skus
 #
-#  id               :bigint           not null, primary key
-#  sku_code         :string
-#  created_at       :datetime         not null
-#  updated_at       :datetime         not null
-#  quantity         :integer
-#  sku_net_amount   :decimal(10, 2)
-#  sku_gross_amount :decimal(10, 2)
+#  id                  :bigint           not null, primary key
+#  sku_code            :string
+#  created_at          :datetime         not null
+#  updated_at          :datetime         not null
+#  quantity            :integer
+#  sku_net_amount      :decimal(10, 2)
+#  sku_gross_amount    :decimal(10, 2)
+#  international_title :string
+#  manufacturer_id     :bigint           not null
 #
 # Indexes
 #
+#  index_skus_on_manufacturer_id   (manufacturer_id)
 #  index_skus_on_sku_code          (sku_code)
 #  index_skus_on_sku_gross_amount  (sku_gross_amount)
 #  index_skus_on_sku_net_amount    (sku_net_amount)
 #
+# Foreign Keys
+#
+#  fk_rails_...  (manufacturer_id => manufacturers.id)
+#
 class Sku < ApplicationRecord
   has_many :order_sku_links
   has_many :orders, through: :order_sku_links
-  has_many :sku_product_links
-  has_many :products, through: :sku_product_links
   has_many :procurements
-
+  belongs_to :manufacturer
   validates :sku_code, presence: true, uniqueness: true
 
   def self.ransackable_attributes(auth_object = nil)

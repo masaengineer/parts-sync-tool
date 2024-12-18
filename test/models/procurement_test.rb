@@ -9,6 +9,7 @@
 #  created_at     :datetime         not null
 #  updated_at     :datetime         not null
 #  sku_id         :bigint
+#  handling_fee   :decimal(10, 2)
 #
 # Indexes
 #

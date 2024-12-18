@@ -9,6 +9,7 @@
 #  created_at     :datetime         not null
 #  updated_at     :datetime         not null
 #  sku_id         :bigint
+#  handling_fee   :decimal(10, 2)
 #
 # Indexes
 #
@@ -24,5 +25,6 @@ class Procurement < ApplicationRecord
   validates :purchase_price, presence: true, numericality: { greater_than_or_equal_to: 0 }
   validates :forwarding_fee, presence: true, numericality: { greater_than_or_equal_to: 0 }
   validates :photo_fee, presence: true, numericality: { greater_than_or_equal_to: 0 }
+  validates :handling_fee, presence: true, numericality: { greater_than_or_equal_to: 0 }
   validates :sku_id, presence: true
 end

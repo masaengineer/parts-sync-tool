@@ -1,7 +1,6 @@
 # db/seeds.rb
 
 # 依存するもの（子）から順に削除していく
-SkuProductLink.delete_all
 OrderSkuLink.delete_all
 PaymentFee.delete_all
 Procurement.delete_all
@@ -9,10 +8,9 @@ Sale.delete_all
 Shipment.delete_all
 Expense.delete_all
 Sku.delete_all
-Product.delete_all
-Manufacturer.delete_all
 Order.delete_all
 User.delete_all
+Manufacturer.delete_all
 
 # ここから再作成
 
@@ -28,49 +26,29 @@ User.delete_all
 end
 
 # 2. Manufacturer
-manufacturers = 30.times.map do |i|
-  Manufacturer.create!(
-    name: "Manufacturer #{i+1}"
-  )
-end
+manufacturer = Manufacturer.create!(name: "Example Manufacturer")
 
-# 3. Product
-products = 30.times.map do |i|
-  Product.create!(
-    oem_part_number: "PN-#{i+1}",
-    international_title: "Product #{i+1}",
-    manufacturer: manufacturers.sample
-  )
-end
-
-# 4. SKU
+# 3. SKU
 skus = 30.times.map do |i|
   Sku.create!(
     sku_code: "SKU-#{i+1}",
     quantity: rand(10..100),
     sku_net_amount: rand(10..100) + rand.round(2),
-    sku_gross_amount: rand(10..150) + rand.round(2)
+    sku_gross_amount: rand(10..150) + rand.round(2),
+    international_title: "Product #{i+1}",
+    manufacturer: manufacturer
   )
 end
 
-# 5. SkuProductLink
-30.times do |i|
-  SkuProductLink.create!(
-    sku: skus[i],
-    product: products[i]
-  )
-end
-
-# 6. Order
+# 4. Order
 orders = 30.times.map do |i|
   Order.create!(
     order_number: "ORDER-#{1000+i}",
-    sale_date: Date.today - i.days,
-
+    sale_date: Date.today - i.days
   )
 end
 
-# 7. OrderSkuLink
+# 5. OrderSkuLink
 30.times do |i|
   OrderSkuLink.create!(
     order: orders[i],
@@ -78,7 +56,7 @@ end
   )
 end
 
-# 8. PaymentFee
+# 6. PaymentFee
 30.times do |i|
   PaymentFee.create!(
     order: orders[i],
@@ -87,7 +65,7 @@ end
   )
 end
 
-# 9. Procurement
+# 7. Procurement
 30.times do |i|
   Procurement.create!(
     sku: skus.sample,
@@ -97,7 +75,7 @@ end
   )
 end
 
-# 10. Sale
+# 8. Sale
 30.times do |i|
   Sale.create!(
     order: orders[i],
@@ -106,7 +84,7 @@ end
   )
 end
 
-# 11. Shipment
+# 9. Shipment
 30.times do |i|
   Shipment.create!(
     order: orders[i],
@@ -116,7 +94,7 @@ end
   )
 end
 
-# 12. Expense
+# 10. Expense
 30.times do |i|
   Expense.create!(
     year: 2024,

@@ -3,7 +3,6 @@ erDiagram
         int id PK "インデックス"
         string order_number "注文番号"
         date sale_date "注文確定日"
-        string tracking_number "追跡番号"
         datetime created_at "作成日時"
         datetime updated_at "更新日時"
         index order_number "インデックス"
@@ -15,6 +14,7 @@ erDiagram
         int sku_id FK "SKUID"
         datetime created_at "作成日時"
         datetime updated_at "更新日時"
+        index order_id,sku_id "複合インデックス(unique)"
         index order_id "インデックス"
         index sku_id "インデックス"
     }
@@ -23,33 +23,16 @@ erDiagram
         int id PK "インデックス"
         string sku_code "SKUコード"
         int quantity "数量"
-        decimal sku_net_amount "SKU net価格"
-        decimal sku_gross_amount "SKU gross価格"
+        decimal(10,2) sku_net_amount "SKU net価格"
+        decimal(10,2) sku_gross_amount "SKU gross価格"
+        string international_title "商品タイトル"
+        int manufacturer_id FK "メーカーID"
         datetime created_at "作成日時"
         datetime updated_at "更新日時"
         index sku_code "インデックス"
         index sku_net_amount "インデックス"
         index sku_gross_amount "インデックス"
-    }
-
-    Sku_Product_Links {
-        int id PK "インデックス"
-        int sku_id FK "SKUID"
-        int product_id FK "商品ID"
-        datetime created_at "作成日時"
-        datetime updated_at "更新日時"
-        index sku_id "インデックス"
-        index product_id "インデックス"
-    }
-
-    Products {
-        int id PK "インデックス"
-        string oem_part_number "OEM品番"
-        string international_title "商品タイトル"
-        int manufacturer_id FK "メーカーID"
-        datetime created_at "作成日時"
-        datetime updated_at "更新日時"
-        index oem_part_number "インデックス"
+        index manufacturer_id "インデックス"
     }
 
     Manufacturers {
@@ -62,10 +45,13 @@ erDiagram
 
     Shipments {
         int id PK "インデックス"
+        int order_id FK "注文ID"
         int cpass_trade_id "CpassトレードID"
+        string tracking_number "追跡番号"
         decimal customer_international_shipping "国際配送料"
         datetime created_at "作成日時"
         datetime updated_at "更新日時"
+        index order_id "インデックス"
     }
 
     Procurements {
@@ -74,8 +60,10 @@ erDiagram
         decimal purchase_price "仕入価格"
         decimal forwarding_fee "発送拠点までの輸送料"
         decimal photo_fee "写真撮影料"
+        decimal handling_fee "手数料"
         datetime created_at "作成日時"
         datetime updated_at "更新日時"
+        index sku_id "インデックス"
     }
 
     Sales {
@@ -85,6 +73,7 @@ erDiagram
         decimal order_gross_amount "注文gross価格"
         datetime created_at "作成日時"
         datetime updated_at "更新日時"
+        index order_id "インデックス"
     }
 
     PaymentFees {
@@ -94,6 +83,7 @@ erDiagram
         decimal fee_amount "手数料金額"
         datetime created_at "作成日時"
         datetime updated_at "更新日時"
+        index order_id "インデックス"
     }
 
     Expenses {
@@ -118,13 +108,14 @@ erDiagram
         string profile_picture_url "プロフィール画像URL"
         datetime created_at "作成日時"
         datetime updated_at "更新日時"
+        index email "unique"
+        index reset_password_token "unique"
     }
 
-    Orders ||--o{ Order_sku_links : "id"
-    Order_sku_links }o--|| SKUs : "sku_id"
-    SKUs ||--o{ Sku_Product_Links : "sku_id"
-    Sku_Product_Links }o--|| Products : "product_id"
-    Orders ||--o{ Sales : "order_id"
-    Orders ||--o{ PaymentFees : "order_id"
-    Manufacturers ||--o{ Products : "manufacturer_id"
-    SKUs ||--o{ Procurements : "sku_id"
+    Orders ||--o{ Order_sku_links : "has many"
+    Orders ||--o{ Shipments : "has many"
+    Order_sku_links }o--|| SKUs : "belongs to"
+    Orders ||--o{ Sales : "has many"
+    Orders ||--o{ PaymentFees : "has many"
+    Manufacturers ||--o{ SKUs : "has many"
+    SKUs ||--o{ Procurements : "has many"

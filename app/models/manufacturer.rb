@@ -12,5 +12,7 @@
 #  index_manufacturers_on_name  (name)
 #
 class Manufacturer < ApplicationRecord
-  has_many :products
+  has_many :skus
+
+  validates :name, presence: true, uniqueness: true
 end
