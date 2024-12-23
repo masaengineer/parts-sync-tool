@@ -10,7 +10,7 @@
 #  sku_net_amount      :decimal(10, 2)
 #  sku_gross_amount    :decimal(10, 2)
 #  international_title :string
-#  manufacturer_id     :bigint           not null
+#  manufacturer_id     :bigint
 #
 # Indexes
 #

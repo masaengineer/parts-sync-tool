@@ -1,0 +1,17 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "rdbg",
+      "name": "Rails Server Debug",
+      "request": "launch",
+      "command": "bundle",
+      "script": "exec",
+      "args": ["rails", "s"],
+      "useBundler": true,
+      "env": {
+        "RUBY_DEBUG_OPEN": "true"
+      }
+    }
+  ]
+}

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_12_17_093910) do
+ActiveRecord::Schema[7.2].define(version: 2024_12_20_095939) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -68,9 +68,9 @@ ActiveRecord::Schema[7.2].define(version: 2024_12_17_093910) do
     t.decimal "photo_fee"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "sku_id"
+    t.bigint "order_id", null: false
     t.decimal "handling_fee", precision: 10, scale: 2
-    t.index ["sku_id"], name: "index_procurements_on_sku_id"
+    t.index ["order_id"], name: "index_procurements_on_order_id", unique: true
   end
 
   create_table "sales", force: :cascade do |t|
@@ -100,7 +100,7 @@ ActiveRecord::Schema[7.2].define(version: 2024_12_17_093910) do
     t.decimal "sku_net_amount", precision: 10, scale: 2
     t.decimal "sku_gross_amount", precision: 10, scale: 2
     t.string "international_title"
-    t.bigint "manufacturer_id", null: false
+    t.bigint "manufacturer_id"
     t.index ["manufacturer_id"], name: "index_skus_on_manufacturer_id"
     t.index ["sku_code"], name: "index_skus_on_sku_code"
     t.index ["sku_gross_amount"], name: "index_skus_on_sku_gross_amount"
@@ -125,7 +125,7 @@ ActiveRecord::Schema[7.2].define(version: 2024_12_17_093910) do
   add_foreign_key "order_sku_links", "orders"
   add_foreign_key "order_sku_links", "skus"
   add_foreign_key "payment_fees", "orders"
-  add_foreign_key "procurements", "skus"
+  add_foreign_key "procurements", "orders"
   add_foreign_key "sales", "orders"
   add_foreign_key "skus", "manufacturers"
 end

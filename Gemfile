@@ -57,6 +57,8 @@ group :development, :test do
 
   gem 'faker'  # テストデータを生成するためのgem
   gem 'factory_bot_rails'  # テストデータを生成するためのgem
+  gem 'pry-rails'
+  gem 'pry-byebug'
 end
 
 group :development do

@@ -17,8 +17,12 @@ class EbaySalesReportImporter
       # Orderが存在しなければ新規作成
       # 既にebaytransactionreportで作成済みならfindで取得される
       order = Order.find_or_create_by!(order_number: order_number)
+
+      # Orderに紐づくShipmentを検索、存在しなければ新規作成
+      shipment = order.shipment || order.build_shipment
       # トラッキングナンバー更新
-      order.update!(tracking_number: tracking_number)
+      shipment.tracking_number = tracking_number
+      shipment.save!
     end
   end
 end
