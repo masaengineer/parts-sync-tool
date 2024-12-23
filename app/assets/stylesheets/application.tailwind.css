@@ -10,7 +10,7 @@
 }
 
 body {
-    font-family: var(--body-font-family), serif;
+    font-family: var(--body-font-family), sans-serif;
 }
 
 /* Custom Styling */
