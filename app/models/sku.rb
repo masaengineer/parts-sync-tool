@@ -10,7 +10,7 @@
 #  sku_net_amount      :decimal(10, 2)
 #  sku_gross_amount    :decimal(10, 2)
 #  international_title :string
-#  manufacturer_id     :bigint           not null
+#  manufacturer_id     :bigint
 #
 # Indexes
 #
@@ -26,8 +26,7 @@
 class Sku < ApplicationRecord
   has_many :order_sku_links
   has_many :orders, through: :order_sku_links
-  has_many :procurements
-  belongs_to :manufacturer
+  belongs_to :manufacturer, optional: true
   validates :sku_code, presence: true, uniqueness: true
 
   def self.ransackable_attributes(auth_object = nil)
@@ -42,6 +41,6 @@ class Sku < ApplicationRecord
   end
 
   def self.ransackable_associations(auth_object = nil)
-    %w[order_sku_links orders procurements sku_product_links products]
+    %w[order_sku_links orders manufacturer]
   end
 end

@@ -1,49 +1,72 @@
 class PlreportsController < ApplicationController
   def index
     year = params[:year].presence || Date.today.year
-    # 該当年の注文を取得
+
+    # 指定年の注文を取得
     orders = Order.where("extract(year from sale_date) = ?", year)
-      .includes(
-        :sale,
-        :shipment,
-        :payment_fees,
-        order_sku_links: { sku: [:procurements] }
-      )
+                  .includes(
+                    :sale,
+                    :shipment,
+                    :payment_fees,
+                    order_sku_links: { sku: [:procurements] }
+                  )
 
     # 月別に集計するための初期化（1～12月分のハッシュを用意）
     @monthly_data = (1..12).map do |month|
-      { month: month, revenue: 0, procurement_cost: 0, shipping_cost: 0, payment_fees: 0, expenses: 0 }
+      {
+        month: month,
+        revenue: 0,
+        procurement_cost: 0,
+        shipping_cost: 0,
+        payment_fees: 0,
+        expenses: 0
+      }
     end
 
-    # 月ごとにOrderを集計
+    # 各OrderをReportCalculatorで計算して月別に集計
     orders.each do |order|
       next unless order.sale_date.present?
+
+      # 売上日が何月か
       month = order.sale_date.month
       data = @monthly_data[month - 1]
 
-      # 売上高
-      revenue = order.sale&.order_net_amount.to_f
-      # 支払手数料合計
-      payment_fees = order.payment_fees.sum(&:fee_amount).to_f
-      # 送料
-      shipping_cost = order.shipment&.customer_international_shipping.to_f
+      # サービスクラスで計算
+      calc_result = ReportCalculator.new(order).calculate
+      # calc_resultの中身:
+      # {
+      #   order: order,
+      #   revenue: ... (USD),
+      #   payment_fees: ... (USD),
+      #   shipping_cost: ... (円),
+      #   procurement_cost: ... (円),
+      #   quantity: ...,
+      #   profit: ... (円),
+      #   profit_rate: ... (％)
+      # }
 
-      # 原価計算（SKU経由でProcurementを参照する）
-      procurement_cost = order.order_sku_links.sum do |osl|
-        # 原価要素はモデルによって変わるがここではpurchase_price + forwarding_fee + photo_feeと仮定
-        osl.sku.procurements.sum { |p| p.purchase_price.to_f + p.forwarding_fee.to_f + p.photo_fee.to_f }
-      end
+      # ここで月別合計に足し込む。
+      # ただしPLレポートでは「売上高(revenue)」「原価(procurement_cost)」「送料(shipping_cost)」「手数料(payment_fees)」は円換算後を使う方が一貫する場合も。
+      # しかし、本例では売上と手数料を「ドル→円換算した値」を足し込むならcalc_result[:profit]やcalc_result[:profit_rate]だけではなく、内訳の円換算値を取り出す必要がある。
+      # ここではサンプルとして calc_result[:profit] や calc_result[:profit_rate] ではなく、calc_result[:procurement_cost], calc_result[:shipping_cost]などを足す例にする。
 
-      # 集計を足し込む
-      data[:revenue]           += revenue
-      data[:payment_fees]      += payment_fees
-      data[:shipping_cost]     += shipping_cost
-      data[:procurement_cost]  += procurement_cost
+      # 売上(revenue)はcalc_result[:revenue](USD)に対して 140倍した値を加算
+      revenue_jpy = calc_result[:revenue] * ReportCalculator::USD_TO_JPY
+      data[:revenue] += revenue_jpy
+
+      # 手数料も同様にドルを円換算
+      payment_fees_jpy = calc_result[:payment_fees] * ReportCalculator::USD_TO_JPY
+      data[:payment_fees] += payment_fees_jpy
+
+      # 送料(円)
+      data[:shipping_cost] += calc_result[:shipping_cost]
+
+      # 原価(円)
+      data[:procurement_cost] += calc_result[:procurement_cost]
     end
 
     # 販管費(Expensesテーブル)を年・月別に集計
     expenses_by_month = Expense.where(year: year).group(:month).sum(:amount)
-
     @monthly_data.each do |data|
       m = data[:month]
       data[:expenses] = expenses_by_month[m].to_f if expenses_by_month.key?(m)

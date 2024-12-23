@@ -8,19 +8,23 @@
 #  photo_fee      :decimal(, )
 #  created_at     :datetime         not null
 #  updated_at     :datetime         not null
-#  sku_id         :bigint
 #  handling_fee   :decimal(10, 2)
+#  order_id       :bigint           not null
 #
 # Indexes
 #
-#  index_procurements_on_sku_id  (sku_id)
+#  index_procurements_on_order_id  (order_id) UNIQUE
 #
 # Foreign Keys
 #
-#  fk_rails_...  (sku_id => skus.id)
+#  fk_rails_...  (order_id => orders.id)
 #
 FactoryBot.define do
   factory :procurement do
-    
+    order
+    purchase_price { "9.99" }
+    forwarding_fee { "9.99" }
+    photo_fee { "9.99" }
+    handling_fee { "9.99" }
   end
 end

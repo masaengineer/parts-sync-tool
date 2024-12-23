@@ -14,7 +14,6 @@ erDiagram
         int sku_id FK "SKUID"
         datetime created_at "作成日時"
         datetime updated_at "更新日時"
-        index order_id,sku_id "複合インデックス(unique)"
         index order_id "インデックス"
         index sku_id "インデックス"
     }
@@ -23,8 +22,8 @@ erDiagram
         int id PK "インデックス"
         string sku_code "SKUコード"
         int quantity "数量"
-        decimal(10,2) sku_net_amount "SKU net価格"
-        decimal(10,2) sku_gross_amount "SKU gross価格"
+        decimal sku_net_amount "SKU net価格"
+        decimal sku_gross_amount "SKU gross価格"
         string international_title "商品タイトル"
         int manufacturer_id FK "メーカーID"
         datetime created_at "作成日時"
@@ -56,14 +55,14 @@ erDiagram
 
     Procurements {
         int id PK "インデックス"
-        int sku_id FK "SKUID"
+        int order_id FK "注文ID"
         decimal purchase_price "仕入価格"
         decimal forwarding_fee "発送拠点までの輸送料"
         decimal photo_fee "写真撮影料"
         decimal handling_fee "手数料"
         datetime created_at "作成日時"
         datetime updated_at "更新日時"
-        index sku_id "インデックス"
+        index order_id "インデックス (unique)"
     }
 
     Sales {
@@ -118,4 +117,4 @@ erDiagram
     Orders ||--o{ Sales : "has many"
     Orders ||--o{ PaymentFees : "has many"
     Manufacturers ||--o{ SKUs : "has many"
-    SKUs ||--o{ Procurements : "has many"
+    Orders ||--|| Procurements : "has one"

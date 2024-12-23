@@ -15,6 +15,15 @@
 #  index_shipments_on_order_id  (order_id)
 #
 class Shipment < ApplicationRecord
-  belongs_to :order
+  belongs_to :order, optional: true
+
+  def self.ransackable_attributes(auth_object = nil)
+    %w[
+      tracking_number
+      customer_international_shipping
+      created_at
+      updated_at
+    ]
+  end
 end
 
