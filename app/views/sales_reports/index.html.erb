@@ -1,170 +1,148 @@
-<h2 class="text-2xl font-bold mb-6">注文別レポート</h2>
+<%# ページヘッダー %>
+<div class="container mx-auto px-4 py-8">
+  <h2 class="text-2xl font-bold mb-8 text-base-content">注文別レポート</h2>
 
-<div class="mb-6 bg-base-200 p-4 rounded-lg">
-  <%= search_form_for @q, url: sales_reports_path do |f| %>
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-      <%# 基本検索フィールド %>
-      <div>
-        <%= f.label :order_number_cont, "注文番号", class: "label" %>
-        <%= f.search_field :order_number_cont, class: "input input-bordered w-full" %>
-      </div>
+  <%# 検索フォーム %>
+  <div class="card bg-base-100 shadow-xl mb-8">
+    <div class="card-body space-y-6">
+      <%= search_form_for @q, url: sales_reports_path do |f| %>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div class="form-control w-full">
+            <%= f.label :order_number_cont, "注文番号", class: "label font-medium" %>
+            <%= f.search_field :order_number_cont, class: "input input-bordered w-full focus:input-primary" %>
+          </div>
 
-      <%# 追跡番号検索フィールドを追加 %>
-      <div>
-        <%= f.label :shipment_tracking_number_cont, "追跡番号", class: "label" %>
-        <%= f.search_field :shipment_tracking_number_cont, class: "input input-bordered w-full" %>
-      </div>
+          <div class="form-control w-full">
+            <%= f.label :shipment_tracking_number_cont, "追跡番号", class: "label font-medium" %>
+            <%= f.search_field :shipment_tracking_number_cont, class: "input input-bordered w-full focus:input-primary" %>
+          </div>
 
-      <%# SKU検索 %>
-      <div>
-        <%= f.label :order_sku_links_sku_sku_code_cont, "SKUコード", class: "label" %>
-        <%= f.search_field :order_sku_links_sku_sku_code_cont, class: "input input-bordered w-full" %>
-      </div>
+          <div class="form-control w-full">
+            <%= f.label :order_sku_links_sku_sku_code_cont, "SKUコード", class: "label font-medium" %>
+            <%= f.search_field :order_sku_links_sku_sku_code_cont, class: "input input-bordered w-full focus:input-primary" %>
+          </div>
 
-      <%# 日付範囲検索 %>
-      <div>
-        <%= f.label :sale_date_gteq, "販売日（から）", class: "label" %>
-        <%= f.date_field :sale_date_gteq, class: "input input-bordered w-full" %>
-      </div>
+          <div class="form-control w-full">
+            <%= f.label :sale_date_gteq, "販売日（から）", class: "label font-medium" %>
+            <%= f.date_field :sale_date_gteq, class: "input input-bordered w-full focus:input-primary" %>
+          </div>
 
-      <div>
-        <%= f.label :sale_date_lteq, "販売日（まで）", class: "label" %>
-        <%= f.date_field :sale_date_lteq, class: "input input-bordered w-full" %>
-      </div>
+          <div class="form-control w-full">
+            <%= f.label :sale_date_lteq, "販売日（まで）", class: "label font-medium" %>
+            <%= f.date_field :sale_date_lteq, class: "input input-bordered w-full focus:input-primary" %>
+          </div>
 
-      <%# 金額範囲検索 %>
-      <div>
-        <%= f.label :sale_order_net_amount_gteq, "売上金額（以上）", class: "label" %>
-        <%= f.number_field :sale_order_net_amount_gteq, class: "input input-bordered w-full" %>
-      </div>
+          <div class="form-control w-full">
+            <%= f.label :sale_order_net_amount_gteq, "売上金額（以上）", class: "label font-medium" %>
+            <%= f.number_field :sale_order_net_amount_gteq, class: "input input-bordered w-full focus:input-primary" %>
+          </div>
 
-      <div>
-        <%= f.label :sale_order_net_amount_lteq, "売上金額（以下）", class: "label" %>
-        <%= f.number_field :sale_order_net_amount_lteq, class: "input input-bordered w-full" %>
-      </div>
+          <div class="form-control w-full">
+            <%= f.label :sale_order_net_amount_lteq, "売上金額（以下）", class: "label font-medium" %>
+            <%= f.number_field :sale_order_net_amount_lteq, class: "input input-bordered w-full focus:input-primary" %>
+          </div>
+        </div>
+
+        <div class="mt-8 flex justify-end gap-3">
+          <%= link_to "リセット", sales_reports_path, class: "btn btn-ghost hover:btn-error" %>
+          <%= f.submit "検索", class: "btn btn-primary" %>
+        </div>
+      <% end %>
     </div>
+  </div>
 
-    <div class="mt-6 flex justify-end gap-2">
-      <%= link_to "リセット", sales_reports_path, class: "btn btn-ghost" %>
-      <%= f.submit "検索", class: "btn btn-primary" %>
+  <%# CSVインポートフォーム %>
+  <div class="card bg-base-100 shadow-xl mb-8">
+    <div class="card-body">
+      <h3 class="card-title text-base-content mb-6">CSVファイルインポート</h3>
+      <%= form_with url: import_data_imports_path, local: true, method: :post, multipart: true do |f| %>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div class="form-control w-full">
+            <%= f.label :import_type, "インポート種別", class: "label font-medium" %>
+            <%= f.select :import_type, [
+              ["Filtered Data Sheet", "filtered_data_sheet"],
+              ["eBay Sales Report", "ebay_sales_report"],
+              ["Cpass Shipping Cost", "cpass_shipping_cost"],
+              ["eBay Transaction Report", "ebay_transaction_report"]
+            ], {}, { class: "select select-bordered w-full focus:select-primary" } %>
+          </div>
+
+          <div class="form-control w-full">
+            <%= f.label :file, "CSVファイル", class: "label font-medium" %>
+            <%= f.file_field :file, class: "file-input file-input-bordered w-full focus:file-input-primary", accept: ".csv" %>
+          </div>
+        </div>
+
+        <div class="mt-6">
+          <%= f.submit "インポート", class: "btn btn-primary" %>
+        </div>
+      <% end %>
     </div>
-  <% end %>
+  </div>
+
+  <%# データテーブル %>
+  <div class="card bg-base-100 shadow-xl overflow-x-auto">
+    <div class="card-body p-0">
+      <table class="table table-zebra w-full">
+        <thead>
+          <tr>
+            <th class="bg-base-200/50 font-bold">販売日</th>
+            <th class="bg-base-200/50 font-bold whitespace-nowrap">注文番号</th>
+            <th class="bg-base-200/50 font-bold">SKU</th>
+            <th class="bg-base-200/50 font-bold">商品名</th>
+            <th class="bg-base-200/50 font-bold text-right">売上（ドル）</th>
+            <th class="bg-base-200/50 font-bold text-right">手数料（ドル）</th>
+            <th class="bg-base-200/50 font-bold text-right">送料（円）</th>
+            <th class="bg-base-200/50 font-bold text-right">仕入原価（円）</th>
+            <th class="bg-base-200/50 font-bold text-right">その他原価（円）</th>
+            <th class="bg-base-200/50 font-bold text-right">販売個数</th>
+            <th class="bg-base-200/50 font-bold text-right">利益（円）</th>
+            <th class="bg-base-200/50 font-bold text-right">利益率(%)</th>
+            <th class="bg-base-200/50 font-bold">追跡番号</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @orders_data.each do |data| %>
+            <tr class="hover:bg-base-200/30">
+              <td><%= l(data[:sale_date], format: :default) if data[:sale_date] %></td>
+              <td class="whitespace-nowrap font-medium"><%= data[:order].order_number %></td>
+              <td class="max-w-[200px] truncate" title="<%= data[:sku_codes] %>">
+                <%= data[:sku_codes] %>
+              </td>
+              <td class="max-w-[200px] truncate" title="<%= data[:product_names] %>">
+                <%= data[:product_names] %>
+              </td>
+              <td class="text-right font-medium">
+                <%= number_to_currency(data[:revenue], unit: '$', precision: 2, format: '%u%n') %>
+              </td>
+              <td class="text-right text-error">
+                <%= number_to_currency(data[:payment_fees], unit: '$', precision: 2, format: '%u%n') %>
+              </td>
+              <td class="text-right text-error">
+                <%= number_to_currency(data[:shipping_cost], unit: '¥', precision: 0, format: '%u%n') %>
+              </td>
+              <td class="text-right text-error">
+                <%= number_to_currency(data[:procurement_cost], unit: '¥', precision: 0, format: '%u%n') %>
+              </td>
+              <td class="text-right text-error">
+                <%= number_to_currency(data[:other_costs], unit: '¥', precision: 0, format: '%u%n') %>
+              </td>
+              <td class="text-right font-medium"><%= data[:quantity] %></td>
+              <td class="text-right font-bold text-success">
+                <%= number_to_currency(data[:profit], unit: '¥', precision: 0, format: '%u%n') %>
+              </td>
+              <td class="text-right font-medium">
+                <%= number_with_precision(data[:profit_rate], precision: 1) %>%
+              </td>
+              <td class="whitespace-nowrap font-medium"><%= data[:tracking_number] %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="mt-6">
+    <%= paginate @orders %>
+  </div>
 </div>
-
-<!-- CSVインポートフォーム追加部分 -->
-<div class="mb-6 bg-base-200 p-4 rounded-lg">
-  <h3 class="text-xl font-bold mb-4">CSVファイルインポート</h3>
-  <%= form_with url: import_data_imports_path, local: true, method: :post, multipart: true do |f| %>
-    <div class="form-control">
-      <%= f.label :import_type, "インポート種別", class: "label" %>
-      <%= f.select :import_type, [
-        ["Filtered Data Sheet", "filtered_data_sheet"],
-        ["eBay Sales Report", "ebay_sales_report"],
-        ["Cpass Shipping Cost", "cpass_shipping_cost"],
-        ["eBay Transaction Report", "ebay_transaction_report"]
-      ], {}, { class: "select select-bordered w-full" } %>
-    </div>
-
-    <div class="form-control mt-4">
-      <%= f.label :file, "CSVファイル", class: "label" %>
-      <%= f.file_field :file, class: "file-input file-input-bordered w-full max-w-xs", accept: ".csv" %>
-    </div>
-
-    <div class="mt-6">
-      <%= f.submit "インポート", class: "btn btn-primary" %>
-    </div>
-  <% end %>
-</div>
-
-<table class="table w-full">
-  <thead>
-    <tr>
-      <th>販売日</th>
-      <th class="whitespace-nowrap">注文番号</th>
-      <th>SKU</th>
-      <th>商品名</th>
-      <th>売上（ドル）</th>
-      <th>手数料（ドル）</th>
-      <th>送料（円）</th>
-      <th>仕入原価（円）</th>
-      <th>その他原価（円）</th>
-      <th>販売個数</th>
-      <th>利益（円）</th>
-      <th>利益率(%)</th>
-      <th>追跡番号</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @orders_data.each do |data| %>
-      <tr class="order-row whitespace-nowrap" data-order-id="<%= data[:order].id %>">
-        <td><%= l(data[:sale_date], format: :default) if data[:sale_date] %></td>
-        <td><%= data[:order].order_number %></td>
-        <td class="max-w-[200px] truncate" title="<%= data[:sku_codes] %>">
-          <%= data[:sku_codes] %>
-        </td>
-        <td class="max-w-[200px] truncate" title="<%= data[:product_names] %>">
-          <%= data[:product_names] %>
-        </td>
-        <td>
-          <%= number_to_currency(
-                data[:revenue],
-                unit: '$',
-                precision: 2,
-                format: '%u%n'
-              ) %>
-        </td>
-        <td>
-          <%= number_to_currency(
-                data[:payment_fees],
-                unit: '$',
-                precision: 2,
-                format: '%u%n'
-              ) %>
-        </td>
-        <td>
-          <%= number_to_currency(
-                data[:shipping_cost],
-                unit: '¥',
-                precision: 0,
-                format: '%u%n'
-              ) %>
-        </td>
-        <td>
-          <%= number_to_currency(
-                data[:procurement_cost],
-                unit: '¥',
-                precision: 0,
-                format: '%u%n'
-              ) %>
-        </td>
-        <td>
-          <%= number_to_currency(
-                data[:other_costs],
-                unit: '¥',
-                precision: 0,
-                format: '%u%n'
-              ) %>
-        </td>
-        <td><%= data[:quantity] %></td>
-        <td>
-          <%= number_to_currency(
-                data[:profit],
-                unit: '¥',
-                precision: 0,
-                format: '%u%n'
-              ) %>
-        </td>
-        <td>
-          <%= number_with_precision(
-                data[:profit_rate],
-                precision: 1,
-                format: '%u%n'
-              ) %>%
-        </td>
-        <td><%= data[:tracking_number] %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<%= paginate @orders %>
