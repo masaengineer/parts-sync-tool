@@ -1,4 +1,6 @@
 class PlreportsController < ApplicationController
+  include ExchangeRateConcern
+
   def index
     year = params[:year].presence || Date.today.year
 
@@ -8,7 +10,8 @@ class PlreportsController < ApplicationController
                     :sale,
                     :shipment,
                     :payment_fees,
-                    order_sku_links: { sku: [:procurements] }
+                    :procurement,
+                    order_sku_links: :sku
                   )
 
     # 月別に集計するための初期化（1～12月分のハッシュを用意）
@@ -33,29 +36,13 @@ class PlreportsController < ApplicationController
 
       # サービスクラスで計算
       calc_result = ReportCalculator.new(order).calculate
-      # calc_resultの中身:
-      # {
-      #   order: order,
-      #   revenue: ... (USD),
-      #   payment_fees: ... (USD),
-      #   shipping_cost: ... (円),
-      #   procurement_cost: ... (円),
-      #   quantity: ...,
-      #   profit: ... (円),
-      #   profit_rate: ... (％)
-      # }
 
-      # ここで月別合計に足し込む。
-      # ただしPLレポートでは「売上高(revenue)」「原価(procurement_cost)」「送料(shipping_cost)」「手数料(payment_fees)」は円換算後を使う方が一貫する場合も。
-      # しかし、本例では売上と手数料を「ドル→円換算した値」を足し込むならcalc_result[:profit]やcalc_result[:profit_rate]だけではなく、内訳の円換算値を取り出す必要がある。
-      # ここではサンプルとして calc_result[:profit] や calc_result[:profit_rate] ではなく、calc_result[:procurement_cost], calc_result[:shipping_cost]などを足す例にする。
-
-      # 売上(revenue)はcalc_result[:revenue](USD)に対して 140倍した値を加算
-      revenue_jpy = calc_result[:revenue] * ReportCalculator::USD_TO_JPY
+      # 売上(revenue)はcalc_result[:revenue](USD)を円換算
+      revenue_jpy = convert_usd_to_jpy(calc_result[:revenue])
       data[:revenue] += revenue_jpy
 
       # 手数料も同様にドルを円換算
-      payment_fees_jpy = calc_result[:payment_fees] * ReportCalculator::USD_TO_JPY
+      payment_fees_jpy = convert_usd_to_jpy(calc_result[:payment_fees])
       data[:payment_fees] += payment_fees_jpy
 
       # 送料(円)
