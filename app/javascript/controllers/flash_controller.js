@@ -1,18 +1,22 @@
-import { Controller } from "@hotwired/stimulus"
+import { Controller } from '@hotwired/stimulus';
 
+// フラッシュメッセージを制御するコントローラー
 export default class extends Controller {
-  static targets = ["dismissButton"]
-
-  // フラッシュメッセージを閉じる
-  dismiss(event) {
-    const flashMessage = event.target.closest(".alert")
-    flashMessage.remove()
+  connect() {
+    // 5秒後に自動的にメッセージを非表示にする
+    setTimeout(() => {
+      this.element.classList.add('opacity-0');
+      setTimeout(() => {
+        this.element.remove();
+      }, 500);
+    }, 5000);
   }
 
-  // 自動的に消えるタイマーを設定
-  connect() {
+  // 手動で閉じるボタンの処理
+  close() {
+    this.element.classList.add('opacity-0');
     setTimeout(() => {
-      this.element.remove()
-    }, 5000)  // 5秒後に自動的に消える
+      this.element.remove();
+    }, 500);
   }
 }
