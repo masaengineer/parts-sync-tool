@@ -20,7 +20,7 @@
         <%= link_to "#", class: "hover:bg-base-content/15" do %>
           <div class="flex items-center gap-2">
             <iconify-icon icon="lucide:airplay" height="18"></iconify-icon>
-            Dashboard
+            ダッシュボード
           </div>
         <% end %>
       </li>
@@ -32,28 +32,21 @@
           <summary>
             <div class="flex items-center gap-2">
               <iconify-icon icon="lucide:store" height="18"></iconify-icon>
-              Ecommerce
+              レポート機能
             </div>
           </summary>
           <ul>
             <li class="mb-0.5">
-              <%= link_to "#", class: "hover:bg-base-content/15" do %>
+              <%= link_to sales_reports_path, class: "hover:bg-base-content/15" do %>
                 <div class="flex items-center gap-2">
-                  Orders
+                  Sales Report
                 </div>
               <% end %>
             </li>
             <li class="mb-0.5">
-              <%= link_to "#", class: "hover:bg-base-content/15" do %>
+              <%= link_to plreports_path, class: "hover:bg-base-content/15" do %>
                 <div class="flex items-center gap-2">
-                  Products
-                </div>
-              <% end %>
-            </li>
-            <li class="mb-0.5">
-              <%= link_to "#", class: "hover:bg-base-content/15" do %>
-                <div class="flex items-center gap-2">
-                  Customers
+                  PL Report
                 </div>
               <% end %>
             </li>

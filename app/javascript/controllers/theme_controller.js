@@ -1,23 +1,22 @@
-import { Controller } from "@hotwired/stimulus"
+import { Controller } from '@hotwired/stimulus';
 
+// テーマ切り替えを管理するコントローラー
 export default class extends Controller {
   connect() {
-    this.loadTheme()
+    // 初期テーマの設定
+    this.setTheme(localStorage.getItem('theme') || 'light');
   }
 
-  loadTheme() {
-    try {
-      const theme = JSON.parse(localStorage.getItem("__NEXUS__HTML__ADMIN__LAYOUT__"))?.theme || "light"
-      document.documentElement.setAttribute("data-theme", theme)
-    } catch (e) {
-      document.documentElement.setAttribute("data-theme", "light")
-    }
-  }
-
+  // テーマ切り替えアクション
   toggle() {
-    const currentTheme = document.documentElement.getAttribute("data-theme")
-    const newTheme = currentTheme === "dark" ? "light" : "dark"
-    document.documentElement.setAttribute("data-theme", newTheme)
-    localStorage.setItem("__NEXUS__HTML__ADMIN__LAYOUT__", JSON.stringify({ theme: newTheme }))
+    const currentTheme = document.documentElement.getAttribute('data-theme');
+    const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+    this.setTheme(newTheme);
+  }
+
+  // テーマを設定する関数
+  setTheme(theme) {
+    document.documentElement.setAttribute('data-theme', theme);
+    localStorage.setItem('theme', theme);
   }
 }

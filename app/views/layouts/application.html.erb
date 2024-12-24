@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="<%= I18n.locale %>" data-theme="light">
+<html lang="<%= I18n.locale %>" data-theme="light" data-controller="theme">
   <head>
     <title><%= content_for?(:title) ? yield(:title) : "Orders Management" %></title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -12,8 +12,10 @@
 
   <body>
     <div class="size-full">
-      <div class="flex overflow-hidden">
-        <%= render 'components/navigation/leftbar' %>
+      <div class="flex overflow-hidden" data-controller="leftbar">
+        <div data-leftbar-target="sidebar">
+          <%= render 'components/navigation/leftbar' %>
+        </div>
         <div class="main-wrapper overflow-auto">
           <div class="flex h-full flex-col">
             <%= render 'components/navigation/header' %>
