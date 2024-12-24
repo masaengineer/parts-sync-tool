@@ -1,17 +1,23 @@
 <!DOCTYPE html>
-<html data-theme="nexus">
+<html lang="<%= I18n.locale %>" data-theme="light">
   <head>
-    <%= render 'layouts/head' %>
+    <title><%= content_for?(:title) ? yield(:title) : "Orders Management" %></title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <%= javascript_include_tag "application", "data-turbo-track": "reload", defer: true %>
   </head>
+
   <body>
-    <div class="size-full"></div>
-      <div class="flex overflow-hidden" data-controller="sidebar">
+    <div class="size-full">
+      <div class="flex overflow-hidden">
         <%= render 'components/navigation/leftbar' %>
         <div class="main-wrapper overflow-auto">
-          <%= render 'components/navigation/header' %>
           <div class="flex h-full flex-col">
-            <%= render "shared/flash_messages" %>
-            <div class="content-wrapper p-6">
+            <%= render 'components/navigation/header' %>
+            <div class="content-wrapper">
               <%= yield %>
             </div>
           </div>

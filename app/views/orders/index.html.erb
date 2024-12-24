@@ -1,0 +1,27 @@
+# app/views/orders/index.html.erb
+<div>
+  <div class="flex items-center justify-between">
+    <h3 class="text-lg font-medium"><%= t('.title') %></h3>
+    <div aria-label="Breadcrumbs" class="breadcrumbs hidden p-0 text-sm sm:inline">
+      <ul>
+        <li>Nexus</li>
+        <li>Ecommerce</li>
+        <li>Orders</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="mt-5">
+    <div aria-label="Card" class="card card-bordered mt-5 bg-base-100">
+      <div class="card-body p-0">
+        <%= render 'filter' %>
+
+        <div class="overflow-auto">
+          <%= render 'table' %>
+        </div>
+
+        <%= render 'pagination' %>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,38 +1,21 @@
-<header class="fixed top-0 left-0 right-0 z-50 bg-base-100/95 backdrop-blur-lg">
-  <div class="container mx-auto">
-    <div class="navbar">
-      <%# ロゴ部分 %>
-      <div class="navbar-start">
-        <%= link_to root_path, class: "flex items-center gap-2" do %>
-          <%= image_tag "logo/logo-dark.svg", alt: "logo-dark", class: "hidden h-8 dark:inline" %>
-          <%= image_tag "logo/logo-light.svg", alt: "logo-light", class: "inline h-8 dark:hidden" %>
-        <% end %>
-      </div>
+<div role="navigation" aria-label="Navbar" class="topbar-wrapper navbar z-10 border-b border-base-200 px-3">
+  <div class="navbar-start gap-3">
+    <button aria-label="Leftmenu toggle" data-action="leftbar-toggle" class="btn btn-square btn-ghost btn-sm">
+      <iconify-icon icon="lucide:menu" height="20"></iconify-icon>
+    </button>
 
-      <%# 中央部分 %>
-      <div class="navbar-center hidden lg:flex">
-        <ul class="menu menu-horizontal px-1 text-base">
-          <%= render "components/navigation/header_nav_items" %>
-        </ul>
-      </div>
-
-      <%# 右側部分 %>
-      <div class="navbar-end gap-2">
-        <%# ダークモードトグル %>
-        <button
-          data-action="theme-toggle"
-          class="btn btn-circle btn-ghost btn-sm">
-          <i class="fa-regular fa-sun hidden dark:inline"></i>
-          <i class="fa-regular fa-moon inline dark:hidden"></i>
-        </button>
-
-        <%# ログイン状態による表示切り替え %>
-        <% if user_signed_in? %>
-          <%= render "components/navigation/header_user_menu" %>
-        <% else %>
-          <%= render "shared/auth_buttons" %>
-        <% end %>
-      </div>
-    </div>
+    <%# <%= render 'shared/search_button' %>
   </div>
-</header>
+
+  <div class="navbar-center"></div>
+
+  <div class="navbar-end gap-1.5">
+    <button aria-label="Theme toggler" class="btn btn-circle btn-ghost btn-sm" data-action="theme-toggle">
+      <iconify-icon icon="lucide:sun" height="20" class="hidden dark:inline"></iconify-icon>
+      <iconify-icon icon="lucide:moon" height="20" class="inline dark:hidden"></iconify-icon>
+    </button>
+
+    <%# <%= render 'shared/notification_dropdown' %>
+    <%# <%= render 'shared/profile_dropdown' %>
+  </div>
+</div>
