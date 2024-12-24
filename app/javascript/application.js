@@ -1,16 +1,10 @@
 // Entry point for the build script in your package.json
-import '@hotwired/turbo-rails';
-import './controllers';
-import './nexus';
+import "@hotwired/turbo-rails"
+import "./controllers"
+import "./nexus"
 import 'iconify-icon';
 import 'simplebar/dist/simplebar.css';
 import SimpleBar from 'simplebar';
-
-// Lucideアイコンセットの読み込み
-import { addCollection } from '@iconify/iconify';
-import lucideIcons from '@iconify/icons-lucide';
-
-addCollection(lucideIcons);
 
 document.addEventListener('DOMContentLoaded', () => {
   document.querySelectorAll('[data-simplebar]').forEach((el) => {
