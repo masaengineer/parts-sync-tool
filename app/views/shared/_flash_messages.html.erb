@@ -1,5 +1,5 @@
 <%# フラッシュメッセージ %>
-<div class="fixed top-20 left-1/2 transform -translate-x-1/2 z-50 w-full max-w-sm px-4">
+<div class="w-full space-y-3" data-controller="flash-container">
   <% flash.each do |type, message| %>
     <%
       flash_class = case type.to_s
@@ -9,32 +9,23 @@
         when 'alert' then 'alert alert-error'
         else 'alert'
       end
+
+      icon_class = case type.to_s
+        when 'notice', 'info' then 'info'
+        when 'success' then 'check-circle'
+        when 'warning' then 'alert-triangle'
+        when 'alert', 'error' then 'alert-octagon'
+        else 'info'
+      end
     %>
     <div data-controller="flash"
-         class="<%= flash_class %> mb-4 transition-opacity duration-500"
+         class="<%= flash_class %> transition-all duration-300 ease-in-out"
          role="alert">
-      <div class="flex items-start space-x-3">
-        <%# アイコン %>
-        <% icon_class = case type.to_s
-            when 'notice', 'info' then 'info'
-            when 'success' then 'check-circle'
-            when 'warning' then 'alert-triangle'
-            when 'alert', 'error' then 'alert-octagon'
-            else 'info'
-           end
-        %>
-        <iconify-icon icon="lucide:<%= icon_class %>" height="16" class="mt-1"></iconify-icon>
-
-        <%# メッセージ %>
-        <div class="flex-1">
-          <span class="block"><%= message %></span>
-        </div>
-
-        <%# 閉じるボタン %>
-        <button data-action="flash#close" class="btn btn-ghost btn-xs">
-          <iconify-icon icon="lucide:x" height="16"></iconify-icon>
-        </button>
-      </div>
+      <iconify-icon icon="lucide:<%= icon_class %>" height="16"></iconify-icon>
+      <span><%= message %></span>
+      <button data-action="flash#close" class="btn btn-ghost btn-xs">
+        <iconify-icon icon="lucide:x" height="16"></iconify-icon>
+      </button>
     </div>
   <% end %>
 </div>
