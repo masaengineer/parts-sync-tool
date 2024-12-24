@@ -1,35 +1,40 @@
-<% if flash.present? %>
-  <div class="flash-messages">
-    <% flash.each do |key, value| %>
-      <% class_name = case key.to_sym
-        when :notice then "alert alert-success shadow-lg"
-        when :alert then "alert alert-error shadow-lg"
-        else "alert shadow-lg"
-      end %>
+<%# フラッシュメッセージ %>
+<div class="fixed top-20 left-1/2 transform -translate-x-1/2 z-50 w-full max-w-sm px-4">
+  <% flash.each do |type, message| %>
+    <%
+      flash_class = case type.to_s
+        when 'notice' then 'alert alert-info'
+        when 'success' then 'alert alert-success'
+        when 'warning' then 'alert alert-warning'
+        when 'alert' then 'alert alert-error'
+        else 'alert'
+      end
+    %>
+    <div data-controller="flash"
+         class="<%= flash_class %> mb-4 transition-opacity duration-500"
+         role="alert">
+      <div class="flex items-start space-x-3">
+        <%# アイコン %>
+        <% icon_class = case type.to_s
+            when 'notice', 'info' then 'info'
+            when 'success' then 'check-circle'
+            when 'warning' then 'alert-triangle'
+            when 'alert', 'error' then 'alert-octagon'
+            else 'info'
+           end
+        %>
+        <iconify-icon icon="lucide:<%= icon_class %>" height="16" class="mt-1"></iconify-icon>
 
-      <div class="<%= class_name %> mb-2">
-        <div class="flex w-full items-center justify-between">
-          <div class="flex items-center gap-2">
-            <%# アイコン %>
-            <% icon_class = case key.to_sym
-              when :notice then "fa-circle-check"
-              when :alert then "fa-circle-exclamation"
-              else "fa-circle-info"
-            end %>
-            <i class="fa-solid <%= icon_class %>"></i>
-
-            <%# メッセージ %>
-            <span><%= value %></span>
-          </div>
-
-          <%# 閉じるボタン %>
-          <button class="btn btn-ghost btn-sm"
-                  data-action="click->flash#dismiss"
-                  data-flash-target="dismissButton">
-            <i class="fa-solid fa-xmark"></i>
-          </button>
+        <%# メッセージ %>
+        <div class="flex-1">
+          <span class="block"><%= message %></span>
         </div>
+
+        <%# 閉じるボタン %>
+        <button data-action="flash#close" class="btn btn-ghost btn-xs">
+          <iconify-icon icon="lucide:x" height="16"></iconify-icon>
+        </button>
       </div>
-    <% end %>
-  </div>
-<% end %>
+    </div>
+  <% end %>
+</div>
