@@ -2,11 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
-@import url("https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800;1000&display=swap");
-
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800;1000&display=swap');
 
 :root {
-    --body-font-family: "DM Sans", sans-serif;
+    --body-font-family: 'DM Sans', sans-serif;
 }
 
 body {
@@ -14,12 +13,26 @@ body {
 }
 
 /* Custom Styling */
-@import "custom/_animation.css";
-@import "custom/_components.css";
-@import "custom/_forms.css";
-@import "custom/_layout.css";
+@import 'custom/_animation.css';
+@import 'custom/_components.css';
+@import 'custom/_forms.css';
+@import 'custom/_layout.css';
 
 /* Plugin Overriding */
-@import "plugins/_filepond.css";
-@import "plugins/_apexcharts.css";
-@import "plugins/_select.css";
+@import 'plugins/_filepond.css';
+@import 'plugins/_apexcharts.css';
+@import 'plugins/_select.css';
+
+@layer components {
+    .main-wrapper {
+        @apply flex-1 overflow-x-hidden bg-base-200/30;
+    }
+
+    .content-wrapper {
+        @apply p-6;
+    }
+
+    .leftmenu-wrapper {
+    @apply fixed start-0 top-0 z-20 h-full w-72 -translate-x-full border-e border-base-200 bg-base-100 transition-transform lg:relative lg:translate-x-0;
+    }
+}
