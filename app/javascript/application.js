@@ -2,17 +2,21 @@
 import '@hotwired/turbo-rails';
 import './controllers';
 import './nexus';
-import 'iconify-icon';
 import 'simplebar/dist/simplebar.css';
 import SimpleBar from 'simplebar';
 
 // Lucideアイコンセットの読み込み
-import { addCollection } from '@iconify/iconify';
-import lucideIcons from '@iconify/icons-lucide';
+import 'iconify-icon';
+import { addIcon } from 'iconify-icon';
+import * as lucideIcons from '@iconify/icons-lucide';
 
-addCollection(lucideIcons);
+// アイコンの登録
+Object.entries(lucideIcons).forEach(([name, data]) => {
+  addIcon(`lucide:${name}`, data);
+});
 
 document.addEventListener('DOMContentLoaded', () => {
+  // SimpleBarの初期化
   document.querySelectorAll('[data-simplebar]').forEach((el) => {
     new SimpleBar(el);
   });
