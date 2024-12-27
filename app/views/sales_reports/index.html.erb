@@ -1,6 +1,33 @@
 <%# ページヘッダー %>
 <div class="container mx-auto px-4 py-8">
-  <h2 class="text-2xl font-bold mb-8 text-base-content">注文別レポート</h2>
+  <%# CSVインポートフォーム %>
+  <div class="card bg-base-100 shadow-xl mb-8">
+    <div class="card-body">
+      <h3 class="card-title text-base-content mb-6">CSVファイルインポート</h3>
+      <%= form_with url: import_data_imports_path, local: true, method: :post, multipart: true do |f| %>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div class="form-control w-full">
+            <%= f.label :import_type, "インポート種別", class: "label font-medium" %>
+            <%= f.select :import_type, [
+              ["Filtered Data Sheet", "filtered_data_sheet"],
+              ["eBay Sales Report", "ebay_sales_report"],
+              ["Cpass Shipping Cost", "cpass_shipping_cost"],
+              ["eBay Transaction Report", "ebay_transaction_report"]
+            ], {}, { class: "select select-bordered w-full focus:select-primary" } %>
+          </div>
+
+          <div class="form-control w-full">
+            <%= f.label :file, "CSVファイル", class: "label font-medium" %>
+            <%= f.file_field :file, class: "file-input file-input-bordered w-full focus:file-input-primary", accept: ".csv" %>
+          </div>
+        </div>
+
+        <div class="mt-6">
+          <%= f.submit "インポート", class: "btn btn-primary" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
 
   <%# 検索フォーム %>
   <div class="card bg-base-100 shadow-xl mb-8">
@@ -46,35 +73,6 @@
         <div class="mt-8 flex justify-end gap-3">
           <%= link_to "リセット", sales_reports_path, class: "btn btn-ghost hover:btn-error" %>
           <%= f.submit "検索", class: "btn btn-primary" %>
-        </div>
-      <% end %>
-    </div>
-  </div>
-
-  <%# CSVインポートフォーム %>
-  <div class="card bg-base-100 shadow-xl mb-8">
-    <div class="card-body">
-      <h3 class="card-title text-base-content mb-6">CSVファイルインポート</h3>
-      <%= form_with url: import_data_imports_path, local: true, method: :post, multipart: true do |f| %>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div class="form-control w-full">
-            <%= f.label :import_type, "インポート種別", class: "label font-medium" %>
-            <%= f.select :import_type, [
-              ["Filtered Data Sheet", "filtered_data_sheet"],
-              ["eBay Sales Report", "ebay_sales_report"],
-              ["Cpass Shipping Cost", "cpass_shipping_cost"],
-              ["eBay Transaction Report", "ebay_transaction_report"]
-            ], {}, { class: "select select-bordered w-full focus:select-primary" } %>
-          </div>
-
-          <div class="form-control w-full">
-            <%= f.label :file, "CSVファイル", class: "label font-medium" %>
-            <%= f.file_field :file, class: "file-input file-input-bordered w-full focus:file-input-primary", accept: ".csv" %>
-          </div>
-        </div>
-
-        <div class="mt-6">
-          <%= f.submit "インポート", class: "btn btn-primary" %>
         </div>
       <% end %>
     </div>

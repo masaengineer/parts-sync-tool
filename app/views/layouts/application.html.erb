@@ -11,14 +11,15 @@
   </head>
 
   <body>
-    <div class="size-full">
-      <div class="flex overflow-hidden" data-controller="leftbar">
-        <div data-leftbar-target="sidebar">
+    <div class="size-full flex">
+      <div class="flex" data-controller="leftbar">
+        <div data-leftbar-target="leftbar">
           <%= render 'components/navigation/leftbar' %>
         </div>
-        <div class="main-wrapper overflow-auto">
-          <div class="flex h-full flex-col">
-            <%= render 'components/navigation/header' %>
+      </div>
+      <div class="main-wrapper overflow-auto">
+        <div class="flex h-full flex-col">
+          <%= render 'components/navigation/header' %>
             <div class="content-wrapper">
               <%= render 'shared/flash_messages' %>
               <%= yield %>

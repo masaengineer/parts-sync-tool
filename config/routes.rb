@@ -2,7 +2,7 @@
 #
 
 Rails.application.routes.draw do
-  root to: 'dashboard#index'
+  root to: 'sales_reports#index'
 
   devise_for :users, controllers: {
     sessions: 'users/sessions',
