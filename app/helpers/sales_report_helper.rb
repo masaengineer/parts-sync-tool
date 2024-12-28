@@ -18,9 +18,7 @@ module SalesReportHelper
       { name: :shipment_tracking_number_cont, label: "追跡番号" },
       { name: :order_sku_links_sku_sku_code_cont, label: "SKUコード" },
       { name: :sale_date_gteq, label: "販売日（から）", field_type: :date_field },
-      { name: :sale_date_lteq, label: "販売日（まで）", field_type: :date_field },
-      { name: :sale_order_net_amount_gteq, label: "売上金額（以上）", field_type: :number_field },
-      { name: :sale_order_net_amount_lteq, label: "売上金額（以下）", field_type: :number_field }
+      { name: :sale_date_lteq, label: "販売日（まで）", field_type: :date_field }
     ]
   end
 end

@@ -4,6 +4,8 @@ import './controllers';
 import './nexus';
 import 'simplebar/dist/simplebar.css';
 import SimpleBar from 'simplebar';
+import Choices from 'choices.js';
+import 'choices.js/public/assets/styles/choices.min.css';
 
 // Lucideアイコンセットの読み込み
 import 'iconify-icon';

@@ -1,10 +1,10 @@
 <%# CSVインポートフォーム %>
-<div class="card bg-base-100 shadow-xl mb-8">
+<div class="card bg-base-100 shadow-md mb-8">
   <div class="card-body">
     <h3 class="card-title text-base-content mb-6">CSVファイルインポート</h3>
     <%= form_with url: import_data_imports_path, local: true, method: :post, multipart: true do |f| %>
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <div class="form-control w-full">
+      <div class="flex gap-6">
+        <div class="form-control">
           <%= f.label :import_type, "インポート種別", class: "label font-medium" %>
           <%= f.select :import_type, [
             ["Filtered Data Sheet", "filtered_data_sheet"],
@@ -14,7 +14,7 @@
           ], {}, { class: "select select-bordered w-full focus:select-primary" } %>
         </div>
 
-        <div class="form-control w-full">
+        <div class="form-control">
           <%= f.label :file, "CSVファイル", class: "label font-medium" %>
           <%= f.file_field :file, class: "file-input file-input-bordered w-full focus:file-input-primary", accept: ".csv" %>
         </div>
