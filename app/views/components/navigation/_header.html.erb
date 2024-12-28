@@ -1,21 +1,77 @@
-<div role="navigation" aria-label="Navbar" class="topbar-wrapper navbar z-10 border-b border-base-200 px-3">
+<%# ナビゲーションバー全体のコンテナ %>
+<div role="navigation" aria-label="Navbar" class="navbar z-10 border-b border-base-200 px-3">
+  <%# 左側のコンテンツ %>
   <div class="navbar-start gap-3">
-    <button aria-label="Leftmenu toggle" data-action="leftbar-toggle" class="btn btn-square btn-ghost btn-sm">
+    <%# Left Menu Toggle - 左メニューの開閉ボタン %>
+    <button
+      aria-label="Leftmenu toggle"
+      data-action="leftbar#toggle"
+      class="btn btn-square btn-ghost btn-sm">
       <iconify-icon icon="lucide:menu" height="20"></iconify-icon>
     </button>
-
-    <%# <%= render 'shared/search_button' %>
   </div>
 
-  <div class="navbar-center"></div>
+  <%# 中央のコンテンツ - タブナビゲーション %>
+  <div class="navbar-center">
+    <div role="tablist" class="tabs-boxed tabs">
+      <%= link_to "売上レポート", sales_reports_path, role: "tab", class: "tab #{controller_name == 'sales_reports' ? 'tab-active' : ''}" %>
+      <%= link_to "PLレポート", plreports_path, role: "tab", class: "tab #{controller_name == 'plreports' ? 'tab-active' : ''}" %>
+    </div>
+  </div>
 
+  <%# 右側のコンテンツ %>
   <div class="navbar-end gap-1.5">
-    <button aria-label="Theme toggler" class="btn btn-circle btn-ghost btn-sm" data-action="theme-toggle">
-      <iconify-icon icon="lucide:sun" height="20" class="hidden dark:inline"></iconify-icon>
-      <iconify-icon icon="lucide:moon" height="20" class="inline dark:hidden"></iconify-icon>
-    </button>
-
-    <%# <%= render 'shared/notification_dropdown' %>
-    <%# <%= render 'shared/profile_dropdown' %>
+    <%# Profile With Action Item - プロフィールドロップダウン %>
+    <div class="dropdown dropdown-end dropdown-bottom">
+      <label tabindex="0" class="btn btn-ghost rounded-btn px-1.5 hover:bg-base-content/20">
+        <div class="flex items-center gap-2">
+          <div aria-label="Avatar photo" class="avatar">
+            <div class="mask mask-squircle w-8 h-8">
+              <%= image_tag "avatars/1.png", alt: "Avatar" %>
+            </div>
+          </div>
+          <div class="flex flex-col items-start">
+            <% if user_signed_in? %>
+              <p class="text-sm/none"><%= current_user.email %></p>
+              <p class="mt-1 text-xs/none text-primary">Edit</p>
+            <% else %>
+              <p class="text-sm/none">Guest</p>
+              <p class="mt-1 text-xs/none text-primary">Sign in</p>
+            <% end %>
+          </div>
+        </div>
+      </label>
+      <ul tabindex="0" class="menu dropdown-content mt-4 w-52 rounded-box bg-base-100 p-2 shadow" role="menu">
+        <% if user_signed_in? %>
+          <li>
+            <%= link_to edit_user_registration_path, class: "flex items-center gap-2" do %>
+              <iconify-icon icon="lucide:user" height="16"></iconify-icon>
+              My Profile
+            <% end %>
+          </li>
+          <hr class="-mx-2 my-1 border-base-content/10" />
+          <li>
+            <%= button_to destroy_user_session_path, method: :delete, class: "flex items-center gap-2 text-error" do %>
+              <iconify-icon icon="lucide:log-out" height="16"></iconify-icon>
+              Logout
+            <% end %>
+          </li>
+        <% else %>
+          <li>
+            <%= link_to new_user_session_path, class: "flex items-center gap-2" do %>
+              <iconify-icon icon="lucide:log-in" height="16"></iconify-icon>
+              Sign in
+            <% end %>
+          </li>
+          <li>
+            <%= link_to new_user_registration_path, class: "flex items-center gap-2" do %>
+              <iconify-icon icon="lucide:user-plus" height="16"></iconify-icon>
+              Sign up
+            <% end %>
+          </li>
+        <% end %>
+      </ul>
+    </div>
   </div>
 </div>
+

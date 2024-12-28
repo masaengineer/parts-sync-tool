@@ -2,11 +2,15 @@
 #
 
 Rails.application.routes.draw do
-  devise_for :users
+  root to: 'sales_reports#index'
+
+  devise_for :users, controllers: {
+    sessions: 'users/sessions',
+    registrations: 'users/registrations',
+    passwords: 'users/passwords'
+  }
   resources :users, only: [:index, :show]
   resources :plreports, only: [:index]
-  root 'landing#index'
-
   resources :sales_reports, only: [:index, :show]
   resources :data_imports, only: [:index, :show]
 
