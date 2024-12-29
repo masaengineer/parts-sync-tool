@@ -4,11 +4,7 @@
 Rails.application.routes.draw do
   root to: 'sales_reports#index'
 
-  devise_for :users, controllers: {
-    sessions: 'users/sessions',
-    registrations: 'users/registrations',
-    passwords: 'users/passwords'
-  }
+  devise_for :users
   resources :users, only: [:index, :show]
   resources :plreports, only: [:index]
   resources :sales_reports, only: [:index, :show]
