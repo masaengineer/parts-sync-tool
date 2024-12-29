@@ -7,6 +7,14 @@
     per_page:      number of items to fetch per page
     remote:        data-remote
 -%>
-<span class="page<%= ' current' if page.current? %>">
-  <%= link_to_unless page.current?, page, url, {remote: remote, rel: page.rel} %>
-</span>
+<% classes = ["btn", "join-item", "btn-sm"] %>
+<% classes << "btn-primary btn-active" if page.current? %>
+
+<% content = content_tag(:button,
+  page.to_s,
+  class: classes.join(" "),
+  "aria-label": "pagination-#{page.to_i}",
+  disabled: page.current?
+) %>
+
+<%= link_to_unless page.current?, content, url, { remote: remote, rel: page.rel } %>

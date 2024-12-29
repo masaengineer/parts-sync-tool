@@ -23,3 +23,24 @@ document.addEventListener('DOMContentLoaded', () => {
     new SimpleBar(el);
   });
 });
+
+// パスワードフィールドの表示/非表示切り替え
+document.addEventListener('turbo:load', () => {
+  const passwordFields = document.querySelectorAll(
+    '[data-component="password-field"]'
+  );
+
+  passwordFields.forEach((field) => {
+    const input = field.querySelector('input');
+    const toggle = field.querySelector('[data-slot="visibility-toggle"]');
+
+    if (toggle && input) {
+      toggle.addEventListener('click', () => {
+        const currentType = input.type;
+        const newType = currentType === 'password' ? 'text' : 'password';
+        input.type = newType;
+        toggle.dataset.slotValue = newType === 'password' ? 'hide' : 'show';
+      });
+    }
+  });
+});
