@@ -1,27 +1,28 @@
-<%# ページヘッダー %>
+<%# app/views/sales_reports/index.html.erb %>
+<% content_for(:title, t("sales_reports.index.title")) %>
+
 <div class="container mx-auto px-4 py-8">
   <%= render 'csv_import_form' %>
   <%= render 'search_form' %>
 
-  <%# データテーブル %>
   <div class="card bg-base-100 shadow-xl overflow-x-auto">
     <div class="card-body p-0">
       <table class="table table-zebra w-full">
         <thead>
           <tr>
-            <th class="bg-base-200/50 font-bold">販売日</th>
-            <th class="bg-base-200/50 font-bold whitespace-nowrap">注文番号</th>
-            <th class="bg-base-200/50 font-bold">SKU</th>
-            <th class="bg-base-200/50 font-bold">商品名</th>
-            <th class="bg-base-200/50 font-bold text-right">売上（ドル）</th>
-            <th class="bg-base-200/50 font-bold text-right">手数料（ドル）</th>
-            <th class="bg-base-200/50 font-bold text-right">送料（円）</th>
-            <th class="bg-base-200/50 font-bold text-right">仕入原価（円）</th>
-            <th class="bg-base-200/50 font-bold text-right">その他原価（円）</th>
-            <th class="bg-base-200/50 font-bold text-right">販売個数</th>
-            <th class="bg-base-200/50 font-bold text-right">利益（円）</th>
-            <th class="bg-base-200/50 font-bold text-right">利益率(%)</th>
-            <th class="bg-base-200/50 font-bold">追跡番号</th>
+            <th class="bg-base-200/50 font-bold"><%= t("sales_reports.index.table.sale_date") %></th>
+            <th class="bg-base-200/50 font-bold whitespace-nowrap"><%= t("sales_reports.index.table.order_number") %></th>
+            <th class="bg-base-200/50 font-bold"><%= t("sales_reports.index.table.sku") %></th>
+            <th class="bg-base-200/50 font-bold"><%= t("sales_reports.index.table.product_name") %></th>
+            <th class="bg-base-200/50 font-bold text-right"><%= t("sales_reports.index.table.revenue_dollar") %></th>
+            <th class="bg-base-200/50 font-bold text-right"><%= t("sales_reports.index.table.fee_dollar") %></th>
+            <th class="bg-base-200/50 font-bold text-right"><%= t("sales_reports.index.table.shipping_yen") %></th>
+            <th class="bg-base-200/50 font-bold text-right"><%= t("sales_reports.index.table.procurement_yen") %></th>
+            <th class="bg-base-200/50 font-bold text-right"><%= t("sales_reports.index.table.other_cost_yen") %></th>
+            <th class="bg-base-200/50 font-bold text-right"><%= t("sales_reports.index.table.quantity") %></th>
+            <th class="bg-base-200/50 font-bold text-right"><%= t("sales_reports.index.table.profit_yen") %></th>
+            <th class="bg-base-200/50 font-bold text-right"><%= t("sales_reports.index.table.profit_rate") %></th>
+            <th class="bg-base-200/50 font-bold"><%= t("sales_reports.index.table.tracking_number") %></th>
           </tr>
         </thead>
         <tbody>

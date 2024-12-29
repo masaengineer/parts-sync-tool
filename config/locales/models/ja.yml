@@ -1,0 +1,66 @@
+ja:
+  activerecord:
+    models:
+      user: 'ユーザー'
+      order: '注文'
+      sku: 'SKU'
+      sale: '売上'
+      shipment: '出荷'
+      procurement: '仕入'
+      manufacturer: '製造元'
+      payment_fee: '支払手数料'
+      expense: '経費'
+      order_sku_link: '注文SKUリンク'
+    attributes:
+      user:
+        email: 'メールアドレス'
+        password: 'パスワード'
+        password_confirmation: 'パスワード（確認）'
+        remember_me: 'ログインを記憶'
+        first_name: '名'
+        last_name: '姓'
+        agreement: '利用規約'
+      order:
+        order_number: '注文番号'
+        order_date: '注文日'
+        status: 'ステータス'
+      sku:
+        code: 'SKUコード'
+        name: '商品名'
+        manufacturer_id: '製造元'
+      sale:
+        amount: '売上金額'
+        sale_date: '販売日'
+      shipment:
+        tracking_number: '追跡番号'
+        shipping_cost: '送料'
+      procurement:
+        cost: '仕入原価'
+        procurement_date: '仕入日'
+      payment_fee:
+        amount: '手数料'
+        fee_date: '手数料発生日'
+      expense:
+        amount: '金額'
+        expense_date: '経費発生日'
+        category: 'カテゴリー'
+    errors:
+      messages:
+        record_invalid: 'バリデーションに失敗しました: %{errors}'
+        restrict_dependent_destroy:
+          has_one: '%{record}が存在しているので削除できません'
+          has_many: '%{record}が存在しているので削除できません'
+      models:
+        user:
+          attributes:
+            email:
+              blank: 'を入力してください'
+              invalid: 'は不正な値です'
+              taken: 'はすでに使用されています'
+            password:
+              blank: 'を入力してください'
+              too_short: 'は%{count}文字以上で入力してください'
+            password_confirmation:
+              confirmation: 'とパスワードの入力が一致しません'
+            agreement:
+              accepted: 'に同意してください'

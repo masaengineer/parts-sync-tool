@@ -14,8 +14,8 @@
   <%# 中央のコンテンツ - タブナビゲーション %>
   <div class="navbar-center">
     <div role="tablist" class="tabs-boxed tabs">
-      <%= link_to "売上レポート", sales_reports_path, role: "tab", class: "tab #{controller_name == 'sales_reports' ? 'tab-active' : ''}" %>
-      <%= link_to "PLレポート", plreports_path, role: "tab", class: "tab #{controller_name == 'plreports' ? 'tab-active' : ''}" %>
+      <%= link_to t("shared.header.navigation.sales_reports"), sales_reports_path, role: "tab", class: "tab #{controller_name == 'sales_reports' ? 'tab-active' : ''}" %>
+      <%= link_to t("shared.header.navigation.pl_reports"), plreports_path, role: "tab", class: "tab #{controller_name == 'plreports' ? 'tab-active' : ''}" %>
     </div>
   </div>
 
@@ -33,10 +33,10 @@
           <div class="flex flex-col items-start">
             <% if user_signed_in? %>
               <p class="text-sm/none"><%= current_user.email %></p>
-              <p class="mt-1 text-xs/none text-primary">Edit</p>
+              <p class="mt-1 text-xs/none text-primary"><%= t("shared.header.profile.edit") %></p>
             <% else %>
-              <p class="text-sm/none">Guest</p>
-              <p class="mt-1 text-xs/none text-primary">Sign in</p>
+              <p class="text-sm/none"><%= t("shared.header.profile.guest") %></p>
+              <p class="mt-1 text-xs/none text-primary"><%= t("shared.header.profile.sign_in") %></p>
             <% end %>
           </div>
         </div>
@@ -46,27 +46,27 @@
           <li>
             <%= link_to edit_user_registration_path, class: "flex items-center gap-2" do %>
               <iconify-icon icon="lucide:user" height="16"></iconify-icon>
-              My Profile
+              <%= t("shared.header.menu.my_profile") %>
             <% end %>
           </li>
           <hr class="-mx-2 my-1 border-base-content/10" />
           <li>
             <%= button_to destroy_user_session_path, method: :delete, class: "flex items-center gap-2 text-error" do %>
               <iconify-icon icon="lucide:log-out" height="16"></iconify-icon>
-              Logout
+              <%= t("shared.header.menu.logout") %>
             <% end %>
           </li>
         <% else %>
           <li>
             <%= link_to new_user_session_path, class: "flex items-center gap-2" do %>
               <iconify-icon icon="lucide:log-in" height="16"></iconify-icon>
-              Sign in
+              <%= t("shared.header.menu.sign_in") %>
             <% end %>
           </li>
           <li>
             <%= link_to new_user_registration_path, class: "flex items-center gap-2" do %>
               <iconify-icon icon="lucide:user-plus" height="16"></iconify-icon>
-              Sign up
+              <%= t("shared.header.menu.sign_up") %>
             <% end %>
           </li>
         <% end %>
