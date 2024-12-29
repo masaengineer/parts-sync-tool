@@ -9,7 +9,7 @@ class ApplicationController < ActionController::Base
 
   def configure_permitted_parameters
     # サインアップ時のパラメータ許可
-    devise_parameter_sanitizer.permit(:sign_up, keys: [:last_name, :first_name])
+    devise_parameter_sanitizer.permit(:sign_up, keys: [:last_name, :first_name, :email, :password, :password_confirmation, :agreement])
     # アカウント更新時のパラメータ許可
     devise_parameter_sanitizer.permit(:account_update, keys: [:last_name, :first_name])
   end
