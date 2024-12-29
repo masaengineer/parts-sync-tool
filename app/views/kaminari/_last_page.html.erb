@@ -6,6 +6,11 @@
     per_page:      number of items to fetch per page
     remote:        data-remote
 -%>
-<span class="last">
-  <%= link_to_unless current_page.last?, t('views.pagination.last').html_safe, url, remote: remote %>
-</span>
+<% content = content_tag(:button,
+  t('views.pagination.last').html_safe,
+  class: "btn join-item btn-sm",
+  "aria-label": "pagination-last",
+  disabled: current_page.last?
+) %>
+
+<%= link_to_unless current_page.last?, content, url, remote: remote %>
