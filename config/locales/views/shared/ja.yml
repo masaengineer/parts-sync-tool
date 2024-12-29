@@ -1,0 +1,15 @@
+ja:
+  shared:
+    header:
+      navigation:
+        sales_reports: '売上レポート'
+        pl_reports: 'PLレポート'
+      profile:
+        edit: '編集'
+        guest: 'ゲスト'
+        sign_in: 'サインイン'
+      menu:
+        my_profile: 'マイプロフィール'
+        logout: 'ログアウト'
+        sign_in: 'サインイン'
+        sign_up: '新規登録'

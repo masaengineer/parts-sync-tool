@@ -27,4 +27,24 @@ class ApplicationController < ActionController::Base
       "application"
     end
   end
+
+  def flash_message(key, resource_name = nil)
+    t(key, resource: resource_name, scope: 'flash_messages')
+  end
+
+  def flash_success(key, resource_name = nil)
+    flash[:success] = flash_message(key, resource_name)
+  end
+
+  def flash_error(key, resource_name = nil)
+    flash[:error] = flash_message(key, resource_name)
+  end
+
+  def flash_notice(key, resource_name = nil)
+    flash[:notice] = flash_message(key, resource_name)
+  end
+
+  def flash_alert(key, resource_name = nil)
+    flash[:alert] = flash_message(key, resource_name)
+  end
 end

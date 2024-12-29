@@ -1,0 +1,51 @@
+ja:
+  sales_reports:
+    index:
+      title: '売上レポート'
+      summary:
+        total_revenue: '総売上'
+        total_profit: '総利益'
+      actions:
+        export: 'CSVエクスポート'
+        import: 'CSVインポート'
+        search: '検索'
+        reset: 'リセット'
+      filters:
+        date_range: '期間'
+        apply: '適用'
+      table:
+        sale_date: '販売日'
+        order_number: '注文番号'
+        sku: 'SKU'
+        product_name: '商品名'
+        revenue_dollar: '売上（ドル）'
+        fee_dollar: '手数料（ドル）'
+        shipping_yen: '送料（円）'
+        procurement_yen: '仕入原価（円）'
+        other_cost_yen: 'その他原価（円）'
+        quantity: '販売個数'
+        profit_yen: '利益（円）'
+        profit_rate: '利益率(%)'
+        tracking_number: '追跡番号'
+    csv_import:
+      title: 'CSVファイルインポート'
+      import_type: 'インポート種別'
+      file: 'CSVファイル'
+      submit: 'インポート'
+      types:
+        filtered_data_sheet: 'Filtered Data Sheet'
+        ebay_sales_report: 'eBay Sales Report'
+        cpass_shipping_cost: 'Cpass Shipping Cost'
+        ebay_transaction_report: 'eBay Transaction Report'
+    search:
+      reset: 'リセット'
+      submit: '検索'
+      fields:
+        sale_date_gteq: '販売日（開始）'
+        sale_date_lteq: '販売日（終了）'
+        order_number_cont: '注文番号'
+        order_sku_links_sku_sku_code_cont: 'SKUコード'
+        shipment_tracking_number_cont: '追跡番号'
+        sku_code_cont: 'SKU'
+        product_name_cont: '商品名'
+        tracking_number_cont: '追跡番号'

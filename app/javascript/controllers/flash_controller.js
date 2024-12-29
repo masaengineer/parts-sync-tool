@@ -1,18 +1,17 @@
-import { Controller } from "@hotwired/stimulus"
+import { Controller } from '@hotwired/stimulus';
 
 export default class extends Controller {
-  static targets = ["dismissButton"]
-
-  // フラッシュメッセージを閉じる
-  dismiss(event) {
-    const flashMessage = event.target.closest(".alert")
-    flashMessage.remove()
+  connect() {
+    // 5秒後に自動的に消える
+    setTimeout(() => {
+      this.dismiss();
+    }, 5000);
   }
 
-  // 自動的に消えるタイマーを設定
-  connect() {
+  dismiss() {
+    this.element.classList.add('opacity-0');
     setTimeout(() => {
-      this.element.remove()
-    }, 5000)  // 5秒後に自動的に消える
+      this.element.remove();
+    }, 300);
   }
 }

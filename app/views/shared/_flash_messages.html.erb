@@ -1,31 +1,29 @@
-<%# フラッシュメッセージ %>
-<div class="w-full space-y-3" data-controller="flash-container">
-  <% flash.each do |type, message| %>
-    <%
-      flash_class = case type.to_s
-        when 'notice' then 'alert alert-info'
-        when 'success' then 'alert alert-success'
-        when 'warning' then 'alert alert-warning'
-        when 'alert' then 'alert alert-error'
-        else 'alert'
-      end
+<%# app/views/shared/_flash_messages.html.erb %>
+<% flash.each do |type, message| %>
+  <% alert_class = case type.to_sym
+    when :success then "alert-success"
+    when :error then "alert-error"
+    when :alert then "alert-warning"
+    when :notice then "alert-info"
+    else "alert-info"
+    end %>
 
-      icon_class = case type.to_s
-        when 'notice', 'info' then 'info'
-        when 'success' then 'check-circle'
-        when 'warning' then 'alert-triangle'
-        when 'alert', 'error' then 'alert-octagon'
-        else 'info'
-      end
-    %>
-    <div data-controller="flash"
-         class="<%= flash_class %> transition-all duration-300 ease-in-out"
-         role="alert">
-      <iconify-icon icon="lucide:<%= icon_class %>" height="16"></iconify-icon>
+  <div class="alert <%= alert_class %> shadow-lg mb-4" role="alert">
+    <div>
+      <% icon_name = case type.to_sym
+        when :success then "lucide:check-circle"
+        when :error then "lucide:x-circle"
+        when :alert then "lucide:alert-triangle"
+        when :notice then "lucide:info"
+        else "lucide:info"
+        end %>
+      <iconify-icon icon="<%= icon_name %>" class="w-6 h-6"></iconify-icon>
       <span><%= message %></span>
-      <button data-action="flash#close" class="btn btn-ghost btn-xs">
-        <iconify-icon icon="lucide:x" height="16"></iconify-icon>
+    </div>
+    <div class="flex-none">
+      <button type="button" class="btn btn-ghost btn-xs" data-action="click->flash#dismiss">
+        <iconify-icon icon="lucide:x" class="w-4 h-4"></iconify-icon>
       </button>
     </div>
-  <% end %>
-</div>
+  </div>
+<% end %>

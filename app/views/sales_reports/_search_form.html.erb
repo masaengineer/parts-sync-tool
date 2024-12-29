@@ -3,13 +3,13 @@
     <%= search_form_for @q, url: sales_reports_path do |f| %>
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6">
         <% search_form_fields.each do |field| %>
-          <%= search_form_field(f, field[:name], field[:label], field_type: field[:field_type]) %>
+          <%= search_form_field(f, field[:name], t("sales_reports.search.fields.#{field[:name]}"), field_type: field[:field_type]) %>
         <% end %>
       </div>
 
       <div class="mt-8 flex justify-end gap-3">
-        <%= link_to "リセット", sales_reports_path, class: "btn btn-ghost hover:btn-error" %>
-        <%= f.submit "検索", class: "btn btn-primary" %>
+        <%= link_to t("sales_reports.search.reset"), sales_reports_path, class: "btn btn-ghost hover:btn-error" %>
+        <%= f.submit t("sales_reports.search.submit"), class: "btn btn-primary" %>
       </div>
     <% end %>
   </div>

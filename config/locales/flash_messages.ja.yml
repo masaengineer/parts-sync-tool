@@ -1,0 +1,42 @@
+ja:
+  flash_messages:
+    defaults: &defaults
+      created: '%{resource}を作成しました'
+      updated: '%{resource}を更新しました'
+      deleted: '%{resource}を削除しました'
+      error: 'エラーが発生しました'
+      unauthorized: 'この操作を実行する権限がありません'
+      not_found: '%{resource}が見つかりません'
+
+    sales_reports:
+      <<: *defaults
+      import:
+        success: 'CSVファイルのインポートが完了しました'
+        error: 'CSVファイルのインポートに失敗しました'
+        invalid_file: '無効なCSVファイルです'
+        no_file: 'CSVファイルを選択してください'
+
+    plreports:
+      <<: *defaults
+      no_data: '指定された期間のデータが存在しません'
+
+    users:
+      <<: *defaults
+      profile_updated: 'プロフィールを更新しました'
+      password_updated: 'パスワードを変更しました'
+      email_updated: 'メールアドレスを変更しました。確認メールをご確認ください'
+
+    data_imports:
+      <<: *defaults
+      filtered_data_sheet:
+        success: 'Filtered Data Sheetのインポートが完了しました'
+        error: 'Filtered Data Sheetのインポートに失敗しました'
+      ebay_sales_report:
+        success: 'eBay Sales Reportのインポートが完了しました'
+        error: 'eBay Sales Reportのインポートに失敗しました'
+      cpass_shipping_cost:
+        success: 'Cpass Shipping Costのインポートが完了しました'
+        error: 'Cpass Shipping Costのインポートに失敗しました'
+      ebay_transaction_report:
+        success: 'eBay Transaction Reportのインポートが完了しました'
+        error: 'eBay Transaction Reportのインポートに失敗しました'
