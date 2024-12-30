@@ -22,8 +22,9 @@ class EbayTransactionReportImporter
   PROMOTED_LISTING_DESCRIPTION = "Promoted Listings - General fee "
   FEE_CATEGORIES = ["Final Value Fee - fixed", "Final Value Fee - variable", "International fee"]
 
-  def initialize(csv_path)
+  def initialize(csv_path, user)
     @csv_path = csv_path
+    @user = user
   end
 
   def import
@@ -81,7 +82,7 @@ class EbayTransactionReportImporter
     end
 
     # "Order"行がある場合のみ、新規作成 or 取得
-    order = Order.find_or_create_by!(order_number: order_number)
+    order = @user.orders.find_or_create_by!(order_number: order_number)
 
     aggregator_line = find_aggregator_line(order_lines)
     unless aggregator_line
@@ -172,7 +173,7 @@ class EbayTransactionReportImporter
     register_fees(order, aggregator_line)
   end
 
-  # Other fee行処理（Promoted Listingsなど）
+  # Other fee行処理（Promoted Lisltingsなど）
   def handle_other_fee_lines(order, rows)
     other_fee_lines = rows.select { |r| r["Type"]&.strip == "Other fee" }
     other_fee_lines.each do |fee_line|

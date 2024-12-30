@@ -2,7 +2,7 @@
 
 class SalesReportsController < ApplicationController
   def index
-    @q = Order.ransack(params[:q])
+    @q = current_user.orders.ransack(params[:q])
     @orders = @q.result
                 .includes(
                   :sale,
@@ -23,7 +23,7 @@ class SalesReportsController < ApplicationController
   end
 
   def show
-    @order = Order.includes(
+    @order = current_user.orders.includes(
       :procurement,
       order_sku_links: {
         sku: :manufacturer

@@ -7,12 +7,20 @@
 #  sale_date    :date
 #  created_at   :datetime         not null
 #  updated_at   :datetime         not null
+#  user_id      :bigint           not null
 #
 # Indexes
 #
 #  index_orders_on_order_number  (order_number)
+#  index_orders_on_user_id       (user_id)
+#
+# Foreign Keys
+#
+#  fk_rails_...  (user_id => users.id)
+#
 
 class Order < ApplicationRecord
+  belongs_to :user
   has_many :order_sku_links, dependent: :destroy
   has_many :skus, through: :order_sku_links
   has_many :payment_fees, dependent: :destroy
@@ -28,11 +36,12 @@ class Order < ApplicationRecord
       sale_date
       created_at
       updated_at
+      user_id
     ]
   end
 
   def self.ransackable_associations(auth_object = nil)
-    %w[sale order_sku_links skus procurement shipment payment_fees]
+    %w[user sale order_sku_links skus procurement shipment payment_fees]
   end
 
   # 注文に関連する仕入れコストの合計を計算

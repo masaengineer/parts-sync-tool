@@ -10,8 +10,9 @@ class CpassShippingCostImporter
 
   DUMMY_DATE = Date.parse("1900-01-01")
 
-  def initialize(csv_path)
+  def initialize(csv_path, user)
     @csv_path = csv_path
+    @user = user
   end
 
   # CSV読み込み後、行ごとにimport_rowを呼ぶ
