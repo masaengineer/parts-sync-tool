@@ -44,17 +44,15 @@ class FilteredDataSheetImporter
       return
     end
 
-    # Orderレコードの作成または検索
-    order = @user.orders.find_or_create_by!(order_number: order_number) do |o|
-      o.sale_date = Date.current  # デフォルトで現在の日付を設定
-    end
+    # 1. Orderレコードを作成または検索
+    order = @user.orders.find_or_create_by!(order_number: order_number)
 
-    # Manufacturerレコードの作成または検索
+    # 2. Manufacturerレコードを作成または検索（必要な場合）
     if manufacturer_name.present?
       Manufacturer.find_or_create_by!(name: manufacturer_name)
     end
 
-    # Procurementレコードの作成
+    # 3. 作成されたorderを使ってProcurementレコードを作成
     create_procurement(order, purchase_price, handling_fee, photo_fee)
   end
 
