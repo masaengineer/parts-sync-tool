@@ -1,0 +1,9 @@
+ja:
+  users:
+    edit:
+      title: 'プロフィール設定'
+      password_section: 'パスワード設定'
+      password_description: 'パスワードを変更する場合は、以下のボタンをクリックしてください。'
+      change_password: 'パスワードを変更する'
+    update:
+      success: 'プロフィールを更新しました'
