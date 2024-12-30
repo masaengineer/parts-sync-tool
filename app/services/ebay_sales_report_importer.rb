@@ -1,8 +1,9 @@
 require 'csv'
 
 class EbaySalesReportImporter
-  def initialize(csv_path)
+  def initialize(csv_path, user)
     @csv_path = csv_path
+    @user = user
   end
 
   def import
@@ -16,7 +17,7 @@ class EbaySalesReportImporter
 
       # Orderが存在しなければ新規作成
       # 既にebaytransactionreportで作成済みならfindで取得される
-      order = Order.find_or_create_by!(order_number: order_number)
+      order = @user.orders.find_or_create_by!(order_number: order_number)
 
       # Orderに紐づくShipmentを検索、存在しなければ新規作成
       shipment = order.shipment || order.build_shipment

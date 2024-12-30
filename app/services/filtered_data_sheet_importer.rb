@@ -4,8 +4,9 @@ class FilteredDataSheetImporter
   # カスタムエラークラスの定義
   class MissingSkusError < StandardError; end
 
-  def initialize(csv_path)
+  def initialize(csv_path, user)
     @csv_path = csv_path
+    @user = user
   end
 
   def import
@@ -44,7 +45,7 @@ class FilteredDataSheetImporter
     end
 
     # Orderレコードの作成または検索
-    order = Order.find_or_create_by!(order_number: order_number) do |o|
+    order = @user.orders.find_or_create_by!(order_number: order_number) do |o|
       o.sale_date = Date.current  # デフォルトで現在の日付を設定
     end
 

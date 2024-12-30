@@ -10,16 +10,16 @@ class DataImportsController < ApplicationController
     begin
       case import_type
       when "filtered_data_sheet"
-        FilteredDataSheetImporter.new(file.path).import
+        FilteredDataSheetImporter.new(file.path, current_user).import
         flash[:notice] = "Filtered Data Sheetのインポートが完了しました。"
       when "ebay_sales_report"
-        EbaySalesReportImporter.new(file.path).import
+        EbaySalesReportImporter.new(file.path, current_user).import
         flash[:notice] = "eBay Sales Reportのインポートが完了しました。"
       when "cpass_shipping_cost"
-        CpassShippingCostImporter.new(file.path).import
+        CpassShippingCostImporter.new(file.path, current_user).import
         flash[:notice] = "Cpass Shipping Costのインポートが完了しました。"
       when "ebay_transaction_report"
-        EbayTransactionReportImporter.new(file.path).import
+        EbayTransactionReportImporter.new(file.path, current_user).import
         flash[:notice] = "eBay Transaction Reportのインポートが完了しました。"
       else
         flash[:alert] = "不明なインポートタイプです。"
