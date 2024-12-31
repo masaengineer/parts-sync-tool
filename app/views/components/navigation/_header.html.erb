@@ -2,13 +2,10 @@
 <div role="navigation" aria-label="Navbar" class="navbar fixed top-0 w-full bg-base-100 z-50 border-b border-base-200 px-3">
   <%# 左側のコンテンツ %>
   <div class="navbar-start gap-3">
-    <%# Left Menu Toggle - 左メニューの開閉ボタン %>
-    <button
-      aria-label="Leftmenu toggle"
-      data-action="leftbar#toggle"
-      class="btn btn-square btn-ghost btn-sm">
-      <iconify-icon icon="lucide:menu" height="20"></iconify-icon>
-    </button>
+    <%# Logo %>
+    <%= link_to root_path, class: "flex items-center" do %>
+      <%= image_tag "logo/parts-sync-logo.svg", alt: "Parts Sync", class: "h-8 w-auto" %>
+    <% end %>
   </div>
 
   <%# 中央のコンテンツ - タブナビゲーション %>
