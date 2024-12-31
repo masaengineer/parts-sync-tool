@@ -7,10 +7,10 @@ ja:
         email: メールアドレス
         password: パスワード
         password_confirmation: パスワード（確認）
-        current_password: 現在のパスワード
-        remember_me: ログインを記憶する
-        first_name: 名
+        remember_me: ログインを記憶
+        agreement: 利用規約とプライバシーポリシーに同意する
         last_name: 姓
+        first_name: 名
         full_name: 氏名
         profile_picture_url: プロフィール画像
         created_at: 作成日時
