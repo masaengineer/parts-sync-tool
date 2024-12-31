@@ -1,7 +1,5 @@
-<%# app/views/plreports/index.html.erb %>
-<% content_for(:title, t("plreports.index.title", year: params[:year] || Date.today.year)) %>
-
-<h2><%= t("plreports.index.title", year: params[:year] || Date.today.year) %></h2>
+<%# タイトルの設定 %>
+<% content_for :title do %><%= t("plreports.index.title", year: params[:year] || Date.today.year).strip %><% end %>
 
 <% metrics = [
   {key: :revenue, label: t("plreports.index.metrics.revenue")},

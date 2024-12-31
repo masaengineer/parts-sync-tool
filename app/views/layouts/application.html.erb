@@ -1,18 +1,7 @@
 <!DOCTYPE html>
-<html lang="<%= I18n.locale %>" data-theme="light" data-controller="theme">
+<html lang="<%= I18n.locale %>" data-theme="light">
   <head>
-    <title><%= content_for?(:title) ? yield(:title) : "Orders Management" %></title>
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-    <%= csrf_meta_tags %>
-    <%= csp_meta_tag %>
-
-    <%# SVGファビコン - モダンブラウザ向け %>
-    <%= favicon_link_tag 'logo/favicon.svg', type: 'image/svg+xml' %>
-    <%# PNGファビコン - レガシーブラウザのフォールバック用 %>
-    <%= favicon_link_tag 'logo/favicon.png', type: 'image/png' %>
-
-    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
-    <%= javascript_include_tag "application", "data-turbo-track": "reload", defer: true %>
+    <%= render 'layouts/head' %>
   </head>
 
   <body>

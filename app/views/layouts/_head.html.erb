@@ -1,19 +1,14 @@
-<title><%= content_for(:title) || "Parts Sync" %></title>
+<title><%= content_for?(:title) ? yield(:title).strip : "Parts Sync" %></title>
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <%= csrf_meta_tags %>
 <%= csp_meta_tag %>
 
+<%# SVGファビコン - モダンブラウザ向け %>
+<%= favicon_link_tag 'logo/favicon.svg', type: 'image/svg+xml' %>
+<%# PNGファビコン - レガシーブラウザのフォールバック用 %>
+<%= favicon_link_tag 'logo/favicon.png', type: 'image/png' %>
+
 <%# スタイルシートとJavaScript %>
 <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
 <%= javascript_include_tag "application", "data-turbo-track": "reload", type: "module" %>
-
-<%# テーマ設定のスクリプト %>
-<script>
-  try {
-    document.documentElement.setAttribute(
-      "data-theme",
-      JSON.parse(localStorage.getItem("__NEXUS__HTML__ADMIN__LAYOUT__")).theme
-    )
-  } catch (e) {}
-</script>

@@ -29,7 +29,7 @@
           </div>
           <div class="flex flex-col items-start">
             <% if user_signed_in? %>
-              <p class="text-sm/none"><%= current_user.email %></p>
+              <p class="text-sm/none"><%= current_user.full_name %></p>
               <p class="mt-1 text-xs/none text-primary"><%= t("shared.header.profile.edit") %></p>
             <% else %>
               <p class="text-sm/none"><%= t("shared.header.profile.guest") %></p>
@@ -44,6 +44,20 @@
             <%= link_to edit_user_registration_path, class: "flex items-center gap-2" do %>
               <iconify-icon icon="lucide:user" height="16"></iconify-icon>
               <%= t("shared.header.menu.my_profile") %>
+            <% end %>
+          </li>
+          <hr class="-mx-2 my-1 border-base-content/10" />
+          <%# 静的ページへのリンク %>
+          <li>
+            <%= link_to terms_of_service_path, class: "flex items-center gap-2" do %>
+              <iconify-icon icon="lucide:file-text" height="16"></iconify-icon>
+              <%= t("shared.header.menu.terms_of_service") %>
+            <% end %>
+          </li>
+          <li>
+            <%= link_to privacy_policy_path, class: "flex items-center gap-2" do %>
+              <iconify-icon icon="lucide:shield" height="16"></iconify-icon>
+              <%= t("shared.header.menu.privacy_policy") %>
             <% end %>
           </li>
           <hr class="-mx-2 my-1 border-base-content/10" />
@@ -64,6 +78,20 @@
             <%= link_to new_user_registration_path, class: "flex items-center gap-2" do %>
               <iconify-icon icon="lucide:user-plus" height="16"></iconify-icon>
               <%= t("shared.header.menu.sign_up") %>
+            <% end %>
+          </li>
+          <hr class="-mx-2 my-1 border-base-content/10" />
+          <%# 静的ページへのリンク（非ログインユーザー用） %>
+          <li>
+            <%= link_to privacy_policy_path, class: "flex items-center gap-2" do %>
+              <iconify-icon icon="lucide:shield" height="16"></iconify-icon>
+              <%= t("shared.header.menu.privacy_policy") %>
+            <% end %>
+          </li>
+          <li>
+            <%= link_to terms_of_service_path, class: "flex items-center gap-2" do %>
+              <iconify-icon icon="lucide:file-text" height="16"></iconify-icon>
+              <%= t("shared.header.menu.terms_of_service") %>
             <% end %>
           </li>
         <% end %>
