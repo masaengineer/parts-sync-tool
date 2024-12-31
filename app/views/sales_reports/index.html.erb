@@ -5,66 +5,7 @@
   <%= render 'csv_import_form' %>
   <%= render 'search_form' %>
 
-  <div class="card bg-base-100 shadow-xl overflow-x-auto">
-    <div class="card-body p-0">
-      <table class="table table-zebra w-full">
-        <thead>
-          <tr>
-            <th class="bg-base-200/50 font-bold"><%= t("sales_reports.index.table.sale_date") %></th>
-            <th class="bg-base-200/50 font-bold whitespace-nowrap"><%= t("sales_reports.index.table.order_number") %></th>
-            <th class="bg-base-200/50 font-bold"><%= t("sales_reports.index.table.sku") %></th>
-            <th class="bg-base-200/50 font-bold"><%= t("sales_reports.index.table.product_name") %></th>
-            <th class="bg-base-200/50 font-bold text-right"><%= t("sales_reports.index.table.revenue_dollar") %></th>
-            <th class="bg-base-200/50 font-bold text-right"><%= t("sales_reports.index.table.fee_dollar") %></th>
-            <th class="bg-base-200/50 font-bold text-right"><%= t("sales_reports.index.table.shipping_yen") %></th>
-            <th class="bg-base-200/50 font-bold text-right"><%= t("sales_reports.index.table.procurement_yen") %></th>
-            <th class="bg-base-200/50 font-bold text-right"><%= t("sales_reports.index.table.other_cost_yen") %></th>
-            <th class="bg-base-200/50 font-bold text-right"><%= t("sales_reports.index.table.quantity") %></th>
-            <th class="bg-base-200/50 font-bold text-right"><%= t("sales_reports.index.table.profit_yen") %></th>
-            <th class="bg-base-200/50 font-bold text-right"><%= t("sales_reports.index.table.profit_rate") %></th>
-            <th class="bg-base-200/50 font-bold"><%= t("sales_reports.index.table.tracking_number") %></th>
-          </tr>
-        </thead>
-        <tbody>
-          <% @orders_data.each do |data| %>
-            <tr class="hover:bg-base-200/30">
-              <td><%= l(data[:sale_date], format: :default) if data[:sale_date] %></td>
-              <td class="whitespace-nowrap font-medium"><%= data[:order].order_number %></td>
-              <td class="max-w-[200px] truncate" title="<%= data[:sku_codes] %>">
-                <%= data[:sku_codes] %>
-              </td>
-              <td class="max-w-[200px] truncate" title="<%= data[:product_names] %>">
-                <%= data[:product_names] %>
-              </td>
-              <td class="text-right font-medium">
-                <%= number_to_currency(data[:revenue], unit: '$', precision: 2, format: '%u%n') %>
-              </td>
-              <td class="text-right text-error">
-                <%= number_to_currency(data[:payment_fees], unit: '$', precision: 2, format: '%u%n') %>
-              </td>
-              <td class="text-right text-error">
-                <%= number_to_currency(data[:shipping_cost], unit: '¥', precision: 0, format: '%u%n') %>
-              </td>
-              <td class="text-right text-error">
-                <%= number_to_currency(data[:procurement_cost], unit: '¥', precision: 0, format: '%u%n') %>
-              </td>
-              <td class="text-right text-error">
-                <%= number_to_currency(data[:other_costs], unit: '¥', precision: 0, format: '%u%n') %>
-              </td>
-              <td class="text-right font-medium"><%= data[:quantity] %></td>
-              <td class="text-right font-bold text-success">
-                <%= number_to_currency(data[:profit], unit: '¥', precision: 0, format: '%u%n') %>
-              </td>
-              <td class="text-right font-medium">
-                <%= number_with_precision(data[:profit_rate], precision: 1) %>%
-              </td>
-              <td class="whitespace-nowrap font-medium"><%= data[:tracking_number] %></td>
-            </tr>
-          <% end %>
-        </tbody>
-      </table>
-    </div>
-  </div>
+  <%= render 'table', orders_data: @orders_data %>
 
   <div class="mt-6">
     <%= paginate @orders %>
