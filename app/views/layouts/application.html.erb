@@ -4,17 +4,11 @@
     <%= render 'layouts/head' %>
   </head>
 
-  <body>
-    <div class="size-full">
-      <div class="main-wrapper overflow-auto w-full min-h-screen bg-[--main-content-background]">
-        <div class="flex h-full flex-col">
-          <%= render 'components/navigation/header' %>
-          <div class="content-wrapper mt-24">
-            <%= render 'shared/flash_messages' %>
-            <%= yield %>
-          </div>
-        </div>
-      </div>
-    </div>
+  <body class="flex flex-col min-h-screen bg-[--main-content-background]">
+    <%= render 'components/navigation/header' %>
+    <main class="flex-grow pt-16">
+      <%= render 'shared/flash_messages' %>
+      <%= yield %>
+    </main>
   </body>
 </html>

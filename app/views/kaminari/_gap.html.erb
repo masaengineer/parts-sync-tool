@@ -5,9 +5,6 @@
     per_page:      number of items to fetch per page
     remote:        data-remote
 -%>
-<% content = content_tag(:button,
-  t('views.pagination.truncate').html_safe,
-  class: "btn join-item btn-sm btn-disabled",
-  disabled: true
-) %>
-<%= content %>
+<span class="join-item btn btn-sm btn-ghost no-animation cursor-default min-w-[2.5rem]" aria-label="省略されたページ">
+  <%= t('views.pagination.truncate').html_safe %>
+</span>

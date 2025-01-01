@@ -7,14 +7,23 @@
     per_page:      number of items to fetch per page
     remote:        data-remote
 -%>
-<% classes = ["btn", "join-item", "btn-sm"] %>
-<% classes << "btn-primary btn-active" if page.current? %>
+<% classes = ["join-item", "btn", "btn-sm", "min-w-[2.5rem]"] %>
+<% if page.current? %>
+  <% classes << "btn-primary hover:btn-primary-focus" %>
+<% else %>
+  <% classes << "btn-ghost hover:bg-base-200" %>
+<% end %>
 
 <% content = content_tag(:button,
   page.to_s,
   class: classes.join(" "),
-  "aria-label": "pagination-#{page.to_i}",
+  "aria-label": "ページ #{page.to_i}",
+  "aria-current": page.current? ? "page" : nil,
   disabled: page.current?
 ) %>
 
-<%= link_to_unless page.current?, content, url, { remote: remote, rel: page.rel } %>
+<%= link_to_unless page.current?, content, url, {
+  remote: remote,
+  rel: page.rel,
+  class: "no-underline"
+} %>

@@ -6,12 +6,11 @@
     per_page:      number of items to fetch per page
     remote:        data-remote
 -%>
-<%# 次へボタン用のパーシャル %>
+
 <% content = content_tag(:button,
-  raw('<iconify-icon icon="lucide:chevron-right" height="16"></iconify-icon>'),
-  class: "btn join-item btn-sm gap-2",
-  "aria-label": "pagination-next",
-  disabled: current_page.last?
+  raw('<svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" /></svg>'),
+  class: "join-item btn btn-sm btn-ghost hover:bg-base-200",
+  "aria-label": "次のページ"
 ) %>
 
-<%= link_to_unless current_page.last?, content, url, remote: remote, rel: "next" %>
+<%= link_to content, url, rel: 'next', remote: remote, class: "no-underline" %>
