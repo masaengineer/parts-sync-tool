@@ -2,8 +2,8 @@ module SalesReportHelper
   # 検索フォームの入力フィールドを生成するヘルパーメソッド
   def search_form_field(form, field_name, label_text, options = {})
     field_type = options[:field_type] || :search_field
-    input_classes = "input input-bordered w-full focus:input-primary"
-    label_classes = "label font-medium"
+    input_classes = "input input-sm input-bordered w-full focus:input-primary text-base"
+    label_classes = "label font-medium text-sm"
 
     content_tag(:div, class: "form-control w-full") do
       concat form.label(field_name, label_text, class: label_classes)

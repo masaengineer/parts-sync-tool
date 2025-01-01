@@ -1,12 +1,3 @@
-:root {
-  /* サイドバー関連の変数を削除 */
-}
-
-[ignore-variables] {
-  --main-content-background: initial;
-  --topbar-background: initial;
-}
-
 .topbar-wrapper {
   background: var(--topbar-background);
   @apply fixed top-0 left-0 right-0 z-50;
@@ -20,5 +11,5 @@
 }
 
 .content-wrapper {
-  @apply p-4;
+  @apply grow p-6 transition-all;
 }

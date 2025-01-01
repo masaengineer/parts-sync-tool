@@ -1,0 +1,10 @@
+<%# app/views/sales_reports/_table_header.html.erb %>
+<thead>
+  <tr>
+    <% table_columns.each do |column| %>
+      <th class="text-sm font-medium text-base-content/80 <%= get_column_class(column, :header) %>">
+        <%= t("sales_reports.index.table.#{column[:key]}") %>
+      </th>
+    <% end %>
+  </tr>
+</thead>

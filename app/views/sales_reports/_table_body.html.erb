@@ -1,0 +1,12 @@
+<%# app/views/sales_reports/_table_body.html.erb %>
+<tbody>
+  <% orders_data.each do |data| %>
+    <tr class="font-medium cursor-pointer hover:bg-base-200/40">
+      <% table_columns.each do |column| %>
+        <td class="<%= get_column_class(column, :cell) %>">
+          <%= render_cell_value(data, column) %>
+        </td>
+      <% end %>
+    </tr>
+  <% end %>
+</tbody>

@@ -1,102 +1,104 @@
 <%# ナビゲーションバー全体のコンテナ %>
-<div role="navigation" aria-label="Navbar" class="navbar fixed top-0 w-full bg-base-100 z-50 border-b border-base-200 px-3">
-  <%# 左側のコンテンツ %>
-  <div class="navbar-start gap-3">
-    <%# Logo %>
-    <%= link_to root_path, class: "flex items-center" do %>
-      <%= image_tag "logo/parts-sync-logo.svg", alt: "Parts Sync", class: "h-8 w-auto" %>
-    <% end %>
-  </div>
-
-  <%# 中央のコンテンツ - タブナビゲーション %>
-  <div class="navbar-center">
-    <div role="tablist" class="tabs-boxed tabs">
-      <%= link_to t("shared.header.navigation.sales_reports"), sales_reports_path, role: "tab", class: "tab #{controller_name == 'sales_reports' ? 'tab-active' : ''}" %>
-      <%= link_to t("shared.header.navigation.pl_reports"), plreports_path, role: "tab", class: "tab #{controller_name == 'plreports' ? 'tab-active' : ''}" %>
+<header class="fixed top-0 left-0 right-0 z-50 bg-base-100 border-b border-base-200">
+  <div class="navbar px-3">
+    <%# 左側のコンテンツ %>
+    <div class="navbar-start gap-3">
+      <%# Logo %>
+      <%= link_to root_path, class: "flex items-center" do %>
+        <%= image_tag "logo/parts-sync-logo.svg", alt: "Parts Sync", class: "h-8 w-auto" %>
+      <% end %>
     </div>
-  </div>
 
-  <%# 右側のコンテンツ %>
-  <div class="navbar-end gap-1.5">
-    <%# Profile With Action Item - プロフィールドロップダウン %>
-    <div class="dropdown dropdown-end dropdown-bottom">
-      <label tabindex="0" class="btn btn-ghost rounded-btn px-1.5 hover:bg-base-content/20">
-        <div class="flex items-center gap-2">
-          <div aria-label="Avatar photo" class="avatar">
-            <div class="mask mask-squircle w-8 h-8">
-              <%= image_tag "avatars/1.png", alt: "Avatar" %>
+    <%# 中央のコンテンツ - タブナビゲーション %>
+    <div class="navbar-center">
+      <div role="tablist" class="tabs-boxed tabs">
+        <%= link_to t("shared.header.navigation.sales_reports"), sales_reports_path, role: "tab", class: "tab #{controller_name == 'sales_reports' ? 'tab-active' : ''}" %>
+        <%= link_to t("shared.header.navigation.pl_reports"), plreports_path, role: "tab", class: "tab #{controller_name == 'plreports' ? 'tab-active' : ''}" %>
+      </div>
+    </div>
+
+    <%# 右側のコンテンツ %>
+    <div class="navbar-end gap-1.5">
+      <%# Profile With Action Item - プロフィールドロップダウン %>
+      <div class="dropdown dropdown-end dropdown-bottom">
+        <label tabindex="0" class="btn btn-ghost rounded-btn px-1.5 hover:bg-base-content/20">
+          <div class="flex items-center gap-2">
+            <div aria-label="Avatar photo" class="avatar">
+              <div class="mask mask-squircle w-8 h-8">
+                <%= image_tag "avatars/1.png", alt: "Avatar" %>
+              </div>
+            </div>
+            <div class="flex flex-col items-start">
+              <% if user_signed_in? %>
+                <p class="text-sm/none"><%= current_user.full_name %></p>
+                <p class="mt-1 text-xs/none text-primary"><%= t("shared.header.profile.edit") %></p>
+              <% else %>
+                <p class="text-sm/none"><%= t("shared.header.profile.guest") %></p>
+                <p class="mt-1 text-xs/none text-primary"><%= t("shared.header.profile.sign_in") %></p>
+              <% end %>
             </div>
           </div>
-          <div class="flex flex-col items-start">
-            <% if user_signed_in? %>
-              <p class="text-sm/none"><%= current_user.full_name %></p>
-              <p class="mt-1 text-xs/none text-primary"><%= t("shared.header.profile.edit") %></p>
-            <% else %>
-              <p class="text-sm/none"><%= t("shared.header.profile.guest") %></p>
-              <p class="mt-1 text-xs/none text-primary"><%= t("shared.header.profile.sign_in") %></p>
-            <% end %>
-          </div>
-        </div>
-      </label>
-      <ul tabindex="0" class="menu dropdown-content mt-4 w-52 rounded-box bg-base-100 p-2 shadow" role="menu">
-        <% if user_signed_in? %>
-          <li>
-            <%= link_to edit_user_registration_path, class: "flex items-center gap-2" do %>
-              <iconify-icon icon="lucide:user" height="16"></iconify-icon>
-              <%= t("shared.header.menu.my_profile") %>
-            <% end %>
-          </li>
-          <hr class="-mx-2 my-1 border-base-content/10" />
-          <%# 静的ページへのリンク %>
-          <li>
-            <%= link_to terms_of_service_path, class: "flex items-center gap-2" do %>
-              <iconify-icon icon="lucide:file-text" height="16"></iconify-icon>
-              <%= t("shared.header.menu.terms_of_service") %>
-            <% end %>
-          </li>
-          <li>
-            <%= link_to privacy_policy_path, class: "flex items-center gap-2" do %>
-              <iconify-icon icon="lucide:shield" height="16"></iconify-icon>
-              <%= t("shared.header.menu.privacy_policy") %>
-            <% end %>
-          </li>
-          <hr class="-mx-2 my-1 border-base-content/10" />
-          <li>
-            <%= button_to destroy_user_session_path, method: :delete, class: "flex items-center gap-2 text-error" do %>
-              <iconify-icon icon="lucide:log-out" height="16"></iconify-icon>
-              <%= t("shared.header.menu.logout") %>
-            <% end %>
-          </li>
-        <% else %>
-          <li>
-            <%= link_to new_user_session_path, class: "flex items-center gap-2" do %>
-              <iconify-icon icon="lucide:log-in" height="16"></iconify-icon>
-              <%= t("shared.header.menu.sign_in") %>
-            <% end %>
-          </li>
-          <li>
-            <%= link_to new_user_registration_path, class: "flex items-center gap-2" do %>
-              <iconify-icon icon="lucide:user-plus" height="16"></iconify-icon>
-              <%= t("shared.header.menu.sign_up") %>
-            <% end %>
-          </li>
-          <hr class="-mx-2 my-1 border-base-content/10" />
-          <%# 静的ページへのリンク（非ログインユーザー用） %>
-          <li>
-            <%= link_to privacy_policy_path, class: "flex items-center gap-2" do %>
-              <iconify-icon icon="lucide:shield" height="16"></iconify-icon>
-              <%= t("shared.header.menu.privacy_policy") %>
-            <% end %>
-          </li>
-          <li>
-            <%= link_to terms_of_service_path, class: "flex items-center gap-2" do %>
-              <iconify-icon icon="lucide:file-text" height="16"></iconify-icon>
-              <%= t("shared.header.menu.terms_of_service") %>
-            <% end %>
-          </li>
-        <% end %>
-      </ul>
+        </label>
+        <ul tabindex="0" class="menu dropdown-content mt-4 w-52 rounded-box bg-base-100 p-2 shadow" role="menu">
+          <% if user_signed_in? %>
+            <li>
+              <%= link_to edit_user_registration_path, class: "flex items-center gap-2" do %>
+                <iconify-icon icon="lucide:user" height="16"></iconify-icon>
+                <%= t("shared.header.menu.my_profile") %>
+              <% end %>
+            </li>
+            <hr class="-mx-2 my-1 border-base-content/10" />
+            <%# 静的ページへのリンク %>
+            <li>
+              <%= link_to terms_of_service_path, class: "flex items-center gap-2" do %>
+                <iconify-icon icon="lucide:file-text" height="16"></iconify-icon>
+                <%= t("shared.header.menu.terms_of_service") %>
+              <% end %>
+            </li>
+            <li>
+              <%= link_to privacy_policy_path, class: "flex items-center gap-2" do %>
+                <iconify-icon icon="lucide:shield" height="16"></iconify-icon>
+                <%= t("shared.header.menu.privacy_policy") %>
+              <% end %>
+            </li>
+            <hr class="-mx-2 my-1 border-base-content/10" />
+            <li>
+              <%= button_to destroy_user_session_path, method: :delete, class: "flex items-center gap-2 text-error" do %>
+                <iconify-icon icon="lucide:log-out" height="16"></iconify-icon>
+                <%= t("shared.header.menu.logout") %>
+              <% end %>
+            </li>
+          <% else %>
+            <li>
+              <%= link_to new_user_session_path, class: "flex items-center gap-2" do %>
+                <iconify-icon icon="lucide:log-in" height="16"></iconify-icon>
+                <%= t("shared.header.menu.sign_in") %>
+              <% end %>
+            </li>
+            <li>
+              <%= link_to new_user_registration_path, class: "flex items-center gap-2" do %>
+                <iconify-icon icon="lucide:user-plus" height="16"></iconify-icon>
+                <%= t("shared.header.menu.sign_up") %>
+              <% end %>
+            </li>
+            <hr class="-mx-2 my-1 border-base-content/10" />
+            <%# 静的ページへのリンク（非ログインユーザー用） %>
+            <li>
+              <%= link_to privacy_policy_path, class: "flex items-center gap-2" do %>
+                <iconify-icon icon="lucide:shield" height="16"></iconify-icon>
+                <%= t("shared.header.menu.privacy_policy") %>
+              <% end %>
+            </li>
+            <li>
+              <%= link_to terms_of_service_path, class: "flex items-center gap-2" do %>
+                <iconify-icon icon="lucide:file-text" height="16"></iconify-icon>
+                <%= t("shared.header.menu.terms_of_service") %>
+              <% end %>
+            </li>
+          <% end %>
+        </ul>
+      </div>
     </div>
   </div>
-</div>
+</header>
 
