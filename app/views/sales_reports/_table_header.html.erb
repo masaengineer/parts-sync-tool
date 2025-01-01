@@ -2,7 +2,7 @@
 <thead>
   <tr>
     <% table_columns.each do |column| %>
-      <th class="bg-base-200/50 font-bold <%= get_column_class(column, :header) %>">
+      <th class="text-sm font-medium text-base-content/80 <%= get_column_class(column, :header) %>">
         <%= t("sales_reports.index.table.#{column[:key]}") %>
       </th>
     <% end %>

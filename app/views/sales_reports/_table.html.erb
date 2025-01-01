@@ -1,9 +1,13 @@
 <%# app/views/sales_reports/_table.html.erb %>
-<div class="card bg-base-100 shadow-xl overflow-x-auto">
-  <div class="card-body p-0">
-    <table class="table table-zebra w-full">
-      <%= render 'table_header' %>
-      <%= render 'table_body', orders_data: orders_data %>
-    </table>
+<div class="card card-bordered bg-base-100 shadow-md mt-5">
+  <div class="card-body">
+    <%= render 'search_form' %>
+
+    <div class="overflow-x-auto">
+      <table class="table rounded-box w-full">
+        <%= render 'table_header' %>
+        <%= render 'table_body', orders_data: orders_data %>
+      </table>
+    </div>
   </div>
 </div>

@@ -1,10 +1,8 @@
 <%# app/views/sales_reports/index.html.erb %>
 <% content_for(:title, t("sales_reports.index.title")) %>
 
-<div class="container mx-auto px-4 py-8">
+<div class="w-full px-6">
   <%= render 'csv_import_form' %>
-  <%= render 'search_form' %>
-
   <%= render 'table', orders_data: @orders_data %>
 
   <div class="mt-6">

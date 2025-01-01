@@ -1,15 +1,18 @@
-<div class="card bg-base-100 shadow-md mb-8">
-  <div class="card-body space-y-6">
+<div class="card bg-base-100 mb-6">
+  <div class="card-body p-5">
     <%= search_form_for @q, url: sales_reports_path do |f| %>
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6">
+      <div class="flex flex-wrap items-end gap-3">
         <% search_form_fields.each do |field| %>
-          <%= search_form_field(f, field[:name], t("sales_reports.search.fields.#{field[:name]}"), field_type: field[:field_type]) %>
+          <div class="w-[calc(16%-0.75rem)]">
+            <%= search_form_field(f, field[:name], t("sales_reports.search.fields.#{field[:name]}"), field_type: field[:field_type]) %>
+          </div>
         <% end %>
-      </div>
-
-      <div class="mt-8 flex justify-end gap-3">
-        <%= link_to t("sales_reports.search.reset"), sales_reports_path, class: "btn btn-ghost hover:btn-error" %>
-        <%= f.submit t("sales_reports.search.submit"), class: "btn btn-primary" %>
+        <div class="w-[calc(10%-0.75rem)]">
+          <%= link_to t("sales_reports.search.reset"), sales_reports_path, class: "btn btn-ghost btn-sm hover:btn-error w-full" %>
+        </div>
+        <div class="w-[calc(10%-0.75rem)]">
+          <%= f.submit t("sales_reports.search.submit"), class: "btn btn-primary btn-sm w-full" %>
+        </div>
       </div>
     <% end %>
   </div>

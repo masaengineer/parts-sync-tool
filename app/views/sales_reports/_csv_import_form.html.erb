@@ -1,25 +1,25 @@
 <%# CSVインポートフォーム %>
-<div class="card bg-base-100 shadow-md mb-8">
-  <div class="card-body">
-    <h3 class="card-title text-base-content mb-6"><%= t("sales_reports.csv_import.title") %></h3>
+<div class="card card-bordered bg-base-100 shadow-md mb-6">
+  <div class="card-body p-5 space-y-5">
     <%= form_with url: import_data_imports_path, local: true, method: :post, multipart: true do |f| %>
-      <div class="grid grid-cols-1 md:grid-cols-5 gap-6">
+      <div class="grid grid-cols-1 md:grid-cols-5 gap-5">
         <div class="form-control">
-          <%= f.label :import_type, t("sales_reports.csv_import.import_type"), class: "label font-medium" %>
+          <%= f.label :import_type, t("sales_reports.csv_import.import_type"), class: "label font-medium text-sm" %>
           <%= f.select :import_type, [
             [t("sales_reports.csv_import.types.filtered_data_sheet"), "filtered_data_sheet"],
             [t("sales_reports.csv_import.types.ebay_sales_report"), "ebay_sales_report"],
             [t("sales_reports.csv_import.types.cpass_shipping_cost"), "cpass_shipping_cost"],
             [t("sales_reports.csv_import.types.ebay_transaction_report"), "ebay_transaction_report"]
-          ], {}, { class: "select select-bordered w-full focus:select-primary" } %>
+          ], {}, { class: "select select-sm select-bordered w-full focus:select-primary text-base" } %>
         </div>
+
         <div class="form-control md:col-span-2">
-          <%= f.label :file, t("sales_reports.csv_import.file"), class: "label font-medium" %>
-          <%= f.file_field :file, class: "file-input file-input-bordered w-full focus:file-input-primary", accept: ".csv" %>
+          <%= f.label :file, t("sales_reports.csv_import.file"), class: "label font-medium text-sm" %>
+          <%= f.file_field :file, class: "file-input file-input-sm file-input-bordered w-full focus:file-input-primary text-base", accept: ".csv" %>
         </div>
 
         <div class="md:col-span-2 flex justify-end items-end">
-          <%= f.submit t("sales_reports.csv_import.submit"), class: "btn btn-primary h-12" %>
+          <%= f.submit t("sales_reports.csv_import.submit"), class: "btn btn-primary btn-sm" %>
         </div>
       </div>
     <% end %>
