@@ -10,6 +10,27 @@
           <%= render "devise/shared/error_messages", resource: resource %>
 
           <div class="space-y-6">
+            <%# プロフィール画像 %>
+            <div class="form-control">
+              <label class="label">
+                <span class="label-text"><%= t('.profile_image') %></span>
+              </label>
+              <div class="flex items-center space-x-4">
+                <% if resource.profile_picture_url.present? %>
+                  <%= image_tag resource.profile_picture_url, class: "mask mask-squircle w-24 h-24", alt: "Profile Picture" %>
+                <% else %>
+                  <div class="mask mask-squircle w-24 h-24 bg-base-300 flex items-center justify-center">
+                    <iconify-icon icon="lucide:user" width="32" height="32" class="text-base-content/50"></iconify-icon>
+                  </div>
+                <% end %>
+                <% if resource.provider == 'google_oauth2' %>
+                  <div class="text-sm text-base-content/70">
+                    <%= t('.google_profile_image_note') %>
+                  </div>
+                <% end %>
+              </div>
+            </div>
+
             <%# メールアドレス %>
             <div class="form-control">
               <%= f.label :email, class: "label" %>
@@ -80,7 +101,7 @@
       <div class="card bg-base-100 shadow-xl">
         <div class="card-body">
           <h2 class="card-title text-error"><%= t('.cancel_account') %></h2>
-          <p class="text-base-content/70"><%= t('.unhappy') %></p>
+          <p class="text-base-content/70"><%= t('.unhappy_message') %></p>
           <div class="card-actions justify-end">
             <%= button_to t('.cancel_account'),
                 registration_path(resource_name),

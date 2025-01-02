@@ -48,6 +48,24 @@ Devise.setup do |config|
   # or not authentication should be aborted when the value is not present.
   # config.authentication_keys = [:email]
 
+  # ==> OmniAuth Configuration
+  OmniAuth.config.allowed_request_methods = [:post, :get]
+  OmniAuth.config.silence_get_warning = true
+
+  config.omniauth :google_oauth2,
+                  ENV['GOOGLE_CLIENT_ID'],
+                  ENV['GOOGLE_CLIENT_SECRET'],
+                  {
+                    scope: 'email,profile',
+                    prompt: 'select_account',
+                    image_aspect_ratio: 'square',
+                    image_size: 50,
+                    access_type: 'offline',
+                    skip_jwt: true,
+                    secure_image_url: true,
+                    redirect_uri: proc { |env| "#{env['BASE_URL'] || 'https://www.parts-sync.site'}/users/auth/google_oauth2/callback" }
+                  }
+
   # Configure parameters from the request object used for authentication. Each entry
   # given should be a request method and it will automatically be passed to the
   # find_for_authentication method and considered in your model lookup. For instance,
@@ -175,7 +193,7 @@ Devise.setup do |config|
   # Options to be passed to the created cookie. For instance, you can set
   # secure: true in order to force SSL only cookies.
   config.rememberable_options = {
-    secure: Rails.env.production?,
+    secure: true,
     same_site: :lax
   }
 

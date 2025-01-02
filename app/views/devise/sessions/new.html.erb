@@ -43,6 +43,13 @@
       </h3>
 
       <div class="mt-6 md:mt-10">
+        <%= link_to user_google_oauth2_omniauth_authorize_path, data: { turbo: false }, class: "btn btn-outline w-full" do %>
+          <%= image_tag "brand-logo/google-mini.svg", alt: "Google", class: "size-5" %>
+          <span class="ml-2">Googleでログイン</span>
+        <% end %>
+
+        <div class="divider">または</div>
+
         <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
           <div class="form-control">
             <%= f.label :email, t('activerecord.attributes.user.email'), class: "label" %>
@@ -86,13 +93,6 @@
                 class: "btn btn-primary btn-block gap-2 text-base" %>
           </div>
         <% end %>
-
-        <div class="mt-4">
-          <button class="btn btn-outline btn-md btn-block flex items-center gap-3 border-base-content/10 !text-base-content hover:border-transparent hover:bg-base-content/10">
-            <%= image_tag "brand-logo/google-mini.svg", alt: "", loading: "lazy", class: "size-6" %>
-            <span class="text-base"><%= t('devise.shared.links.sign_in_with_provider', provider: 'Google') %></span>
-          </button>
-        </div>
 
         <p class="mt-4 text-center text-sm text-base-content/80 md:mt-6">
           <%= t('devise.sessions.new.no_account') %>
