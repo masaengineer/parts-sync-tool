@@ -13,6 +13,8 @@
 #  remember_created_at    :datetime
 #  last_name              :string
 #  first_name             :string
+#  provider               :string
+#  uid                    :string
 #
 # Indexes
 #

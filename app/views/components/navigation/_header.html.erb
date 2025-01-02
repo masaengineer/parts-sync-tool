@@ -25,7 +25,13 @@
           <div class="flex items-center gap-2">
             <div aria-label="Avatar photo" class="avatar">
               <div class="mask mask-squircle w-8 h-8">
-                <%= image_tag "avatars/1.png", alt: "Avatar" %>
+                <% if user_signed_in? && current_user.profile_picture_url.present? %>
+                  <%= image_tag current_user.profile_picture_url, alt: current_user.full_name %>
+                <% else %>
+                  <div class="w-full h-full bg-base-300 flex items-center justify-center">
+                    <iconify-icon icon="lucide:user" width="16" height="16" class="text-base-content/50"></iconify-icon>
+                  </div>
+                <% end %>
               </div>
             </div>
             <div class="flex flex-col items-start">
