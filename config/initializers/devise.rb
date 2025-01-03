@@ -67,6 +67,11 @@ Devise.setup do |config|
                       request = ActionDispatch::Request.new(env)
                       host = request.host
                       "https://#{host}/users/auth/google_oauth2/callback"
+                    },
+                    client_options: {
+                      ssl: { verify: true },
+                      authorize_url: 'https://accounts.google.com/o/oauth2/auth',
+                      token_url: 'https://accounts.google.com/o/oauth2/token'
                     }
                   }
 
@@ -187,6 +192,8 @@ Devise.setup do |config|
   # ==> Configuration for :rememberable
   # The time the user will be remembered without asking for credentials again.
   config.remember_for = 2.weeks
+  config.remember_me_for = 2.weeks
+  config.remember_me = true
 
   # Invalidates all the remember me tokens when the user signs out.
   config.expire_all_remember_me_on_sign_out = true
