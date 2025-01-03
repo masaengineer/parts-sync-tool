@@ -54,7 +54,7 @@
 
 - **将来的な拡張性が高い**
   - ユーザーフィードバックを反映した継続的な機能改善
-  - API連携による他システムとの統合（Shopify, eBay, Yahooショッピング等に対応）
+  - API連携による他システムとの統合（Shopify, eBay等に対応）
 
 
 # 機能候補
@@ -85,5 +85,5 @@
 - **テストコード**：SimpleCov
 
 
-# ER図  
+# ER図
 [![Image from Gyazo](https://i.gyazo.com/5cedc058c622f3a4191848d46cfac81c.png)](https://gyazo.com/5cedc058c622f3a4191848d46cfac81c)
