@@ -147,12 +147,15 @@
 
         <div class="mt-4">
           <!--  Start: Social Google Register -->
-          <button class="btn btn-outline btn-md btn-block flex items-center gap-3 border-base-content/10 !text-base-content hover:border-transparent hover:bg-base-content/10">
+          <%= link_to user_google_oauth2_omniauth_authorize_path,
+              method: :post,
+              data: { turbo: false },
+              class: "btn btn-outline btn-md btn-block flex items-center gap-3 border-base-content/10 !text-base-content hover:border-transparent hover:bg-base-content/10" do %>
             <%= image_tag 'brand-logo/google-mini.svg', alt: '', loading: 'lazy', class: 'w-6 h-6' %>
             <span class="text-base">
               <%= t('devise.shared.links.sign_up_with_provider', provider: 'Google') %>
             </span>
-          </button>
+          <% end %>
           <!--  End: Social Google Register -->
         </div>
 
