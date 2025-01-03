@@ -3,6 +3,7 @@
 class SalesReportsController < ApplicationController
   def index
     @q = current_user.orders.ransack(params[:q])
+    @per_page = (params[:per_page] || 30).to_i
     @orders = @q.result
                 .includes(
                   :sale,
@@ -14,7 +15,7 @@ class SalesReportsController < ApplicationController
                   }
                 )
                 .page(params[:page])
-                .per(30)
+                .per(@per_page)
 
     # ReportCalculatorを用いて計算を行う
     @orders_data = @orders.map do |order|
