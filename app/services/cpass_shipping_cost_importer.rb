@@ -1,5 +1,5 @@
-require 'csv'
-require 'securerandom'
+require "csv"
+require "securerandom"
 
 # CpassShippingCostImporter
 # - CSVからtracking_numberをキーにShipmentを探す

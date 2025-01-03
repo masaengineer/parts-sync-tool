@@ -5,6 +5,6 @@ module Addressable
     has_many :addresses, as: :addressable, dependent: :destroy
     has_one :primary_address, -> { where(is_primary: true) },
             as: :addressable,
-            class_name: 'Address'
+            class_name: "Address"
   end
 end

@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_user, only: [:show, :edit, :update]
+  before_action :set_user, only: [ :show, :edit, :update ]
 
   def index
     redirect_to edit_user_path(current_user)
@@ -14,7 +14,7 @@ class UsersController < ApplicationController
 
   def update
     if @user.update(user_params)
-      redirect_to edit_user_path(@user), notice: t('.success')
+      redirect_to edit_user_path(@user), notice: t(".success")
     else
       render :edit, status: :unprocessable_entity
     end

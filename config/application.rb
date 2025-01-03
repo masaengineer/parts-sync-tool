@@ -25,8 +25,8 @@ module PartsSyncNew
     # config.eager_load_paths << Rails.root.join("extras")
 
     config.i18n.default_locale = :ja
-    config.i18n.available_locales = [:ja, :en]
-    config.time_zone = 'Tokyo'
+    config.i18n.available_locales = [ :ja, :en ]
+    config.time_zone = "Tokyo"
 
     # テストフレームワークをRSpecに設定
     config.generators do |g|

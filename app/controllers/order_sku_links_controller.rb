@@ -1,5 +1,5 @@
 class OrderSkuLinksController < ApplicationController
-  before_action :set_order_sku_link, only: [:show, :edit, :update, :destroy]
+  before_action :set_order_sku_link, only: [ :show, :edit, :update, :destroy ]
 
   def index
     @order_sku_links = OrderSkuLink.all
@@ -19,7 +19,7 @@ class OrderSkuLinksController < ApplicationController
     @order_sku_link = OrderSkuLink.new(order_sku_link_params)
 
     if @order_sku_link.save
-      redirect_to @order_sku_link, notice: '注文商品が正常に作成されました。'
+      redirect_to @order_sku_link, notice: "注文商品が正常に作成されました。"
     else
       render :new
     end
@@ -27,7 +27,7 @@ class OrderSkuLinksController < ApplicationController
 
   def update
     if @order_sku_link.update(order_sku_link_params)
-      redirect_to @order_sku_link, notice: '注文商品が正常に更新されました。'
+      redirect_to @order_sku_link, notice: "注文商品が正常に更新されました。"
     else
       render :edit
     end
@@ -35,7 +35,7 @@ class OrderSkuLinksController < ApplicationController
 
   def destroy
     @order_sku_link.destroy
-    redirect_to order_sku_links_url, notice: '注文商品が正常に削除されました。'
+    redirect_to order_sku_links_url, notice: "注文商品が正常に削除されました。"
   end
 
   private

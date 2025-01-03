@@ -26,7 +26,7 @@ class User < ApplicationRecord
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable,
-         :omniauthable, omniauth_providers: [:google_oauth2]
+         :omniauthable, omniauth_providers: [ :google_oauth2 ]
 
   has_many :orders
   attr_accessor :agreement
@@ -34,7 +34,7 @@ class User < ApplicationRecord
   validates :email, presence: true, uniqueness: true
   validates :last_name, presence: true
   validates :first_name, presence: true
-  validates :agreement, acceptance: { message: 'You must accept the terms and conditions' }
+  validates :agreement, acceptance: { message: "You must accept the terms and conditions" }
 
   def self.from_omniauth(auth)
     where(provider: auth.provider, uid: auth.uid).first_or_create do |user|

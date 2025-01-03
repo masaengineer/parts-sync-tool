@@ -17,7 +17,7 @@ RSpec.describe OrderSkuLink, type: :model do
   end
 
   describe 'インデックス' do
-    it { should have_db_index([:order_id, :sku_id]).unique }
+    it { should have_db_index([ :order_id, :sku_id ]).unique }
   end
 
   describe 'ransackable_attributes' do

@@ -43,13 +43,13 @@ gem "bootsnap", require: false
 # gem "image_processing", "~> 1.2"
 
 # Advanced search functionality for Active Record
-gem 'ransack'
+gem "ransack"
 
 # Rails internationalization
-gem 'rails-i18n'
+gem "rails-i18n"
 
 # Add mega-tags for enhanced SEO
-gem 'meta-tags'
+gem "meta-tags"
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
@@ -61,15 +61,15 @@ group :development, :test do
   # Omakase Ruby styling [https://github.com/rails/rubocop-rails-omakase/]
   gem "rubocop-rails-omakase", require: false
 
-  gem 'faker'  # テストデータを生成するためのgem
-  gem 'factory_bot_rails'  # テストデータを生成するためのgem
-  gem 'pry-rails'
-  gem 'pry-byebug'
+  gem "faker"  # テストデータを生成するためのgem
+  gem "factory_bot_rails"  # テストデータを生成するためのgem
+  gem "pry-rails"
+  gem "pry-byebug"
 
   # RSpec関連のgem
-  gem 'rspec-rails'  # Rails用のRSpec
-  gem 'spring-commands-rspec'  # Spring用のRSpecコマンド
-  gem 'shoulda-matchers'  # テストを簡潔に書くためのマッチャー
+  gem "rspec-rails"  # Rails用のRSpec
+  gem "spring-commands-rspec"  # Spring用のRSpecコマンド
+  gem "shoulda-matchers"  # テストを簡潔に書くためのマッチャー
 end
 
 group :development do
@@ -78,7 +78,7 @@ group :development do
   gem "rails-erd"  # ER図を生成するためのgem
   gem "letter_opener"  # 開発環境でメールをブラウザで確認するためのgem
   gem "letter_opener_web"  # letter_openerをWeb経由で確認するためのgem
-  gem 'annotate'  # モデルファイルに対してスキーマ情報のコメントを自動生成するためのgem
+  gem "annotate"  # モデルファイルに対してスキーマ情報のコメントを自動生成するためのgem
 end
 
 group :test do
@@ -87,4 +87,4 @@ group :test do
   gem "selenium-webdriver"
 end
 
-gem 'kaminari'
+gem "kaminari"

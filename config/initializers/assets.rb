@@ -19,4 +19,4 @@ Rails.application.config.assets.paths << Rails.root.join("app/javascript")
 Rails.application.config.assets.paths << Rails.root.join("app/assets/stylesheets")
 
 # application.js をプリコンパイル対象に含める
-Rails.application.config.assets.precompile += %w( application.js )
+Rails.application.config.assets.precompile += %w[ application.js ]

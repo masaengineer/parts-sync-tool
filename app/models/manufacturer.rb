@@ -14,5 +14,3 @@
 class Manufacturer < ApplicationRecord
   has_many :skus
 end
-
-

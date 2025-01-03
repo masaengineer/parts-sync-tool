@@ -4,7 +4,7 @@ class Users::SessionsController < Devise::SessionsController
   # GET /resource/sign_in
   def new
     # Googleログインボタンのための認証元情報を保存
-    session[:auth_origin] = 'email_password'
+    session[:auth_origin] = "email_password"
     super
   end
 

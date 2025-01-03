@@ -1,4 +1,4 @@
-require 'csv'
+require "csv"
 
 class EbayTransactionReportImporter
   include ExchangeRateConcern
@@ -20,7 +20,7 @@ class EbayTransactionReportImporter
   #
 
   PROMOTED_LISTING_DESCRIPTION = "Promoted Listings - General fee "
-  FEE_CATEGORIES = ["Final Value Fee - fixed", "Final Value Fee - variable", "International fee"]
+  FEE_CATEGORIES = [ "Final Value Fee - fixed", "Final Value Fee - variable", "International fee" ]
 
   def initialize(csv_path, user)
     @csv_path = csv_path
@@ -61,7 +61,7 @@ class EbayTransactionReportImporter
 
   # CSVをOrder number単位でハッシュ化
   def group_rows_by_order_number(csv)
-    result = Hash.new { |h,k| h[k] = [] }
+    result = Hash.new { |h, k| h[k] = [] }
     csv.each do |row|
       next if row.nil?
       order_number = row["Order number"]&.strip
@@ -230,7 +230,7 @@ class EbayTransactionReportImporter
   # SKU作成または取得
   # 単一商品はnet_amount/gross_amountは直接渡せる
   # 複数商品時はitem_subtotalと手数料計算済みsku_netを用いる
-  def find_or_create_sku(sku_code, line, sku_net=nil, sku_gross=nil)
+  def find_or_create_sku(sku_code, line, sku_net = nil, sku_gross = nil)
     sku = Sku.find_or_initialize_by(sku_code: sku_code)
     if line["Quantity"]
       sku.quantity = line["Quantity"]&.to_i

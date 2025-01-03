@@ -1,4 +1,4 @@
-require 'csv'
+require "csv"
 
 class EbaySalesReportImporter
   def initialize(csv_path, user)

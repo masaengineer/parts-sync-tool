@@ -1,6 +1,6 @@
 namespace :import do
-  desc 'CSVファイルから注文データをインポートする'
-  task :filtered_data_sheet, [:csv_path] => :environment do |_task, args|
+  desc "CSVファイルから注文データをインポートする"
+  task :filtered_data_sheet, [ :csv_path ] => :environment do |_task, args|
     unless args[:csv_path]
       puts "使用方法: rake import:filtered_data_sheet[path/to/csv]"
       exit 1

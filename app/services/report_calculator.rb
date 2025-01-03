@@ -70,7 +70,7 @@ class ReportCalculator
       quantity: procurement_data[:total_quantity],
       profit: profit_jpy,                               # 円
       profit_rate: profit_rate,                         # %
-      tracking_number: @order.shipment&.tracking_number,# 追跡番号
+      tracking_number: @order.shipment&.tracking_number, # 追跡番号
       sale_date: @order.sale_date,                      # 販売日
       sku_codes: sku_codes,                             # SKUコード（カンマ区切り）
       product_names: product_names                      # 商品名（カンマ区切り）

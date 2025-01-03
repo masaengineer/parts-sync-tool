@@ -20,7 +20,7 @@
         t.string "name"
         t.datetime "created_at", null: false
         t.datetime "updated_at", null: false
-        t.index ["name"], name: "index_manufacturers_on_name"
+        t.index [ "name" ], name: "index_manufacturers_on_name"
       end
 
       create_table "order_sku_links", force: :cascade do |t|
@@ -31,11 +31,11 @@
         t.datetime "updated_at", null: false
         t.decimal "sku_net_amount", precision: 10, scale: 2
         t.decimal "sku_gross_amount", precision: 10, scale: 2
-        t.index ["order_id", "sku_id"], name: "index_order_sku_links_on_order_id_and_sku_id", unique: true
-        t.index ["order_id"], name: "index_order_sku_links_on_order_id"
-        t.index ["sku_gross_amount"], name: "index_order_sku_links_on_sku_gross_amount"
-        t.index ["sku_id"], name: "index_order_sku_links_on_sku_id"
-        t.index ["sku_net_amount"], name: "index_order_sku_links_on_sku_net_amount"
+        t.index [ "order_id", "sku_id" ], name: "index_order_sku_links_on_order_id_and_sku_id", unique: true
+        t.index [ "order_id" ], name: "index_order_sku_links_on_order_id"
+        t.index [ "sku_gross_amount" ], name: "index_order_sku_links_on_sku_gross_amount"
+        t.index [ "sku_id" ], name: "index_order_sku_links_on_sku_id"
+        t.index [ "sku_net_amount" ], name: "index_order_sku_links_on_sku_net_amount"
       end
 
       create_table "orders", force: :cascade do |t|
@@ -43,7 +43,7 @@
         t.date "sale_date"
         t.datetime "created_at", null: false
         t.datetime "updated_at", null: false
-        t.index ["order_number"], name: "index_orders_on_order_number"
+        t.index [ "order_number" ], name: "index_orders_on_order_number"
       end
 
       create_table "payment_fees", force: :cascade do |t|
@@ -52,7 +52,7 @@
         t.datetime "updated_at", null: false
         t.string "fee_category"
         t.decimal "fee_amount"
-        t.index ["order_id"], name: "index_payment_fees_on_order_id"
+        t.index [ "order_id" ], name: "index_payment_fees_on_order_id"
       end
 
       create_table "procurements", force: :cascade do |t|
@@ -62,7 +62,7 @@
         t.datetime "created_at", null: false
         t.datetime "updated_at", null: false
         t.bigint "sku_id"
-        t.index ["sku_id"], name: "index_procurements_on_sku_id"
+        t.index [ "sku_id" ], name: "index_procurements_on_sku_id"
       end
 
       create_table "products", force: :cascade do |t|
@@ -71,8 +71,8 @@
         t.datetime "created_at", null: false
         t.datetime "updated_at", null: false
         t.bigint "manufacturer_id", null: false
-        t.index ["manufacturer_id"], name: "index_products_on_manufacturer_id"
-        t.index ["oem_part_number"], name: "index_products_on_oem_part_number"
+        t.index [ "manufacturer_id" ], name: "index_products_on_manufacturer_id"
+        t.index [ "oem_part_number" ], name: "index_products_on_oem_part_number"
       end
 
       create_table "sales", force: :cascade do |t|
@@ -81,7 +81,7 @@
         t.datetime "created_at", null: false
         t.datetime "updated_at", null: false
         t.decimal "order_gross_amount"
-        t.index ["order_id"], name: "index_sales_on_order_id"
+        t.index [ "order_id" ], name: "index_sales_on_order_id"
       end
 
       create_table "shipments", force: :cascade do |t|
@@ -91,7 +91,7 @@
         t.datetime "created_at", null: false
         t.datetime "updated_at", null: false
         t.integer "cpass_trade_id"
-        t.index ["order_id"], name: "index_shipments_on_order_id"
+        t.index [ "order_id" ], name: "index_shipments_on_order_id"
       end
 
       create_table "sku_product_links", force: :cascade do |t|
@@ -99,16 +99,16 @@
         t.bigint "product_id", null: false
         t.datetime "created_at", null: false
         t.datetime "updated_at", null: false
-        t.index ["product_id"], name: "index_sku_product_links_on_product_id"
-        t.index ["sku_id", "product_id"], name: "index_sku_product_links_on_sku_id_and_product_id", unique: true
-        t.index ["sku_id"], name: "index_sku_product_links_on_sku_id"
+        t.index [ "product_id" ], name: "index_sku_product_links_on_product_id"
+        t.index [ "sku_id", "product_id" ], name: "index_sku_product_links_on_sku_id_and_product_id", unique: true
+        t.index [ "sku_id" ], name: "index_sku_product_links_on_sku_id"
       end
 
       create_table "skus", force: :cascade do |t|
         t.string "sku_code"
         t.datetime "created_at", null: false
         t.datetime "updated_at", null: false
-        t.index ["sku_code"], name: "index_skus_on_sku_code"
+        t.index [ "sku_code" ], name: "index_skus_on_sku_code"
       end
 
       create_table "users", force: :cascade do |t|
@@ -121,8 +121,8 @@
         t.string "reset_password_token"
         t.datetime "reset_password_sent_at"
         t.datetime "remember_created_at"
-        t.index ["email"], name: "index_users_on_email", unique: true
-        t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+        t.index [ "email" ], name: "index_users_on_email", unique: true
+        t.index [ "reset_password_token" ], name: "index_users_on_reset_password_token", unique: true
       end
 
       add_foreign_key "order_sku_links", "orders"
