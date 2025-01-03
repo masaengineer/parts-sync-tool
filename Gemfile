@@ -70,6 +70,7 @@ group :development, :test do
   gem "rspec-rails"  # Rails用のRSpec
   gem "spring-commands-rspec"  # Spring用のRSpecコマンド
   gem "shoulda-matchers"  # テストを簡潔に書くためのマッチャー
+  gem "bundler-audit"  # セキュリティ監査のためのgem
 end
 
 group :development do
