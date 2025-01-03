@@ -27,7 +27,7 @@ class Sku < ApplicationRecord
   has_many :order_sku_links
   has_many :orders, through: :order_sku_links
   has_many :procurements, through: :orders
-  belongs_to :manufacturer, optional: true
+  belongs_to :manufacturer
   validates :sku_code, presence: true, uniqueness: true
 
   def self.ransackable_attributes(auth_object = nil)

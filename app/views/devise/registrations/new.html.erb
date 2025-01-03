@@ -59,6 +59,13 @@
           </div>
         <% end %>
 
+        <%= link_to user_google_oauth2_omniauth_authorize_path, data: { turbo: false }, class: "btn btn-outline w-full" do %>
+          <%= image_tag "brand-logo/google-mini.svg", alt: "Google", class: "size-5" %>
+          <span class="ml-2">Googleで登録</span>
+        <% end %>
+
+        <div class="divider">または</div>
+
         <!--  Start: Register Form -->
         <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
           <div class="grid grid-cols-2 gap-3">
@@ -134,7 +141,7 @@
           <div class="mt-4 flex items-center gap-3 md:mt-6">
             <%= f.check_box :agreement, class: "checkbox-primary checkbox checkbox-xs" %>
             <%= f.label :agreement do %>
-              <%= t('devise.registrations.new.terms_html') %>
+              <%= link_to "利用規約", terms_of_service_path, class: "text-primary hover:underline", target: "_blank" %>と<%= link_to "プライバシーポリシー", privacy_policy_path, class: "text-primary hover:underline", target: "_blank" %>に同意する
             <% end %>
           </div>
 
@@ -144,20 +151,6 @@
           </div>
         <% end %>
         <!--  End: Register Form -->
-
-        <div class="mt-4">
-          <!--  Start: Social Google Register -->
-          <%= link_to user_google_oauth2_omniauth_authorize_path,
-              method: :post,
-              data: { turbo: false },
-              class: "btn btn-outline btn-md btn-block flex items-center gap-3 border-base-content/10 !text-base-content hover:border-transparent hover:bg-base-content/10" do %>
-            <%= image_tag 'brand-logo/google-mini.svg', alt: '', loading: 'lazy', class: 'w-6 h-6' %>
-            <span class="text-base">
-              <%= t('devise.shared.links.sign_up_with_provider', provider: 'Google') %>
-            </span>
-          <% end %>
-          <!--  End: Social Google Register -->
-        </div>
 
         <p class="mt-4 text-center text-sm text-base-content/80 md:mt-6">
           <%= t('devise.registrations.new.have_account') %>

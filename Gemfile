@@ -65,6 +65,11 @@ group :development, :test do
   gem 'factory_bot_rails'  # テストデータを生成するためのgem
   gem 'pry-rails'
   gem 'pry-byebug'
+
+  # RSpec関連のgem
+  gem 'rspec-rails'  # Rails用のRSpec
+  gem 'spring-commands-rspec'  # Spring用のRSpecコマンド
+  gem 'shoulda-matchers'  # テストを簡潔に書くためのマッチャー
 end
 
 group :development do
