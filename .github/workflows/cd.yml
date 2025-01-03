@@ -23,7 +23,7 @@ jobs:
     runs-on: ubuntu-latest
     environment:
       name: production
-      url: ${{ secrets.RENDER_PRODUCTION_URL }}
+      url: https://parts-sync.site
     steps:
       - name: Deploy to Render Production
         env:
