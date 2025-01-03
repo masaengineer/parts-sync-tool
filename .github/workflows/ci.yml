@@ -46,6 +46,7 @@ jobs:
       - name: Setup Database
         env:
           RAILS_ENV: test
+          POSTGRES_HOST: localhost
           POSTGRES_USER: postgres
           POSTGRES_PASSWORD: postgres
         run: |
@@ -58,6 +59,7 @@ jobs:
       - name: Run Tests
         env:
           RAILS_ENV: test
+          POSTGRES_HOST: localhost
           POSTGRES_USER: postgres
           POSTGRES_PASSWORD: postgres
         run: bundle exec rspec
