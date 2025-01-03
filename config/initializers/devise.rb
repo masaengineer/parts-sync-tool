@@ -63,7 +63,11 @@ Devise.setup do |config|
                     access_type: 'offline',
                     skip_jwt: true,
                     secure_image_url: true,
-                    redirect_uri: proc { |env| "#{env['BASE_URL'] || 'https://www.parts-sync.site'}/users/auth/google_oauth2/callback" }
+                    redirect_uri: proc { |env|
+                      request = ActionDispatch::Request.new(env)
+                      host = request.host
+                      "https://#{host}/users/auth/google_oauth2/callback"
+                    }
                   }
 
   # Configure parameters from the request object used for authentication. Each entry
