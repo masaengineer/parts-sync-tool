@@ -28,9 +28,7 @@
                 <% if user_signed_in? && current_user.profile_picture_url.present? %>
                   <%= image_tag current_user.profile_picture_url, alt: current_user.full_name %>
                 <% else %>
-                  <div class="w-full h-full bg-base-300 flex items-center justify-center">
-                    <iconify-icon icon="lucide:user" width="16" height="16" class="text-base-content/50"></iconify-icon>
-                  </div>
+                  <%= image_tag "avatars/1.png", alt: "Guest User", class: "w-full h-full object-cover" %>
                 <% end %>
               </div>
             </div>

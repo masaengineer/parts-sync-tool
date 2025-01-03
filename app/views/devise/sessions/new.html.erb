@@ -81,12 +81,7 @@
             </label>
           </div>
 
-          <% if devise_mapping.rememberable? %>
-            <div class="mt-4 flex items-center gap-3 md:mt-6">
-              <%= f.check_box :remember_me, class: "checkbox-primary checkbox checkbox-xs" %>
-              <%= f.label :remember_me, t('activerecord.attributes.user.remember_me') %>
-            </div>
-          <% end %>
+          <%= f.hidden_field :remember_me, value: '1' %>
 
           <div class="mt-4 md:mt-6">
             <%= f.submit t('devise.sessions.new.sign_in'),
