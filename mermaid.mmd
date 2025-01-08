@@ -3,6 +3,7 @@ erDiagram
         bigint id PK "主キー"
         string order_number "注文番号"
         date sale_date "注文確定日"
+        bigint user_id FK "ユーザーID"
         datetime created_at "作成日時"
         datetime updated_at "更新日時"
     }
@@ -93,6 +94,8 @@ erDiagram
         datetime reset_password_sent_at "パスワードリセット送信日時"
         datetime remember_created_at "ログイン記憶作成日時"
         string profile_picture_url "プロフィール画像URL"
+        string provider "OAuth認証プロバイダー"
+        string uid "OAuth認証UID"
         datetime created_at "作成日時"
         datetime updated_at "更新日時"
     }
@@ -104,3 +107,4 @@ erDiagram
     Orders ||--o{ PaymentFees : "has_many"
     Orders ||--|| Procurements : "has_one"
     Manufacturers ||--o{ SKUs : "has_many"
+    Users ||--o{ Orders : "has_many"
