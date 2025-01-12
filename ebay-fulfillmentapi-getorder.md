@@ -36,6 +36,7 @@ x-ebay-pop-id:UFES2-SLCAZ01-api
 # response body
 // 以下のコード内で特にコメントがないDBの情報については別のapiから取得予定
 // 取得時の日付指定は別途リクエスト時に作成（参考: https://developer.ebay.com/api-docs/sell/fulfillment/resources/order/methods/getOrders）
+// Orderテーブルのuser_idはUserテーブルのidと紐づく。Deviseを使っており、現在のcurrent_userをuser_idとするのが適切。UserテーブルはWebアプリのユーザーにまつわるDBであり、ebayのuserはDBに保存することはない。
 {
   "orderId": "19-11396-02421", // orderテーブルのorder_id
   "legacyOrderId": "19-11396-02421",
@@ -45,7 +46,7 @@ x-ebay-pop-id:UFES2-SLCAZ01-api
   "orderPaymentStatus": "PAID",
   "sellerId": "ngc-motors",
   "buyer": {
-    "username": "geofue_niljz", // UserテーブルはWebアプリのユーザーにまつわるDBであり、ebayのuserはDBに保存しない。
+    "username": "geofue_niljz",
     "taxAddress": {
       "city": "Ceiba",
       "stateOrProvince": "Puerto Rico",
@@ -131,7 +132,9 @@ x-ebay-pop-id:UFES2-SLCAZ01-api
   "fulfillmentHrefs": [
     "https://api.ebay.com/sell/fulfillment/v1/order/19-11396-02421/shipping_fulfillment/EX00000009909220001020002E0N" // shipping_fulfillment/のあとの文字列はshipmentsテーブルのtracking_number
   ],
-  "lineItems": [ // 決済単位の商品明細。複数itemがある場合は複数の配列の中身になる。それぞれSKUsテーブルに対応
+  "lineItems": [
+    // 決済単位の商品明細。複数itemがある場合は複数の配列の中身になる。それぞれSKUsテーブルに対応
+    // skuごとの
     {
       "lineItemId": "10062216439719", //itemidはDBに保存しない
       "legacyItemId": "355590382011",
@@ -190,7 +193,7 @@ x-ebay-pop-id:UFES2-SLCAZ01-api
     "currency": "USD"
   },
   "totalMarketplaceFee": {
-    "value": "16.02", //この費用をsku_gross_amountから引いた差がsku_net_amountになる。
+    "value": "16.02", //この費用をsku_gross_amountから引いた差がsku_net_amountになる。この値はPaymentfeeテーブルに該当する値はなく、保存しない。
     "currency": "USD"
   }
 }
