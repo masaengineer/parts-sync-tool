@@ -29,12 +29,12 @@ gem "jbuilder"
 
 # Devise for user authentication
 gem "devise"
+
 # Google OAuth2認証
 gem "omniauth-google-oauth2"
 gem "omniauth-rails_csrf_protection"
 
-# Windows does not include zoneinfo files, so bundle the tzinfo-data gem
-gem "tzinfo-data", platforms: %i[ windows jruby ]
+gem "kaminari"
 
 # Reduces boot times through caching; required in config/boot.rb
 gem "bootsnap", require: false
@@ -88,7 +88,3 @@ group :test do
   gem "selenium-webdriver"
 end
 
-gem "kaminari"
-
-gem 'oauth2'  # OAuth2認証用
-gem 'httparty'  # HTTP通信用

@@ -25,8 +25,8 @@ class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :validatable,
-         :omniauthable, omniauth_providers: [ :google_oauth2 ]
+          :recoverable, :rememberable, :validatable,
+          :omniauthable, omniauth_providers: [ :google_oauth2 ]
 
   has_many :orders
   attr_accessor :agreement
@@ -37,11 +37,11 @@ class User < ApplicationRecord
   validates :agreement, acceptance: { message: "You must accept the terms and conditions" }
 
   def self.from_omniauth(auth)
-    where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
+    find_or_create_by(provider: auth.provider, uid: auth.uid) do |user|
       user.email = auth.info.email
       user.password = Devise.friendly_token[0, 20]
-      user.first_name = auth.info.first_name
       user.last_name = auth.info.last_name
+      user.first_name = auth.info.first_name
       user.profile_picture_url = auth.info.image
     end
   end

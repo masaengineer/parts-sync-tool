@@ -52,28 +52,7 @@ Devise.setup do |config|
   OmniAuth.config.allowed_request_methods = [ :post, :get ]
   OmniAuth.config.silence_get_warning = true
 
-  config.omniauth :google_oauth2,
-                  ENV["GOOGLE_CLIENT_ID"],
-                  ENV["GOOGLE_CLIENT_SECRET"],
-                  {
-                    scope: "email,profile",
-                    prompt: "select_account",
-                    image_aspect_ratio: "square",
-                    image_size: 50,
-                    access_type: "offline",
-                    skip_jwt: true,
-                    secure_image_url: true,
-                    redirect_uri: proc { |env|
-                      request = ActionDispatch::Request.new(env)
-                      host = request.host
-                      "https://#{host}/users/auth/google_oauth2/callback"
-                    },
-                    client_options: {
-                      ssl: { verify: true },
-                      authorize_url: "https://accounts.google.com/o/oauth2/auth",
-                      token_url: "https://accounts.google.com/o/oauth2/token"
-                    }
-                  }
+  config.omniauth :google_oauth2, ENV["GOOGLE_CLIENT_ID"], ENV["GOOGLE_CLIENT_SECRET"]
 
   # Configure parameters from the request object used for authentication. Each entry
   # given should be a request method and it will automatically be passed to the

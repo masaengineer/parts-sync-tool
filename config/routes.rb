@@ -8,17 +8,10 @@ Rails.application.routes.draw do
     omniauth_callbacks: "users/omniauth_callbacks"
   }
 
-  # OmniAuth
-  devise_scope :user do
-    get "users/auth/google_oauth2/callback" => "users/omniauth_callbacks#google_oauth2"
-  end
-
   resources :users, only: [ :index, :show ]
   resources :plreports, only: [ :index ]
   resources :sales_reports, only: [ :index, :show ]
-  resources :data_imports, only: [ :index, :show ]
-
-  resources :data_imports, only: [] do
+  resources :data_imports, only: [ :index, :show ] do
     collection do
       post :import
     end
