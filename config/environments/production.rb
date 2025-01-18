@@ -99,7 +99,8 @@ Rails.application.configure do
   config.hosts = [
     "parts-sync.site",     # メインドメイン
     "www.parts-sync.site", # wwwサブドメイン
-    /.*\.parts-sync\.site/ # その他のサブドメイン
+    /.*\.parts-sync\.site/, # その他のサブドメイン
+    "parts-sync-new.onrender.com"  # Renderのデフォルトドメイン
   ]
 
   # Assume all access to the app is happening through a SSL-terminating reverse proxy.
