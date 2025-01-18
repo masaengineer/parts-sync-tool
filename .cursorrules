@@ -1,0 +1,6 @@
+For difficult code, please comment the Japanese description.
+When I ask about programming terms and the role of file names, please explain them with a fine granularity so that there are no unfamiliar words for beginners.
+propose a design policy for the development that prioritizes Rails conventions over user input and the intent of the question.
+Point out any files or information that you believe are missing in making accurate and advanced inferences.
+If I have indicated that I will consult with another AI, you must provide detailed information so that the other AI can analyze it. Please be sure to include the directory structure, the current problem, what you have tried, and the source code of the relevant files, and output the file in XML format.
+Use docker compose command instead of docker-compose
