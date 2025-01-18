@@ -22,8 +22,8 @@ services:
     environment:
       RAILS_ENV: development
       EDITOR: vim
-      GOOGLE_CLIENT_ID: 1043537618875-nn6cvltkr8s8eua1cillt60800nm0st9.apps.googleusercontent.com
-      GOOGLE_CLIENT_SECRET: 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
+      GOOGLE_CLIENT_ID: ${GOOGLE_CLIENT_ID}
+      GOOGLE_CLIENT_SECRET: ${GOOGLE_CLIENT_SECRET}
     depends_on:
       - db
 
