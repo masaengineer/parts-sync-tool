@@ -20,10 +20,10 @@
         <!--  End: Logo -->
       </div>
 
-      <h3 class="mt-8 text-center text-xl font-semibold md:mt-12 lg:mt-24">
+      <h3 class="mt-8 text-center text-lg font-semibold md:mt-12 lg:mt-24">
         <%= t('devise.registrations.new.sign_up') %>
       </h3>
-      <h3 class="mt-2 text-center text-sm text-base-content/70">
+      <h3 class="mt-2 text-center text-xs text-base-content/70">
         <%= t('devise.registrations.new.welcome_message') %>
       </h3>
 
@@ -38,54 +38,47 @@
           </div>
         <% end %>
 
-        <%= link_to user_google_oauth2_omniauth_authorize_path, data: { turbo: false }, class: "btn btn-outline w-full" do %>
-          <%= image_tag "brand-logo/google-mini.svg", alt: "Google", class: "size-5" %>
-          <span class="ml-2">Googleで登録</span>
-        <% end %>
-
-        <div class="divider">または</div>
-
         <!--  Start: Register Form -->
         <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
           <div class="grid grid-cols-2 gap-3">
             <div class="form-control">
-              <%= f.label :last_name, t('activerecord.attributes.user.last_name'), class: "label" %>
+              <%= f.label :last_name, t('activerecord.attributes.user.last_name'), class: "label text-sm" %>
               <div class="form-control flex flex-row items-center rounded-box border border-base-content/20 ps-3">
                 <iconify-icon icon="lucide:user" class="text-base-content/80 w-4 h-4"></iconify-icon>
                 <%= f.text_field :last_name,
                     placeholder: t('activerecord.attributes.user.last_name'),
-                    class: "input input-sm w-full transition-all focus:border-transparent focus:outline-0 focus:outline-offset-0" %>
+                    class: "input input-sm w-full text-sm transition-all focus:border-transparent focus:outline-0 focus:outline-offset-0" %>
               </div>
             </div>
 
             <div class="form-control">
-              <%= f.label :first_name, t('activerecord.attributes.user.first_name'), class: "label" %>
+              <%= f.label :first_name, t('activerecord.attributes.user.first_name'), class: "label text-sm" %>
               <div class="form-control flex flex-row items-center rounded-box border border-base-content/20 ps-3">
                 <iconify-icon icon="lucide:user" class="text-base-content/80 w-4 h-4"></iconify-icon>
                 <%= f.text_field :first_name,
                     placeholder: t('activerecord.attributes.user.first_name'),
-                    class: "input input-sm w-full transition-all focus:border-transparent focus:outline-0 focus:outline-offset-0" %>
+                    class: "input input-sm w-full text-sm transition-all focus:border-transparent focus:outline-0 focus:outline-offset-0" %>
               </div>
             </div>
           </div>
 
           <div class="form-control mt-3">
-            <%= f.label :email, t('activerecord.attributes.user.email'), class: "label" %>
+            <%= f.label :email, t('activerecord.attributes.user.email'), class: "label text-sm" %>
             <div class="form-control flex flex-row items-center rounded-box border border-base-content/20 ps-3">
               <iconify-icon icon="lucide:mail" class="text-base-content/80 w-4 h-4"></iconify-icon>
               <%= f.email_field :email,
                   placeholder: t('activerecord.attributes.user.email'),
-                  class: "input input-sm w-full transition-all focus:border-transparent focus:outline-0 focus:outline-offset-0" %>
+                  class: "input input-sm w-full text-sm transition-all focus:border-transparent focus:outline-0 focus:outline-offset-0" %>
             </div>
           </div>
 
           <div class="form-control mt-3">
-            <%= f.label :password, t('activerecord.attributes.user.password'), class: "label" %>
+            <%= f.label :password, t('activerecord.attributes.user.password'), class: "label text-sm" %>
             <div class="form-control flex flex-row items-center rounded-box border border-base-content/20 pe-3 ps-3" data-controller="password-field">
               <iconify-icon icon="lucide:key-round" class="text-base-content/80 w-4 h-4"></iconify-icon>
               <%= f.password_field :password,
                   placeholder: t('activerecord.attributes.user.password'),
-                  class: "input input-sm w-full transition-all focus:border-transparent focus:outline-0 focus:outline-offset-0",
+                  class: "input input-sm w-full text-sm transition-all focus:border-transparent focus:outline-0 focus:outline-offset-0",
                   data: { password_field_target: "field" } %>
               <button type="button"
                       data-password-field-target="toggle"
@@ -99,12 +92,12 @@
           </div>
 
           <div class="form-control mt-3">
-            <%= f.label :password_confirmation, t('activerecord.attributes.user.password_confirmation'), class: "label" %>
+            <%= f.label :password_confirmation, t('activerecord.attributes.user.password_confirmation'), class: "label text-sm" %>
             <div class="form-control flex flex-row items-center rounded-box border border-base-content/20 pe-3 ps-3" data-controller="password-field">
               <iconify-icon icon="lucide:key-round" class="text-base-content/80 w-4 h-4"></iconify-icon>
               <%= f.password_field :password_confirmation,
                   placeholder: t('activerecord.attributes.user.password_confirmation'),
-                  class: "input input-sm w-full transition-all focus:border-transparent focus:outline-0 focus:outline-offset-0",
+                  class: "input input-sm w-full text-sm transition-all focus:border-transparent focus:outline-0 focus:outline-offset-0",
                   data: { password_field_target: "field" } %>
               <button type="button"
                       data-password-field-target="toggle"
@@ -120,18 +113,25 @@
           <div class="mt-4 flex items-center gap-3 md:mt-6">
             <%= f.check_box :agreement, class: "checkbox-primary checkbox checkbox-xs" %>
             <%= f.label :agreement do %>
-              <%= link_to "利用規約", terms_of_service_path, class: "text-primary hover:underline", target: "_blank" %>と<%= link_to "プライバシーポリシー", privacy_policy_path, class: "text-primary hover:underline", target: "_blank" %>に同意する
+              <%= link_to "利用規約", terms_of_service_path, class: "text-primary text-sm hover:underline", target: "_blank" %>と<%= link_to "プライバシーポリシー", privacy_policy_path, class: "text-primary text-sm hover:underline", target: "_blank" %>に同意する
             <% end %>
           </div>
 
           <div class="mt-4 md:mt-6">
             <%= f.submit t('devise.registrations.new.sign_up'),
-                class: "btn btn-primary btn-block gap-2 text-base" %>
+                class: "btn btn-primary btn-block gap-2 text-sm" %>
           </div>
         <% end %>
         <!--  End: Register Form -->
 
-        <p class="mt-4 text-center text-sm text-base-content/80 md:mt-6">
+        <div class="divider text-sm">または</div>
+
+        <%= link_to user_google_oauth2_omniauth_authorize_path, data: { turbo: false }, class: "btn btn-outline w-full text-sm" do %>
+          <%= image_tag "brand-logo/google-mini.svg", alt: "Google", class: "size-5" %>
+          <span class="ml-2">Googleで登録</span>
+        <% end %>
+
+        <p class="mt-4 text-center text-xs text-base-content/80 md:mt-6">
           <%= t('devise.registrations.new.have_account') %>
           <%= link_to t('devise.shared.links.sign_in'),
               new_session_path(resource_name),

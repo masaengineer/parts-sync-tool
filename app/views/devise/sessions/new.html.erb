@@ -16,39 +16,39 @@
         </div>
       </div>
 
-      <h3 class="mt-8 text-center text-xl font-semibold md:mt-12 lg:mt-24">
+      <h3 class="mt-8 text-center text-lg font-semibold md:mt-12 lg:mt-24">
         <%= t('devise.sessions.new.sign_in') %>
       </h3>
-      <h3 class="mt-2 text-center text-sm text-base-content/70">
+      <h3 class="mt-2 text-center text-xs text-base-content/70">
         <%= t('devise.sessions.new.welcome_message') %>
       </h3>
 
       <div class="mt-6 md:mt-10">
-        <%= link_to user_google_oauth2_omniauth_authorize_path, data: { turbo: false }, class: "btn btn-outline w-full" do %>
+        <%= link_to user_google_oauth2_omniauth_authorize_path, data: { turbo: false }, class: "btn btn-outline w-full text-sm" do %>
           <%= image_tag "brand-logo/google-mini.svg", alt: "Google", class: "size-5" %>
           <span class="ml-2">Googleでログイン</span>
         <% end %>
 
-        <div class="divider">または</div>
+        <div class="divider text-sm">または</div>
 
         <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
           <div class="form-control">
-            <%= f.label :email, t('activerecord.attributes.user.email'), class: "label" %>
+            <%= f.label :email, t('activerecord.attributes.user.email'), class: "label text-sm" %>
             <div class="form-control flex flex-row items-center rounded-box border border-base-content/20 ps-3">
               <iconify-icon icon="lucide:mail" height="18" class="text-base-content/80"></iconify-icon>
               <%= f.email_field :email, autofocus: true, autocomplete: "email",
                   placeholder: t('activerecord.attributes.user.email'),
-                  class: "input input-sm w-full transition-all focus:border-transparent focus:outline-0 focus:outline-offset-0" %>
+                  class: "input input-sm w-full text-sm transition-all focus:border-transparent focus:outline-0 focus:outline-offset-0" %>
             </div>
           </div>
 
           <div class="form-control mt-3">
-            <%= f.label :password, t('activerecord.attributes.user.password'), class: "label" %>
+            <%= f.label :password, t('activerecord.attributes.user.password'), class: "label text-sm" %>
             <div class="form-control flex flex-row items-center rounded-box border border-base-content/20 pe-3 ps-3" data-component="password-field">
               <iconify-icon icon="lucide:key-round" height="18" class="text-base-content/80"></iconify-icon>
               <%= f.password_field :password, autocomplete: "current-password",
                   placeholder: t('activerecord.attributes.user.password'),
-                  class: "input input-sm w-full transition-all focus:border-transparent focus:outline-0 focus:outline-offset-0" %>
+                  class: "input input-sm w-full text-sm transition-all focus:border-transparent focus:outline-0 focus:outline-offset-0" %>
               <button id="toggle_password_field_type" type="button" data-slot-value="hide" data-slot="visibility-toggle"
                       aria-label="Show/Hide password" class="group btn btn-circle btn-ghost btn-xs hover:bg-base-content/10">
                 <iconify-icon icon="lucide:eye" height="16" class="inline text-base-content/80 group-data-[slot-value=show]:hidden"></iconify-icon>
@@ -66,15 +66,15 @@
 
           <div class="mt-4 md:mt-6">
             <%= f.submit t('devise.sessions.new.sign_in'),
-                class: "btn btn-primary btn-block gap-2 text-base" %>
+                class: "btn btn-primary btn-block gap-2 text-sm" %>
           </div>
         <% end %>
 
-        <p class="mt-4 text-center text-sm text-base-content/80 md:mt-6">
+        <p class="mt-4 text-center text-xs text-base-content/80 md:mt-6">
           <%= t('devise.sessions.new.no_account') %>
           <%= link_to t('devise.shared.links.sign_up'),
               new_registration_path(resource_name),
-              class: "text-primary hover:underline" %>
+              class: "text-primary hover:underline text-xs" %>
         </p>
       </div>
     </div>
