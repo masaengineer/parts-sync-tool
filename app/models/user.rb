@@ -36,12 +36,24 @@ class User < ApplicationRecord
   validates :first_name, presence: true
 
   def self.from_omniauth(auth)
-    find_or_create_by(provider: auth.provider, uid: auth.uid) do |user|
-      user.email = auth.info.email
-      user.password = Devise.friendly_token[0, 20]
-      user.last_name = auth.info.last_name
-      user.first_name = auth.info.first_name
-      user.profile_picture_url = auth.info.image
+    # email から既存ユーザーを検索してみる
+    user = User.find_by(email: auth.info.email)
+
+    if user
+      # 既に同じ email のユーザーがいれば、provider, uid を更新して保存
+      user.update(provider: auth.provider, uid: auth.uid) unless user.provider && user.uid
+      user
+    else
+      # 存在しないなら新規作成
+      create do |new_user|
+        new_user.email = auth.info.email
+        new_user.password = Devise.friendly_token[0, 20]
+        new_user.last_name = auth.info.last_name
+        new_user.first_name = auth.info.first_name
+        new_user.provider = auth.provider
+        new_user.uid = auth.uid
+        new_user.profile_picture_url = auth.info.image
+      end
     end
   end
 
