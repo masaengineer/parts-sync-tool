@@ -54,10 +54,8 @@ Devise.setup do |config|
 
   config.omniauth :google_oauth2,
     Rails.application.credentials.dig(:google, :client_id),
-    Rails.application.credentials.dig(:google, :client_secret),
-    {
-      redirect_uri: "https://www.parts-sync.site/users/auth/google_oauth2/callback"
-    }
+    Rails.application.credentials.dig(:google, :client_secret)
+
 
   # Configure parameters from the request object used for authentication. Each entry
   # given should be a request method and it will automatically be passed to the
