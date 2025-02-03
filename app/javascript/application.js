@@ -1,43 +1,27 @@
 // Entry point for the build script in your package.json
-import '@hotwired/turbo-rails';
-import './controllers';
-import 'simplebar/dist/simplebar.css';
-import SimpleBar from 'simplebar';
+import { Turbo } from "@hotwired/turbo-rails"
+window.Turbo = Turbo;
 
-// Lucideアイコンセットの読み込み
-import 'iconify-icon';
-import { addIcon } from 'iconify-icon';
-import * as lucideIcons from '@iconify/icons-lucide';
+import { Application } from "@hotwired/stimulus"
+import { registerControllers } from './controllers'
 
-// アイコンの登録
-Object.entries(lucideIcons).forEach(([name, data]) => {
-  addIcon(`lucide:${name}`, data);
-});
+import ChartController from './controllers/chart_controller'
 
-document.addEventListener('DOMContentLoaded', () => {
-  // SimpleBarの初期化
-  document.querySelectorAll('[data-simplebar]').forEach((el) => {
-    new SimpleBar(el);
-  });
-});
+const application = Application.start();
+registerControllers(application);
+application.register('chart', ChartController);
 
-// パスワードフィールドの表示/非表示切り替え
+// DaisyUI theme controller
 document.addEventListener('turbo:load', () => {
-  const passwordFields = document.querySelectorAll(
-    '[data-component="password-field"]'
-  );
-
-  passwordFields.forEach((field) => {
-    const input = field.querySelector('input');
-    const toggle = field.querySelector('[data-slot="visibility-toggle"]');
-
-    if (toggle && input) {
-      toggle.addEventListener('click', () => {
-        const currentType = input.type;
-        const newType = currentType === 'password' ? 'text' : 'password';
-        input.type = newType;
-        toggle.dataset.slotValue = newType === 'password' ? 'hide' : 'show';
-      });
-    }
-  });
+  const themeController = document.querySelector('.theme-controller');
+  if (themeController) {
+    themeController.addEventListener('change', (e) => {
+      const html = document.querySelector('html');
+      if (e.target.checked) {
+        html.setAttribute('data-theme', 'dark');
+      } else {
+        html.setAttribute('data-theme', 'light');
+      }
+    });
+  }
 });

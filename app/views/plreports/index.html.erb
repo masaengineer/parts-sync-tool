@@ -1,6 +1,32 @@
 <%# タイトルの設定 %>
 <% content_for :title do %><%= t("plreports.index.title", year: params[:year] || Date.today.year).strip %><% end %>
 
+<div
+  data-chart-data="<%= {
+    series: [
+      {
+        name: '売上',
+        data: @monthly_data.map { |d| d[:revenue] }
+      },
+      {
+        name: '粗利',
+        data: @monthly_data.map { |d| d[:gross_profit] }
+      }
+    ],
+    categories: @monthly_data.map { |d| t("plreports.index.table.month", month: d[:month]) }
+  }.to_json %>"
+>
+  <div class="card bg-base-100 shadow-xl mb-8">
+    <div class="card-body p-6">
+      <div
+        data-controller="chart"
+        data-chart-target="chart"
+        style="height: 350px;"
+      ></div>
+    </div>
+  </div>
+</div>
+
 <% metrics = [
   {key: :revenue, label: t("plreports.index.metrics.revenue")},
   {key: :procurement_cost, label: t("plreports.index.metrics.procurement_cost")},
