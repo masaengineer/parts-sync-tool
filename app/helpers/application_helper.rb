@@ -18,13 +18,13 @@ module ApplicationHelper
         { href: image_url("logo/favicon.png"), rel: "icon", sizes: "90x90", type: "image/png" }
       ],
       og: {
-        site_name: :site,
-        title: :title,
-        description: :description,
+        site_name: "Parts Sync",
+        title: "カーパーツ売上管理システム",
+        description: "カーパーツ売上管理システム",
         type: "website",
         url: request.original_url,
         image: image_url("ogp.png"),
-        local: "ja-JP"
+        locale: "ja_JP"
       },
       twitter: {
         card: "summary_large_image",
@@ -33,7 +33,7 @@ module ApplicationHelper
       }
     }
   end
-  ogp_image_url = asset_url("ogp.png")
+  ogp_image_url = image_url("ogp.png")
   Rails.logger.info "==== OGP Debug ===="
   Rails.logger.info "Asset Host: #{ActionController::Base.asset_host}"
   Rails.logger.info "OGP Image URL: #{ogp_image_url}"
