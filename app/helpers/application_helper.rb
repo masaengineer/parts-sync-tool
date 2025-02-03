@@ -5,7 +5,6 @@ module ApplicationHelper
   end
 
   def default_meta_tags
-
     {
       site: "Parts Sync",
       title: "カーパーツ売上管理システム",
@@ -33,10 +32,10 @@ module ApplicationHelper
         image: image_url("ogp.png")
       }
     }
-    ogp_image_url = asset_url("ogp.png")
-    Rails.logger.info "==== OGP Debug ===="
-    Rails.logger.info "Asset Host: #{ActionController::Base.asset_host}"
-    Rails.logger.info "OGP Image URL: #{ogp_image_url}"
-    Rails.logger.info "Request URL: #{request.original_url}"
   end
+  ogp_image_url = asset_url("ogp.png")
+  Rails.logger.info "==== OGP Debug ===="
+  Rails.logger.info "Asset Host: #{ActionController::Base.asset_host}"
+  Rails.logger.info "OGP Image URL: #{ogp_image_url}"
+  Rails.logger.info "Request URL: #{request.original_url}"
   end
