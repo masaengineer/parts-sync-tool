@@ -114,6 +114,12 @@
 - daisyUI: ^4.7.2
 - ApexCharts: ^3.45.2
 
+## アセットパイプライン
+- jsbundling-rails
+- cssbundling-rails
+- sprockets-rails
+- esbuild
+
 ## バックエンド
 - PostgreSQL: ^16.0
 - Redis: ^7.2
