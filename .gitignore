@@ -29,7 +29,7 @@
 !/tmp/storage/
 !/tmp/storage/.keep
 
-/public/assets
+/public/dev-assets/*
 
 # Ignore master key for decrypting credentials and more.
 /config/master.key
@@ -58,3 +58,4 @@
 
 # Ignore .cursorrules
 .cursorrules
+public/dev-assets/actiontext-78de0ebeae470799f9ec25fd0e20ae2d931df88c2ff9315918d1054a2fca2596.js
