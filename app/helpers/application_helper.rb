@@ -1,10 +1,20 @@
 module ApplicationHelper
+  include ActionView::Helpers::AssetUrlHelper
+
   def full_title(page_title = "")
     base_title = "Parts Sync"
     page_title.empty? ? base_title : "#{page_title} | #{base_title}"
   end
 
   def default_meta_tags
+    # デバッグ出力を先に実行
+    ogp_image_url = image_url("ogp.png")
+    Rails.logger.info "==== OGP Debug ===="
+    Rails.logger.info "Asset Host: #{ActionController::Base.asset_host}"
+    Rails.logger.info "OGP Image URL: #{ogp_image_url}"
+    Rails.logger.info "Request URL: #{request.original_url}"
+
+    # メタタグの設定を返す
     {
       site: "Parts Sync",
       title: "カーパーツ売上管理システム",
@@ -33,9 +43,4 @@ module ApplicationHelper
       }
     }
   end
-  ogp_image_url = image_url("ogp.png")
-  Rails.logger.info "==== OGP Debug ===="
-  Rails.logger.info "Asset Host: #{ActionController::Base.asset_host}"
-  Rails.logger.info "OGP Image URL: #{ogp_image_url}"
-  Rails.logger.info "Request URL: #{request.original_url}"
-  end
+end
