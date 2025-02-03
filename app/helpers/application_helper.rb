@@ -9,7 +9,6 @@ module ApplicationHelper
     {
       site: "Parts Sync",
       title: "カーパーツ売上管理システム",
-      reverse: true,
       charset: "utf-8",
       description: "カーパーツ売上管理システム",
       keywords: "カーパーツ,売上管理,システム",
