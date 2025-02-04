@@ -1,11 +1,10 @@
 // Entry point for the build script in your package.json
-import { Turbo } from "@hotwired/turbo-rails"
+import * as Turbo from '@hotwired/turbo-rails';
 window.Turbo = Turbo;
 
-import { Application } from "@hotwired/stimulus"
-import { registerControllers } from './controllers'
-
-import ChartController from './controllers/chart_controller'
+import { Application } from '@hotwired/stimulus';
+import { registerControllers } from './controllers';
+import ChartController from './controllers/chart_controller';
 
 const application = Application.start();
 registerControllers(application);
