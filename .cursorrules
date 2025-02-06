@@ -117,7 +117,7 @@
 ## アセットパイプライン
 - jsbundling-rails
 - cssbundling-rails
-- sprockets-rails
+- propshaft
 - esbuild
 
 ## バックエンド
