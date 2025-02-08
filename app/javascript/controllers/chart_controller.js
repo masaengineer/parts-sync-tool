@@ -5,35 +5,39 @@ export default class extends Controller {
   static targets = ['chart'];
 
   connect() {
-    const dataElement = this.element.closest('[data-chart-data]');
-    const chartData = dataElement
-      ? JSON.parse(dataElement.dataset.chartData)
-      : null;
-    console.log('Chart Data:', chartData);
+    if (!this.hasChartTarget) return;
+
+    const chartData = JSON.parse(
+      this.element.closest('[data-chart-data]').dataset.chartData
+    );
 
     const options = {
       chart: {
         type: 'line',
         height: 350,
-        zoom: {
-          enabled: false,
+        toolbar: {
+          show: true,
         },
       },
-      series: chartData ? chartData.series : [],
+      series: chartData.series,
       xaxis: {
-        categories: chartData ? chartData.categories : [],
+        categories: chartData.categories,
       },
-      yaxis: {
-        labels: {
-          formatter: function (value) {
-            return '¥' + value.toLocaleString();
-          },
-        },
+      stroke: {
+        curve: 'smooth',
+        width: 2,
+      },
+      markers: {
+        size: 4,
       },
       tooltip: {
         y: {
           formatter: function (value) {
-            return '¥' + value.toLocaleString();
+            return new Intl.NumberFormat('ja-JP', {
+              style: 'currency',
+              currency: 'JPY',
+              maximumFractionDigits: 0,
+            }).format(value);
           },
         },
       },
@@ -44,6 +48,8 @@ export default class extends Controller {
   }
 
   disconnect() {
-    this.chart.destroy();
+    if (this.chart) {
+      this.chart.destroy();
+    }
   }
 }
