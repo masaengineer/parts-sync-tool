@@ -444,12 +444,14 @@ DEPENDENCIES
   devise
   factory_bot_rails
   faker
+  faraday
   jbuilder
   jsbundling-rails
   kaminari
   letter_opener
   letter_opener_web
   meta-tags
+  oauth2
   omniauth-google-oauth2
   omniauth-rails_csrf_protection
   pg (~> 1.1)
