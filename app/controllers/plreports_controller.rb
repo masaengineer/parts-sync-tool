@@ -11,7 +11,7 @@ class PlreportsController < ApplicationController
                     :shipment,
                     :payment_fees,
                     :procurement,
-                    order_sku_links: :sku
+                    order_lines: :manufacturer_sku
                   )
 
     # 月別に集計するための初期化（1～12月分のハッシュを用意）

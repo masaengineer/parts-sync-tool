@@ -26,9 +26,7 @@ class SalesReportsController < ApplicationController
   def show
     @order = current_user.orders.includes(
       :procurement,
-      order_sku_links: {
-        sku: :manufacturer
-      }
+      order_lines: :manufacturer_sku
     ).find(params[:id])
     render partial: "order_detail_modal", locals: { order: @order }
   end

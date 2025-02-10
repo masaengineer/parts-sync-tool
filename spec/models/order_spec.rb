@@ -30,8 +30,8 @@ RSpec.describe Order, type: :model do
 
   describe 'アソシエーション' do
     it { should belong_to(:user) }
-    it { should have_many(:order_sku_links).dependent(:destroy) }
-    it { should have_many(:skus).through(:order_sku_links) }
+    it { should have_many(:order_lines).dependent(:destroy) }
+    it { should have_many(:manufacturer_skus).through(:order_lines) }
     it { should have_many(:payment_fees).dependent(:destroy) }
     it { should have_one(:procurement).dependent(:destroy) }
     it { should have_one(:sale) }

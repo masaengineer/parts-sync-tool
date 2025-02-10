@@ -56,7 +56,7 @@ class ReportCalculator
     profit_rate = revenue_in_jpy.zero? ? 0 : (profit_jpy / revenue_in_jpy) * 100
 
     # --- SKU情報の取得 ---
-    skus = @order.order_sku_links.includes(:sku).map(&:sku)
+    skus = @order.order_lines.includes(:manufacturer_sku).map(&:manufacturer_sku)
     sku_codes = skus.map(&:sku_code).compact.join(", ")
     product_names = skus.map(&:international_title).compact.join(", ")
 
@@ -100,8 +100,8 @@ class ReportCalculator
     end
 
     # SKUの数量は従来通りSKUから取得
-    order.order_sku_links.includes(:sku).each do |link|
-      result[:total_quantity] += link.sku.quantity.to_i
+    order.order_lines.each do |line|
+      result[:total_quantity] += line.quantity.to_i
     end
 
     result
