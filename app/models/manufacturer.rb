@@ -12,5 +12,5 @@
 #  index_manufacturers_on_name  (name)
 #
 class Manufacturer < ApplicationRecord
-  has_many :skus
+  has_many :manufacturer_skus
 end

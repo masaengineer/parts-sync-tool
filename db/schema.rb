@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_01_12_081449) do
+ActiveRecord::Schema[7.2].define(version: 2025_02_10_132309) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -28,6 +28,15 @@ ActiveRecord::Schema[7.2].define(version: 2025_01_12_081449) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "manufacturer_skus", force: :cascade do |t|
+    t.string "sku_code"
+    t.bigint "manufacturer_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["manufacturer_id"], name: "index_manufacturer_skus_on_manufacturer_id"
+    t.index ["sku_code"], name: "index_manufacturer_skus_on_sku_code", unique: true
+  end
+
   create_table "manufacturers", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
@@ -35,14 +44,17 @@ ActiveRecord::Schema[7.2].define(version: 2025_01_12_081449) do
     t.index ["name"], name: "index_manufacturers_on_name"
   end
 
-  create_table "order_sku_links", force: :cascade do |t|
+  create_table "order_lines", force: :cascade do |t|
+    t.bigint "seller_sku_id", null: false
+    t.integer "quantity"
+    t.decimal "unit_price"
+    t.integer "line_item_id"
+    t.string "line_item_name"
     t.bigint "order_id", null: false
-    t.bigint "sku_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["order_id", "sku_id"], name: "index_order_sku_links_on_order_id_and_sku_id", unique: true
-    t.index ["order_id"], name: "index_order_sku_links_on_order_id"
-    t.index ["sku_id"], name: "index_order_sku_links_on_sku_id"
+    t.index ["order_id"], name: "index_order_lines_on_order_id"
+    t.index ["seller_sku_id"], name: "index_order_lines_on_seller_sku_id"
   end
 
   create_table "orders", force: :cascade do |t|
@@ -84,6 +96,14 @@ ActiveRecord::Schema[7.2].define(version: 2025_01_12_081449) do
     t.index ["order_id"], name: "index_sales_on_order_id"
   end
 
+  create_table "seller_skus", force: :cascade do |t|
+    t.string "sku_code", null: false
+    t.integer "quantity", default: 0, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["sku_code"], name: "index_seller_skus_on_sku_code", unique: true
+  end
+
   create_table "shipments", force: :cascade do |t|
     t.decimal "customer_international_shipping"
     t.datetime "created_at", null: false
@@ -94,15 +114,13 @@ ActiveRecord::Schema[7.2].define(version: 2025_01_12_081449) do
     t.index ["order_id"], name: "index_shipments_on_order_id"
   end
 
-  create_table "skus", force: :cascade do |t|
-    t.string "sku_code"
+  create_table "sku_mappings", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "quantity"
-    t.string "international_title"
-    t.bigint "manufacturer_id"
-    t.index ["manufacturer_id"], name: "index_skus_on_manufacturer_id"
-    t.index ["sku_code"], name: "index_skus_on_sku_code"
+    t.bigint "seller_sku_id", null: false
+    t.bigint "manufacturer_sku_id", null: false
+    t.index ["manufacturer_sku_id"], name: "index_sku_mappings_on_manufacturer_sku_id"
+    t.index ["seller_sku_id"], name: "index_sku_mappings_on_seller_sku_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -122,11 +140,13 @@ ActiveRecord::Schema[7.2].define(version: 2025_01_12_081449) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
-  add_foreign_key "order_sku_links", "orders"
-  add_foreign_key "order_sku_links", "skus"
+  add_foreign_key "manufacturer_skus", "manufacturers"
+  add_foreign_key "order_lines", "orders"
+  add_foreign_key "order_lines", "seller_skus"
   add_foreign_key "orders", "users"
   add_foreign_key "payment_fees", "orders"
   add_foreign_key "procurements", "orders"
   add_foreign_key "sales", "orders"
-  add_foreign_key "skus", "manufacturers"
+  add_foreign_key "sku_mappings", "manufacturer_skus"
+  add_foreign_key "sku_mappings", "seller_skus"
 end

@@ -8,31 +8,6 @@ erDiagram
         datetime updated_at "更新日時"
     }
 
-    Order_sku_links {
-        bigint id PK "主キー"
-        bigint order_id FK "注文ID"
-        bigint sku_id FK "SKUID"
-        datetime created_at "作成日時"
-        datetime updated_at "更新日時"
-    }
-
-    SKUs {
-        bigint id PK "主キー"
-        string sku_code "SKUコード"
-        integer quantity "数量"
-        string international_title "商品タイトル"
-        bigint manufacturer_id FK "メーカーID"
-        datetime created_at "作成日時"
-        datetime updated_at "更新日時"
-    }
-
-    Manufacturers {
-        bigint id PK "主キー"
-        string name "メーカー名"
-        datetime created_at "作成日時"
-        datetime updated_at "更新日時"
-    }
-
     Shipments {
         bigint id PK "主キー"
         bigint order_id FK "注文ID"
@@ -98,11 +73,55 @@ erDiagram
         datetime updated_at "更新日時"
     }
 
-    Orders ||--o{ Order_sku_links : "has_many"
-    SKUs ||--o{ Order_sku_links : "has_many"
+    Manufacturers {
+        bigint id PK "主キー"
+        string name "メーカー名"
+        datetime created_at "作成日時"
+        datetime updated_at "更新日時"
+    }
+
+    seller_skus {
+        bigint id PK "主キー"
+        string sku_code "セラー独自のSKUコード (null: false)"
+        datetime created_at "作成日時"
+        datetime updated_at "更新日時"
+    }
+
+    manufacturer_skus {
+        bigint id PK "主キー"
+        string sku_code "メーカーのSKUコード (null: false)"
+        bigint manufacturer_id FK "manufacturer_id (null: false)"
+        datetime created_at "作成日時"
+        datetime updated_at "更新日時"
+    }
+
+    sku_mappings {
+        bigint id PK "主キー"
+        bigint seller_sku_id FK "seller_sku_id (null: false)"
+        bigint manufacturer_sku_id FK "manufacturer_sku_id (null: false)"
+        datetime created_at "作成日時"
+        datetime updated_at "更新日時"
+    }
+
+    order_lines {
+        bigint id PK "主キー"
+        bigint order_id FK "order_id (null: false)"
+        bigint seller_sku_id FK "seller_sku_id (null: false)"
+        integer quantity "注文数量 (null: false)"
+        decimal unit_price "単価"
+        integer line_item_id "商品ID"
+        string line_item_name "商品名"
+        datetime created_at "作成日時"
+        datetime updated_at "更新日時"
+    }
+
     Orders ||--o{ Shipments : "has_many"
     Orders ||--o{ Sales : "has_many"
     Orders ||--o{ PaymentFees : "has_many"
     Orders ||--|| Procurements : "has_one"
-    Manufacturers ||--o{ SKUs : "has_many"
     Users ||--o{ Orders : "has_many"
+    Manufacturers ||--o{ manufacturer_skus : "has_many"
+    seller_skus ||--o{ sku_mappings : "has_many"
+    manufacturer_skus ||--o{ sku_mappings : "has_many"
+    Orders ||--o{ order_lines : "has_many"
+    seller_skus ||--o{ order_lines : "has_many"
