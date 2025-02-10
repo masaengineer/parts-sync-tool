@@ -1,3 +1,3 @@
 class ManufacturerSku < ApplicationRecord
-  belongs_to :manufacturer, index: true
+  belongs_to :manufacturer
 end
