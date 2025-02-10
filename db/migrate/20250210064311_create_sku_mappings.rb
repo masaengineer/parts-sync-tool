@@ -6,6 +6,5 @@ class CreateSkuMappings < ActiveRecord::Migration[7.2]
       t.timestamps
       t.index [:seller_sku_id, :manufacturer_sku_id], unique: true, name: 'index_sku_mappings_on_seller_sku_and_manufacturer_sku'
     end
-    end
   end
 end
