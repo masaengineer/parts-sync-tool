@@ -23,11 +23,6 @@ ActiveRecord::Schema[7.2].define(version: 2025_02_10_132309) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "initial_schemas", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "manufacturer_skus", force: :cascade do |t|
     t.string "sku_code"
     t.bigint "manufacturer_id", null: false
@@ -115,11 +110,12 @@ ActiveRecord::Schema[7.2].define(version: 2025_02_10_132309) do
   end
 
   create_table "sku_mappings", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
     t.bigint "seller_sku_id", null: false
     t.bigint "manufacturer_sku_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["manufacturer_sku_id"], name: "index_sku_mappings_on_manufacturer_sku_id"
+    t.index ["seller_sku_id", "manufacturer_sku_id"], name: "index_sku_mappings_on_seller_sku_and_manufacturer_sku", unique: true
     t.index ["seller_sku_id"], name: "index_sku_mappings_on_seller_sku_id"
   end
 
