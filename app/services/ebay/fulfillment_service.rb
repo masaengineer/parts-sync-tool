@@ -6,15 +6,17 @@ module Ebay
 
     def initialize
       @auth_service = AuthService.new
+      Rails.logger.debug "Ebay::FulfillmentService initialized" # 初期化ログ
       validate_auth_token
     end
 
-    def fetch_orders(params = {})
+    def fetch_orders(current_user)
+      Rails.logger.debug "fetch_orders called with user: #{current_user.id}" # メソッド呼び出しログ
       response = client.get do |req|
         url = API_ENDPOINT
         req.url url
         req.headers = auth_headers
-        req.params = default_params.merge(params)
+        req.params = default_params
 
         # デバッグ用にリクエストの詳細をログ出力
         Rails.logger.debug "Request URL: #{url}"
@@ -22,7 +24,13 @@ module Ebay
         Rails.logger.debug "Request Params: #{req.params}"
       end
 
-      JSON.parse(response.body)
+      result = JSON.parse(response.body)
+      Rails.logger.debug "fetch_orders response: #{result.inspect}" # レスポンスログ
+
+      # データ保存処理の呼び出し
+      Ebay::OrderDataImportService.new(result).import(current_user)
+
+      result
     rescue Faraday::Error => e
       Rails.logger.error "eBay API Error: #{e.response&.body}"
       raise FulfillmentError, "受注情報取得エラー: #{e.message}"
@@ -35,11 +43,13 @@ module Ebay
 
     def validate_auth_token
       token = @auth_service.access_token
+      Rails.logger.debug "validate_auth_token called. token: #{token.present? ? 'present' : 'nil'}" # トークン検証ログ
       raise FulfillmentError, 'アクセストークンの取得に失敗しました' if token.nil?
       token
     end
 
     def client
+      Rails.logger.debug "client called" # クライアント呼び出しログ
       @client ||= Faraday.new(url: 'https://api.ebay.com') do |faraday|
         faraday.request :json
         faraday.response :raise_error
@@ -50,18 +60,22 @@ module Ebay
     end
 
     def auth_headers
-      {
+      headers = {
         'Authorization' => "Bearer #{validate_auth_token}",
         'Content-Type' => 'application/json',
         'Accept' => 'application/json',
       }
+      Rails.logger.debug "auth_headers: #{headers.inspect}" # ヘッダーログ
+      headers
     end
 
     def default_params
-      {
+      params = {
         limit: 50,
         offset: 0
       }
+      Rails.logger.debug "default_params: #{params.inspect}" # パラメータログ
+      params
     end
   end
 end

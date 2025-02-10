@@ -16,6 +16,11 @@ Rails.application.routes.draw do
       post :import
     end
   end
+  resources :ebay_orders, only: [:index] do
+    collection do
+      post :import_orders
+    end
+  end
 
   if Rails.env.development?
     mount LetterOpenerWeb::Engine, at: "/letter_opener"

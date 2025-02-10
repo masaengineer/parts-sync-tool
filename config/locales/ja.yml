@@ -89,3 +89,13 @@ ja:
       - :year
       - :month
       - :day
+
+  ebay_orders:
+    index:
+      title: "eBay 受注一覧"
+      import_button: "eBay 受注データ取込"
+      order_count: "受注件数: %{count}件"
+      no_orders: "取得できるeBay受注情報はありません。"
+      order_id: "注文ID"
+      creation_date: "作成日"
+    import_success: "eBay受注データをDBに保存しました。"

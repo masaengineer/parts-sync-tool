@@ -21,8 +21,7 @@
 
 class Order < ApplicationRecord
   belongs_to :user
-  has_many :order_sku_links, dependent: :destroy
-  has_many :skus, through: :order_sku_links
+  has_many :order_lines, dependent: :destroy
   has_many :payment_fees, dependent: :destroy
   has_one :procurement, dependent: :destroy
   has_one :sale
@@ -41,7 +40,7 @@ class Order < ApplicationRecord
   end
 
   def self.ransackable_associations(auth_object = nil)
-    %w[user sale order_sku_links skus procurement shipment payment_fees]
+    %w[user sale order_lines skus procurement shipment payment_fees]
   end
 
   # 注文に関連する仕入れコストの合計を計算

@@ -10,8 +10,8 @@ class SalesReportsController < ApplicationController
                   :shipment,
                   :payment_fees,
                   :procurement,
-                  order_sku_links: {
-                    sku: :manufacturer
+                  order_lines: {
+                    seller_sku: :manufacturer_sku
                   }
                 )
                 .page(params[:page])
