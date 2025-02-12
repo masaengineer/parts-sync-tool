@@ -56,9 +56,9 @@ class ReportCalculator
     profit_rate = revenue_in_jpy.zero? ? 0 : (profit_jpy / revenue_in_jpy) * 100
 
     # --- SKU情報の取得 ---
-    skus = @order.order_lines.includes(:manufacturer_sku).map(&:manufacturer_sku)
-    sku_codes = skus.map(&:sku_code).compact.join(", ")
-    product_names = skus.map(&:international_title).compact.join(", ")
+    order_lines = @order.order_lines
+    sku_codes = order_lines.map { |line| line.seller_sku.sku_code }.compact.join(", ")
+    product_names = order_lines.map(&:line_item_name).compact.join(", ")
 
     {
       order: @order,

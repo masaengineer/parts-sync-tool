@@ -11,7 +11,7 @@ class SalesReportsController < ApplicationController
                   :payment_fees,
                   :procurement,
                   order_lines: {
-                    seller_sku: :manufacturer_sku
+                    seller_sku: :manufacturer_skus
                   }
                 )
                 .page(params[:page])
@@ -26,7 +26,7 @@ class SalesReportsController < ApplicationController
   def show
     @order = current_user.orders.includes(
       :procurement,
-      order_lines: :manufacturer_sku
+      order_lines: :manufacturer_skus
     ).find(params[:id])
     render partial: "order_detail_modal", locals: { order: @order }
   end

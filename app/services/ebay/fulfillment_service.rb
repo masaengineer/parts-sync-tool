@@ -11,26 +11,43 @@ module Ebay
     end
 
     def fetch_orders(current_user)
-      Rails.logger.debug "fetch_orders called with user: #{current_user.id}" # メソッド呼び出しログ
-      response = client.get do |req|
-        url = API_ENDPOINT
-        req.url url
-        req.headers = auth_headers
-        req.params = default_params
+      Rails.logger.debug "fetch_orders called with user: #{current_user.id}"
+      all_orders = []
+      offset = 0
+      limit = 200  # 最大値を使用
 
-        # デバッグ用にリクエストの詳細をログ出力
-        Rails.logger.debug "Request URL: #{url}"
-        Rails.logger.debug "Request Headers: #{req.headers}"
-        Rails.logger.debug "Request Params: #{req.params}"
+      loop do
+        response = client.get do |req|
+          req.url API_ENDPOINT
+          req.headers = auth_headers
+          req.params = default_params.merge(
+            offset: offset,
+            limit: limit
+          )
+
+          # デバッグ用にリクエストの詳細をログ出力
+          Rails.logger.debug "Request URL: #{API_ENDPOINT}"
+          Rails.logger.debug "Request Headers: #{req.headers}"
+          Rails.logger.debug "Request Params: #{req.params}"
+        end
+
+        result = JSON.parse(response.body)
+        Rails.logger.debug "fetch_orders response: #{result.inspect}"
+
+        orders = result["orders"]
+        break if orders.empty?
+
+        all_orders.concat(orders)
+        offset += limit
+
+        # nextリンクがなければ終了
+        break unless result["next"]
       end
 
-      result = JSON.parse(response.body)
-      Rails.logger.debug "fetch_orders response: #{result.inspect}" # レスポンスログ
-
       # データ保存処理の呼び出し
-      Ebay::OrderDataImportService.new(result).import(current_user)
+      Ebay::OrderDataImportService.new({ "orders" => all_orders }).import(current_user)
 
-      result
+      { "orders" => all_orders }
     rescue Faraday::Error => e
       Rails.logger.error "eBay API Error: #{e.response&.body}"
       raise FulfillmentError, "受注情報取得エラー: #{e.message}"
@@ -71,8 +88,7 @@ module Ebay
 
     def default_params
       params = {
-        limit: 50,
-        offset: 0
+        filter: "creationdate:[#{90.days.ago.utc.iso8601}..]"
       }
       Rails.logger.debug "default_params: #{params.inspect}" # パラメータログ
       params
