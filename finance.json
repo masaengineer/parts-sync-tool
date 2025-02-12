@@ -1,0 +1,952 @@
+{
+  "href": "https://apiz.ebay.com/sell/finances/v1/transaction?limit=20&offset=0",
+  "next": "https://apiz.ebay.com/sell/finances/v1/transaction?limit=20&offset=20",
+  "limit": 20,
+  "offset": 0,
+  "transactions": [
+      {
+          "transactionId": "21-12684-15127",
+          "orderId": "21-12684-15127",
+          "salesRecordReference": "0",
+          "buyer": {
+              "username": "pascalpascal97"
+          },
+          "transactionType": "SALE",
+          "amount": {
+              "value": "93.12",
+              "currency": "USD",
+              "convertedFromValue": "93.27",
+              "convertedFromCurrency": "EUR",
+              "exchangeRate": "0.99843"
+          },
+          "totalFeeBasisAmount": {
+              "value": "112.77",
+              "currency": "EUR"
+          },
+          "totalFeeAmount": {
+              "value": "19.5",
+              "currency": "EUR"
+          },
+          "orderLineItems": [
+              {
+                  "lineItemId": "10074929256321",
+                  "feeBasisAmount": {
+                      "value": "134.2",
+                      "currency": "EUR"
+                  },
+                  "marketplaceFees": [
+                      {
+                          "feeType": "INTERNATIONAL_FEE",
+                          "amount": {
+                              "value": "1.4",
+                              "currency": "EUR"
+                          },
+                          "feeMemo": "Charged because the delivery address is in Germany. Final amount: EUR 134.20."
+                      },
+                      {
+                          "feeType": "FINAL_VALUE_FEE",
+                          "amount": {
+                              "value": "17.71",
+                              "currency": "EUR"
+                          }
+                      },
+                      {
+                          "feeType": "FINAL_VALUE_FEE_FIXED_PER_ORDER",
+                          "amount": {
+                              "value": "0.39",
+                              "currency": "EUR"
+                          }
+                      }
+                  ]
+              }
+          ],
+          "bookingEntry": "CREDIT",
+          "transactionDate": "2025-02-11T13:40:38.826Z",
+          "transactionStatus": "FUNDS_PROCESSING",
+          "paymentsEntity": "eBay S.Ã  r.l.",
+          "ebayCollectedTaxAmount": {
+              "value": "21.43",
+              "currency": "EUR"
+          }
+      },
+      {
+          "transactionId": "FEE-6604143804416_11",
+          "salesRecordReference": "0",
+          "transactionType": "NON_SALE_CHARGE",
+          "amount": {
+              "value": "1.0",
+              "currency": "USD"
+          },
+          "bookingEntry": "DEBIT",
+          "transactionDate": "2025-02-11T13:37:54.157Z",
+          "transactionStatus": "FUNDS_AVAILABLE_FOR_PAYOUT",
+          "paymentsEntity": "eBay Commerce Inc.",
+          "references": [
+              {
+                  "referenceId": "375624265767",
+                  "referenceType": "ITEM_ID"
+              },
+              {
+                  "referenceId": "12-12695-07280",
+                  "referenceType": "ORDER_ID"
+              }
+          ],
+          "feeType": "AD_FEE"
+      },
+      {
+          "transactionId": "12-12695-07280",
+          "orderId": "12-12695-07280",
+          "salesRecordReference": "0",
+          "buyer": {
+              "username": "xaoyaj1991"
+          },
+          "transactionType": "SALE",
+          "amount": {
+              "value": "23.41",
+              "currency": "USD"
+          },
+          "totalFeeBasisAmount": {
+              "value": "27.98",
+              "currency": "USD"
+          },
+          "totalFeeAmount": {
+              "value": "4.57",
+              "currency": "USD"
+          },
+          "orderLineItems": [
+              {
+                  "lineItemId": "10070003568212",
+                  "feeBasisAmount": {
+                      "value": "30.47",
+                      "currency": "USD"
+                  },
+                  "marketplaceFees": [
+                      {
+                          "feeType": "FINAL_VALUE_FEE",
+                          "amount": {
+                              "value": "3.81",
+                              "currency": "USD"
+                          }
+                      },
+                      {
+                          "feeType": "INTERNATIONAL_FEE",
+                          "amount": {
+                              "value": "0.32",
+                              "currency": "USD"
+                          },
+                          "feeMemo": "Charged because the delivery address is in United States. Final amount: $30.47."
+                      },
+                      {
+                          "feeType": "FINAL_VALUE_FEE_FIXED_PER_ORDER",
+                          "amount": {
+                              "value": "0.44",
+                              "currency": "USD"
+                          }
+                      }
+                  ]
+              }
+          ],
+          "bookingEntry": "CREDIT",
+          "transactionDate": "2025-02-11T13:33:59.559Z",
+          "transactionStatus": "FUNDS_PROCESSING",
+          "paymentsEntity": "eBay Commerce Inc.",
+          "ebayCollectedTaxAmount": {
+              "value": "2.49",
+              "currency": "USD"
+          }
+      },
+      {
+          "transactionId": "13-12693-40419",
+          "orderId": "13-12693-40419",
+          "salesRecordReference": "0",
+          "buyer": {
+              "username": "johnbeasley1000"
+          },
+          "transactionType": "SALE",
+          "amount": {
+              "value": "756.33",
+              "currency": "USD"
+          },
+          "totalFeeBasisAmount": {
+              "value": "884.87",
+              "currency": "USD"
+          },
+          "totalFeeAmount": {
+              "value": "128.54",
+              "currency": "USD"
+          },
+          "orderLineItems": [
+              {
+                  "lineItemId": "10071260500113",
+                  "feeBasisAmount": {
+                      "value": "946.81",
+                      "currency": "USD"
+                  },
+                  "marketplaceFees": [
+                      {
+                          "feeType": "FINAL_VALUE_FEE_FIXED_PER_ORDER",
+                          "amount": {
+                              "value": "0.44",
+                              "currency": "USD"
+                          }
+                      },
+                      {
+                          "feeType": "FINAL_VALUE_FEE",
+                          "amount": {
+                              "value": "118.21",
+                              "currency": "USD"
+                          }
+                      },
+                      {
+                          "feeType": "INTERNATIONAL_FEE",
+                          "amount": {
+                              "value": "9.89",
+                              "currency": "USD"
+                          },
+                          "feeMemo": "Charged because the delivery address is in United States. Final amount: $946.81."
+                      }
+                  ]
+              }
+          ],
+          "bookingEntry": "CREDIT",
+          "transactionDate": "2025-02-11T09:07:05.308Z",
+          "transactionStatus": "FUNDS_PROCESSING",
+          "paymentsEntity": "eBay Commerce Inc.",
+          "ebayCollectedTaxAmount": {
+              "value": "61.94",
+              "currency": "USD"
+          }
+      },
+      {
+          "transactionId": "19-12686-10021",
+          "orderId": "19-12686-10021",
+          "salesRecordReference": "0",
+          "buyer": {
+              "username": "johnbeasley1000"
+          },
+          "transactionType": "SALE",
+          "amount": {
+              "value": "29.48",
+              "currency": "USD"
+          },
+          "totalFeeBasisAmount": {
+              "value": "35.0",
+              "currency": "USD"
+          },
+          "totalFeeAmount": {
+              "value": "5.52",
+              "currency": "USD"
+          },
+          "orderLineItems": [
+              {
+                  "lineItemId": "10069920173019",
+                  "feeBasisAmount": {
+                      "value": "37.45",
+                      "currency": "USD"
+                  },
+                  "marketplaceFees": [
+                      {
+                          "feeType": "FINAL_VALUE_FEE",
+                          "amount": {
+                              "value": "4.68",
+                              "currency": "USD"
+                          }
+                      },
+                      {
+                          "feeType": "FINAL_VALUE_FEE_FIXED_PER_ORDER",
+                          "amount": {
+                              "value": "0.44",
+                              "currency": "USD"
+                          }
+                      },
+                      {
+                          "feeType": "INTERNATIONAL_FEE",
+                          "amount": {
+                              "value": "0.4",
+                              "currency": "USD"
+                          },
+                          "feeMemo": "Charged because the delivery address is in United States. Final amount: $37.45."
+                      }
+                  ]
+              }
+          ],
+          "bookingEntry": "CREDIT",
+          "transactionDate": "2025-02-11T08:53:46.482Z",
+          "transactionStatus": "FUNDS_PROCESSING",
+          "paymentsEntity": "eBay Commerce Inc.",
+          "ebayCollectedTaxAmount": {
+              "value": "2.45",
+              "currency": "USD"
+          }
+      },
+      {
+          "transactionId": "FEE-6603241328216_11",
+          "salesRecordReference": "0",
+          "transactionType": "NON_SALE_CHARGE",
+          "amount": {
+              "value": "8.67",
+              "currency": "USD"
+          },
+          "bookingEntry": "DEBIT",
+          "transactionDate": "2025-02-11T05:22:48.524Z",
+          "transactionStatus": "FUNDS_AVAILABLE_FOR_PAYOUT",
+          "paymentsEntity": "eBay Commerce Inc.",
+          "references": [
+              {
+                  "referenceId": "375569138526",
+                  "referenceType": "ITEM_ID"
+              },
+              {
+                  "referenceId": "02-12705-93357",
+                  "referenceType": "ORDER_ID"
+              }
+          ],
+          "feeType": "AD_FEE"
+      },
+      {
+          "transactionId": "02-12705-93357",
+          "orderId": "02-12705-93357",
+          "salesRecordReference": "0",
+          "buyer": {
+              "username": "blueorb2k"
+          },
+          "transactionType": "SALE",
+          "amount": {
+              "value": "203.98",
+              "currency": "USD"
+          },
+          "totalFeeBasisAmount": {
+              "value": "239.97",
+              "currency": "USD"
+          },
+          "totalFeeAmount": {
+              "value": "35.99",
+              "currency": "USD"
+          },
+          "orderLineItems": [
+              {
+                  "lineItemId": "10070012003402",
+                  "feeBasisAmount": {
+                      "value": "262.77",
+                      "currency": "USD"
+                  },
+                  "marketplaceFees": [
+                      {
+                          "feeType": "INTERNATIONAL_FEE",
+                          "amount": {
+                              "value": "2.75",
+                              "currency": "USD"
+                          },
+                          "feeMemo": "Charged because the delivery address is in United States. Final amount: $262.77."
+                      },
+                      {
+                          "feeType": "FINAL_VALUE_FEE",
+                          "amount": {
+                              "value": "32.8",
+                              "currency": "USD"
+                          }
+                      },
+                      {
+                          "feeType": "FINAL_VALUE_FEE_FIXED_PER_ORDER",
+                          "amount": {
+                              "value": "0.44",
+                              "currency": "USD"
+                          }
+                      }
+                  ]
+              }
+          ],
+          "bookingEntry": "CREDIT",
+          "transactionDate": "2025-02-11T05:18:28.810Z",
+          "transactionStatus": "FUNDS_PROCESSING",
+          "paymentsEntity": "eBay Commerce Inc.",
+          "ebayCollectedTaxAmount": {
+              "value": "22.8",
+              "currency": "USD"
+          }
+      },
+      {
+          "transactionId": "FEE-6602768755316_11",
+          "salesRecordReference": "0",
+          "transactionType": "NON_SALE_CHARGE",
+          "amount": {
+              "value": "2.52",
+              "currency": "USD"
+          },
+          "bookingEntry": "DEBIT",
+          "transactionDate": "2025-02-11T00:26:15.047Z",
+          "transactionStatus": "FUNDS_AVAILABLE_FOR_PAYOUT",
+          "paymentsEntity": "eBay Commerce Inc.",
+          "references": [
+              {
+                  "referenceId": "375883816046",
+                  "referenceType": "ITEM_ID"
+              },
+              {
+                  "referenceId": "19-12684-98593",
+                  "referenceType": "ORDER_ID"
+              }
+          ],
+          "feeType": "AD_FEE"
+      },
+      {
+          "transactionId": "19-12684-98593",
+          "orderId": "19-12684-98593",
+          "salesRecordReference": "0",
+          "buyer": {
+              "username": "redrex"
+          },
+          "transactionType": "SALE",
+          "amount": {
+              "value": "59.13",
+              "currency": "USD"
+          },
+          "totalFeeBasisAmount": {
+              "value": "69.91",
+              "currency": "USD"
+          },
+          "totalFeeAmount": {
+              "value": "10.78",
+              "currency": "USD"
+          },
+          "orderLineItems": [
+              {
+                  "lineItemId": "10069911961919",
+                  "feeBasisAmount": {
+                      "value": "76.38",
+                      "currency": "USD"
+                  },
+                  "marketplaceFees": [
+                      {
+                          "feeType": "FINAL_VALUE_FEE_FIXED_PER_ORDER",
+                          "amount": {
+                              "value": "0.44",
+                              "currency": "USD"
+                          }
+                      },
+                      {
+                          "feeType": "FINAL_VALUE_FEE",
+                          "amount": {
+                              "value": "9.54",
+                              "currency": "USD"
+                          }
+                      },
+                      {
+                          "feeType": "INTERNATIONAL_FEE",
+                          "amount": {
+                              "value": "0.8",
+                              "currency": "USD"
+                          },
+                          "feeMemo": "Charged because the delivery address is in United States. Final amount: $76.38."
+                      }
+                  ]
+              }
+          ],
+          "bookingEntry": "CREDIT",
+          "transactionDate": "2025-02-11T00:22:15.146Z",
+          "transactionStatus": "FUNDS_PROCESSING",
+          "paymentsEntity": "eBay Commerce Inc.",
+          "ebayCollectedTaxAmount": {
+              "value": "6.47",
+              "currency": "USD"
+          }
+      },
+      {
+          "transactionId": "FEE-6602759150316_11",
+          "salesRecordReference": "0",
+          "transactionType": "NON_SALE_CHARGE",
+          "amount": {
+              "value": "1.53",
+              "currency": "USD"
+          },
+          "bookingEntry": "DEBIT",
+          "transactionDate": "2025-02-11T00:17:52.640Z",
+          "transactionStatus": "FUNDS_AVAILABLE_FOR_PAYOUT",
+          "paymentsEntity": "eBay Commerce Inc.",
+          "references": [
+              {
+                  "referenceId": "375757282913",
+                  "referenceType": "ITEM_ID"
+              },
+              {
+                  "referenceId": "21-12682-31927",
+                  "referenceType": "ORDER_ID"
+              }
+          ],
+          "feeType": "AD_FEE"
+      },
+      {
+          "transactionId": "21-12682-31927",
+          "orderId": "21-12682-31927",
+          "salesRecordReference": "0",
+          "buyer": {
+              "username": "edst_2675"
+          },
+          "transactionType": "SALE",
+          "amount": {
+              "value": "36.51",
+              "currency": "USD"
+          },
+          "totalFeeBasisAmount": {
+              "value": "43.19",
+              "currency": "USD"
+          },
+          "totalFeeAmount": {
+              "value": "6.68",
+              "currency": "USD"
+          },
+          "orderLineItems": [
+              {
+                  "lineItemId": "10074918847121",
+                  "feeBasisAmount": {
+                      "value": "46.21",
+                      "currency": "USD"
+                  },
+                  "marketplaceFees": [
+                      {
+                          "feeType": "FINAL_VALUE_FEE_FIXED_PER_ORDER",
+                          "amount": {
+                              "value": "0.44",
+                              "currency": "USD"
+                          }
+                      },
+                      {
+                          "feeType": "FINAL_VALUE_FEE",
+                          "amount": {
+                              "value": "5.76",
+                              "currency": "USD"
+                          }
+                      },
+                      {
+                          "feeType": "INTERNATIONAL_FEE",
+                          "amount": {
+                              "value": "0.48",
+                              "currency": "USD"
+                          },
+                          "feeMemo": "Charged because the delivery address is in United States. Final amount: $46.21."
+                      }
+                  ]
+              }
+          ],
+          "bookingEntry": "CREDIT",
+          "transactionDate": "2025-02-11T00:14:24.098Z",
+          "transactionStatus": "FUNDS_PROCESSING",
+          "paymentsEntity": "eBay Commerce Inc.",
+          "ebayCollectedTaxAmount": {
+              "value": "3.02",
+              "currency": "USD"
+          }
+      },
+      {
+          "transactionId": "17-12686-58631",
+          "orderId": "17-12686-58631",
+          "salesRecordReference": "0",
+          "buyer": {
+              "username": "derf469"
+          },
+          "transactionType": "SALE",
+          "amount": {
+              "value": "535.56",
+              "currency": "USD"
+          },
+          "totalFeeBasisAmount": {
+              "value": "627.99",
+              "currency": "USD"
+          },
+          "totalFeeAmount": {
+              "value": "92.43",
+              "currency": "USD"
+          },
+          "orderLineItems": [
+              {
+                  "lineItemId": "10069944732017",
+                  "feeBasisAmount": {
+                      "value": "679.8",
+                      "currency": "USD"
+                  },
+                  "marketplaceFees": [
+                      {
+                          "feeType": "FINAL_VALUE_FEE",
+                          "amount": {
+                              "value": "84.88",
+                              "currency": "USD"
+                          }
+                      },
+                      {
+                          "feeType": "FINAL_VALUE_FEE_FIXED_PER_ORDER",
+                          "amount": {
+                              "value": "0.44",
+                              "currency": "USD"
+                          }
+                      },
+                      {
+                          "feeType": "INTERNATIONAL_FEE",
+                          "amount": {
+                              "value": "7.11",
+                              "currency": "USD"
+                          },
+                          "feeMemo": "Charged because the delivery address is in United States. Final amount: $679.80."
+                      }
+                  ]
+              }
+          ],
+          "bookingEntry": "CREDIT",
+          "transactionDate": "2025-02-10T21:05:25.143Z",
+          "transactionStatus": "FUNDS_PROCESSING",
+          "paymentsEntity": "eBay Commerce Inc.",
+          "ebayCollectedTaxAmount": {
+              "value": "51.81",
+              "currency": "USD"
+          }
+      },
+      {
+          "transactionId": "FEE-6602101347916_11",
+          "payoutId": "6752686634",
+          "salesRecordReference": "0",
+          "transactionType": "NON_SALE_CHARGE",
+          "amount": {
+              "value": "6.79",
+              "currency": "USD"
+          },
+          "bookingEntry": "DEBIT",
+          "transactionDate": "2025-02-10T17:17:46.384Z",
+          "transactionStatus": "PAYOUT",
+          "paymentsEntity": "eBay Commerce Inc.",
+          "references": [
+              {
+                  "referenceId": "375866630738",
+                  "referenceType": "ITEM_ID"
+              },
+              {
+                  "referenceId": "05-12700-12216",
+                  "referenceType": "ORDER_ID"
+              }
+          ],
+          "feeType": "AD_FEE"
+      },
+      {
+          "transactionId": "FEE-6602099203016_11",
+          "payoutId": "6752686634",
+          "salesRecordReference": "0",
+          "transactionType": "NON_SALE_CHARGE",
+          "amount": {
+              "value": "7.14",
+              "currency": "USD"
+          },
+          "bookingEntry": "DEBIT",
+          "transactionDate": "2025-02-10T17:16:03.610Z",
+          "transactionStatus": "PAYOUT",
+          "paymentsEntity": "eBay Commerce Inc.",
+          "references": [
+              {
+                  "referenceId": "375347891472",
+                  "referenceType": "ITEM_ID"
+              },
+              {
+                  "referenceId": "15-12687-86368",
+                  "referenceType": "ORDER_ID"
+              }
+          ],
+          "feeType": "AD_FEE"
+      },
+      {
+          "transactionId": "05-12700-12216",
+          "orderId": "05-12700-12216",
+          "salesRecordReference": "0",
+          "buyer": {
+              "username": "faci-elvi"
+          },
+          "transactionType": "SALE",
+          "amount": {
+              "value": "167.03",
+              "currency": "USD"
+          },
+          "totalFeeBasisAmount": {
+              "value": "189.98",
+              "currency": "USD"
+          },
+          "totalFeeAmount": {
+              "value": "22.95",
+              "currency": "USD"
+          },
+          "orderLineItems": [
+              {
+                  "lineItemId": "10069938368905",
+                  "feeBasisAmount": {
+                      "value": "205.65",
+                      "currency": "USD"
+                  },
+                  "marketplaceFees": [
+                      {
+                          "feeType": "FINAL_VALUE_FEE",
+                          "amount": {
+                              "value": "20.36",
+                              "currency": "USD"
+                          }
+                      },
+                      {
+                          "feeType": "FINAL_VALUE_FEE_FIXED_PER_ORDER",
+                          "amount": {
+                              "value": "0.44",
+                              "currency": "USD"
+                          }
+                      },
+                      {
+                          "feeType": "INTERNATIONAL_FEE",
+                          "amount": {
+                              "value": "2.15",
+                              "currency": "USD"
+                          },
+                          "feeMemo": "Charged because the delivery address is in United States. Final amount: $205.65."
+                      }
+                  ]
+              }
+          ],
+          "bookingEntry": "CREDIT",
+          "transactionDate": "2025-02-10T17:14:48.409Z",
+          "transactionStatus": "FUNDS_PROCESSING",
+          "paymentsEntity": "eBay Commerce Inc.",
+          "ebayCollectedTaxAmount": {
+              "value": "15.67",
+              "currency": "USD"
+          }
+      },
+      {
+          "transactionId": "15-12687-86368",
+          "orderId": "15-12687-86368",
+          "salesRecordReference": "0",
+          "buyer": {
+              "username": "elise_man"
+          },
+          "transactionType": "SALE",
+          "amount": {
+              "value": "169.34",
+              "currency": "USD"
+          },
+          "totalFeeBasisAmount": {
+              "value": "199.03",
+              "currency": "USD"
+          },
+          "totalFeeAmount": {
+              "value": "29.69",
+              "currency": "USD"
+          },
+          "orderLineItems": [
+              {
+                  "lineItemId": "10069938872115",
+                  "feeBasisAmount": {
+                      "value": "216.2",
+                      "currency": "USD"
+                  },
+                  "marketplaceFees": [
+                      {
+                          "feeType": "FINAL_VALUE_FEE",
+                          "amount": {
+                              "value": "26.99",
+                              "currency": "USD"
+                          }
+                      },
+                      {
+                          "feeType": "FINAL_VALUE_FEE_FIXED_PER_ORDER",
+                          "amount": {
+                              "value": "0.44",
+                              "currency": "USD"
+                          }
+                      },
+                      {
+                          "feeType": "INTERNATIONAL_FEE",
+                          "amount": {
+                              "value": "2.26",
+                              "currency": "USD"
+                          },
+                          "feeMemo": "Charged because the delivery address is in United States. Final amount: $216.20."
+                      }
+                  ]
+              }
+          ],
+          "bookingEntry": "CREDIT",
+          "transactionDate": "2025-02-10T17:12:24.220Z",
+          "transactionStatus": "FUNDS_PROCESSING",
+          "paymentsEntity": "eBay Commerce Inc.",
+          "ebayCollectedTaxAmount": {
+              "value": "17.17",
+              "currency": "USD"
+          }
+      },
+      {
+          "transactionId": "FEE-6602087138316_11",
+          "payoutId": "6752686634",
+          "salesRecordReference": "0",
+          "transactionType": "NON_SALE_CHARGE",
+          "amount": {
+              "value": "4.5",
+              "currency": "USD"
+          },
+          "bookingEntry": "DEBIT",
+          "transactionDate": "2025-02-10T17:11:52.574Z",
+          "transactionStatus": "PAYOUT",
+          "paymentsEntity": "eBay Commerce Inc.",
+          "references": [
+              {
+                  "referenceId": "375727265606",
+                  "referenceType": "ITEM_ID"
+              },
+              {
+                  "referenceId": "08-12695-93682",
+                  "referenceType": "ORDER_ID"
+              }
+          ],
+          "feeType": "AD_FEE"
+      },
+      {
+          "transactionId": "FEE-6602081136316_11",
+          "payoutId": "6752686634",
+          "salesRecordReference": "0",
+          "transactionType": "NON_SALE_CHARGE",
+          "amount": {
+              "value": "10.71",
+              "currency": "USD"
+          },
+          "bookingEntry": "DEBIT",
+          "transactionDate": "2025-02-10T17:10:03.037Z",
+          "transactionStatus": "PAYOUT",
+          "paymentsEntity": "eBay Commerce Inc.",
+          "references": [
+              {
+                  "referenceId": "375643391884",
+                  "referenceType": "ITEM_ID"
+              },
+              {
+                  "referenceId": "22-12679-63290",
+                  "referenceType": "ORDER_ID"
+              }
+          ],
+          "feeType": "AD_FEE"
+      },
+      {
+          "transactionId": "08-12695-93682",
+          "orderId": "08-12695-93682",
+          "salesRecordReference": "0",
+          "buyer": {
+              "username": "mavent_5"
+          },
+          "transactionType": "SALE",
+          "amount": {
+              "value": "105.99",
+              "currency": "USD"
+          },
+          "totalFeeBasisAmount": {
+              "value": "124.9",
+              "currency": "USD"
+          },
+          "totalFeeAmount": {
+              "value": "18.91",
+              "currency": "USD"
+          },
+          "orderLineItems": [
+              {
+                  "lineItemId": "10069774765008",
+                  "feeBasisAmount": {
+                      "value": "136.45",
+                      "currency": "USD"
+                  },
+                  "marketplaceFees": [
+                      {
+                          "feeType": "INTERNATIONAL_FEE",
+                          "amount": {
+                              "value": "1.43",
+                              "currency": "USD"
+                          },
+                          "feeMemo": "Charged because the delivery address is in United States. Final amount: $136.45."
+                      },
+                      {
+                          "feeType": "FINAL_VALUE_FEE",
+                          "amount": {
+                              "value": "17.04",
+                              "currency": "USD"
+                          }
+                      },
+                      {
+                          "feeType": "FINAL_VALUE_FEE_FIXED_PER_ORDER",
+                          "amount": {
+                              "value": "0.44",
+                              "currency": "USD"
+                          }
+                      }
+                  ]
+              }
+          ],
+          "bookingEntry": "CREDIT",
+          "transactionDate": "2025-02-10T17:07:36.601Z",
+          "transactionStatus": "FUNDS_PROCESSING",
+          "paymentsEntity": "eBay Commerce Inc.",
+          "ebayCollectedTaxAmount": {
+              "value": "11.55",
+              "currency": "USD"
+          }
+      },
+      {
+          "transactionId": "22-12679-63290",
+          "orderId": "22-12679-63290",
+          "salesRecordReference": "0",
+          "buyer": {
+              "username": "elise_man"
+          },
+          "transactionType": "SALE",
+          "amount": {
+              "value": "254.61",
+              "currency": "USD"
+          },
+          "totalFeeBasisAmount": {
+              "value": "299.0",
+              "currency": "USD"
+          },
+          "totalFeeAmount": {
+              "value": "44.39",
+              "currency": "USD"
+          },
+          "orderLineItems": [
+              {
+                  "lineItemId": "10069993024422",
+                  "feeBasisAmount": {
+                      "value": "324.79",
+                      "currency": "USD"
+                  },
+                  "marketplaceFees": [
+                      {
+                          "feeType": "FINAL_VALUE_FEE",
+                          "amount": {
+                              "value": "40.55",
+                              "currency": "USD"
+                          }
+                      },
+                      {
+                          "feeType": "FINAL_VALUE_FEE_FIXED_PER_ORDER",
+                          "amount": {
+                              "value": "0.44",
+                              "currency": "USD"
+                          }
+                      },
+                      {
+                          "feeType": "INTERNATIONAL_FEE",
+                          "amount": {
+                              "value": "3.4",
+                              "currency": "USD"
+                          },
+                          "feeMemo": "Charged because the delivery address is in United States. Final amount: $324.79."
+                      }
+                  ]
+              }
+          ],
+          "bookingEntry": "CREDIT",
+          "transactionDate": "2025-02-10T17:05:03.528Z",
+          "transactionStatus": "FUNDS_PROCESSING",
+          "paymentsEntity": "eBay Commerce Inc.",
+          "ebayCollectedTaxAmount": {
+              "value": "25.79",
+              "currency": "USD"
+          }
+      }
+  ],
+  "total": 3675
+}
