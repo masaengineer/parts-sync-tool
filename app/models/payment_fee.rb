@@ -23,5 +23,10 @@ class PaymentFee < ApplicationRecord
   validates :fee_amount, presence: true, numericality: true
   validates :fee_category, presence: true
 
+  enum fee_category: {
+    promoted_listing_fee_standard: 'promoted_listing_fee_standard',
+    # 既存のenum値がある場合はここに追加
+  }
+
   scope :by_category, ->(category) { where(fee_category: category) }
 end
