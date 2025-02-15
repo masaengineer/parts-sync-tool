@@ -24,7 +24,7 @@ class Order < ApplicationRecord
   has_many :order_lines, dependent: :destroy
   has_many :payment_fees, dependent: :destroy
   has_one :procurement, dependent: :destroy
-  has_one :sale
+  has_many :sales
   has_one :shipment
 
   validates :order_number, presence: true, uniqueness: true

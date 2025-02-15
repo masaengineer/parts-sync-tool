@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_02_12_075930) do
+ActiveRecord::Schema[7.2].define(version: 2025_02_14_155750) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -68,7 +68,10 @@ ActiveRecord::Schema[7.2].define(version: 2025_02_12_075930) do
     t.datetime "updated_at", null: false
     t.string "fee_category"
     t.decimal "fee_amount"
+    t.string "transaction_type"
+    t.string "transaction_id"
     t.index ["order_id"], name: "index_payment_fees_on_order_id"
+    t.index ["transaction_id", "transaction_type", "fee_category"], name: "index_payment_fees_on_transaction_id_type_and_category", unique: true
   end
 
   create_table "procurements", force: :cascade do |t|

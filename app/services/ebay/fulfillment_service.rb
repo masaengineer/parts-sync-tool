@@ -39,9 +39,6 @@ module Ebay
 
         all_orders.concat(orders)
         offset += limit
-
-        # nextリンクがなければ終了
-        break unless result["next"]
       end
 
       # データ保存処理の呼び出し

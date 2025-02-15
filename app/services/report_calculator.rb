@@ -29,7 +29,7 @@ class ReportCalculator
   # 計算を実行し、ハッシュ形式で返す
   def calculate
     # --- 売上(USD) ---
-    order_revenue_usd      = @order.sale&.order_net_amount.to_f
+    order_revenue_usd      = @order.sales.sum(&:order_net_amount).to_f
 
     # --- 手数料合計(USD) ---
     order_payment_fees_usd = @order.payment_fees.sum(&:fee_amount).to_f

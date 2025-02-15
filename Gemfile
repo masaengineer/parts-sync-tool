@@ -49,7 +49,7 @@ gem "ransack"
 # Rails internationalization
 gem "rails-i18n"
 
-# Add mega-tags for enhanced SEO
+# Add mega-tags for enhanced SEOz
 gem "meta-tags"
 
 # OAuth2認証のため
