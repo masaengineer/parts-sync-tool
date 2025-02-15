@@ -22,9 +22,9 @@ Rails.application.routes.draw do
     end
   end
 
-  if Rails.env.development?
-    mount LetterOpenerWeb::Engine, at: "/letter_opener"
-  end
+  # if Rails.env.development?
+  #   mount LetterOpenerWeb::Engine, at: "/letter_opener"
+  # end
 
   # 静的ページのルーティング
   get "privacy_policy", to: "static_pages#privacy_policy"
