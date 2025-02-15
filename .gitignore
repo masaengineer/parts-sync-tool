@@ -60,3 +60,7 @@
 # Ignore .cursorrules
 .cursorrules
 public/dev-assets/actiontext-78de0ebeae470799f9ec25fd0e20ae2d931df88c2ff9315918d1054a2fca2596.js
+finance-myaccount.json
+orders.json
+test.json
+

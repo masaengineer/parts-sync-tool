@@ -6,12 +6,12 @@ class SalesReportsController < ApplicationController
     @per_page = (params[:per_page] || 30).to_i
     @orders = @q.result
                 .includes(
-                  :sale,
+                  :sales,
                   :shipment,
                   :payment_fees,
                   :procurement,
                   order_lines: {
-                    seller_sku: :manufacturer_sku
+                    seller_sku: :manufacturer_skus
                   }
                 )
                 .page(params[:page])
@@ -21,13 +21,5 @@ class SalesReportsController < ApplicationController
     @orders_data = @orders.map do |order|
       ReportCalculator.new(order).calculate
     end
-  end
-
-  def show
-    @order = current_user.orders.includes(
-      :procurement,
-      order_lines: :manufacturer_sku
-    ).find(params[:id])
-    render partial: "order_detail_modal", locals: { order: @order }
   end
 end

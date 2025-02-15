@@ -1,5 +1,7 @@
 module Ebay
   class FinanceApiClient
+    class FinanceError < StandardError; end  # エラークラスを追加
+
     API_BASE_URL = 'https://apiz.ebay.com'.freeze
     TRANSACTION_ENDPOINT = '/sell/finances/v1/transaction'.freeze
 
@@ -7,15 +9,48 @@ module Ebay
       @auth_service = AuthService.new
     end
 
-    def fetch_transactions
-      response = client.get do |req|
-        req.url TRANSACTION_ENDPOINT
-        req.headers = auth_headers
+    def fetch_transactions(filters = {})
+      Rails.logger.debug "fetch_transactions called with filters: #{filters}"
+      all_transactions = []
+      offset = 0
+      limit = 1000  # eBay Finance APIの最大値を使用
+
+      loop do
+        response = client.get do |req|
+          req.url TRANSACTION_ENDPOINT
+          Rails.logger.debug "Request URL: #{TRANSACTION_ENDPOINT}"
+          req.headers = auth_headers
+          req.params = filters.merge(
+            offset: offset,
+            limit: limit
+          )
+
+          Rails.logger.debug "Request Headers: #{req.headers}"
+          Rails.logger.debug "Request Params: #{req.params}"
+        end
+
+        result = JSON.parse(response.body)
+        Rails.logger.debug "Response total: #{result['total']}"
+
+        transactions = result["transactions"]
+        break if transactions.nil? || transactions.empty?
+
+        all_transactions.concat(transactions)
+        offset += limit
+
+        break if all_transactions.size >= result["total"].to_i
+        # totalは指定されたフィルタ条件に一致する取引の総数（公式ドキュメントより）
       end
-      JSON.parse(response.body)['transactions']
+
+      Rails.logger.info "Total transactions fetched: #{all_transactions.size}"
+      { "transactions" => all_transactions }
+
     rescue Faraday::Error => e
       Rails.logger.error "eBay Finance API Error: #{e.response&.body}"
-      raise ApiError, "eBay Finance APIからのデータ取得に失敗しました: #{e.message}"
+      raise FinanceError, "取引情報取得エラー: #{e.message}"
+    rescue StandardError => e
+      Rails.logger.error "Unexpected Error in fetch_transactions: #{e.message}"
+      raise FinanceError, "予期せぬエラーが発生しました: #{e.message}"
     end
 
     private

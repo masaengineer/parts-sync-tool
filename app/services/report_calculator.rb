@@ -29,7 +29,7 @@ class ReportCalculator
   # 計算を実行し、ハッシュ形式で返す
   def calculate
     # --- 売上(USD) ---
-    order_revenue_usd      = @order.sale&.order_net_amount.to_f
+    order_revenue_usd      = @order.sales.sum(&:order_net_amount).to_f
 
     # --- 手数料合計(USD) ---
     order_payment_fees_usd = @order.payment_fees.sum(&:fee_amount).to_f
@@ -56,9 +56,9 @@ class ReportCalculator
     profit_rate = revenue_in_jpy.zero? ? 0 : (profit_jpy / revenue_in_jpy) * 100
 
     # --- SKU情報の取得 ---
-    skus = @order.order_lines.includes(:manufacturer_sku).map(&:manufacturer_sku)
-    sku_codes = skus.map(&:sku_code).compact.join(", ")
-    product_names = skus.map(&:international_title).compact.join(", ")
+    order_lines = @order.order_lines
+    sku_codes = order_lines.map { |line| line.seller_sku.sku_code }.compact.join(", ")
+    product_names = order_lines.map(&:line_item_name).compact.join(", ")
 
     {
       order: @order,
