@@ -28,15 +28,10 @@ ja:
 
     data_imports:
       <<: *defaults
-      filtered_data_sheet:
-        success: 'Filtered Data Sheetのインポートが完了しました'
-        error: 'Filtered Data Sheetのインポートに失敗しました'
-      ebay_sales_report:
-        success: 'eBay Sales Reportのインポートが完了しました'
-        error: 'eBay Sales Reportのインポートに失敗しました'
-      cpass_shipping_cost:
-        success: 'Cpass Shipping Costのインポートが完了しました'
+      wisewill_data_sheet:
+        success: 'Wisewill委託分シートのインポートが完了しました'
+        error: 'Wisewill委託分シートのインポートに失敗しました'
+      cpass_data_sheet:
+        success: 'CPaSS委託分シートのインポートが完了しました'
         error: 'Cpass Shipping Costのインポートに失敗しました'
-      ebay_transaction_report:
-        success: 'eBay Transaction Reportのインポートが完了しました'
-        error: 'eBay Transaction Reportのインポートに失敗しました'
+

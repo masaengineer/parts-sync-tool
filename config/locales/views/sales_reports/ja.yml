@@ -33,10 +33,8 @@ ja:
       file: 'CSVファイル'
       submit: 'インポート'
       types:
-        filtered_data_sheet: 'Filtered Data Sheet'
-        ebay_sales_report: 'eBay Sales Report'
-        cpass_shipping_cost: 'Cpass Shipping Cost'
-        ebay_transaction_report: 'eBay Transaction Report'
+        wisewill_data_sheet: 'Wisewill委託分シート'
+        cpass_data_sheet: 'CPaSS委託分シート'
     search:
       reset: 'リセット'
       submit: '検索'

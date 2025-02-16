@@ -43,7 +43,7 @@ RSpec.describe Procurement, type: :model do
       let(:expected_total) do
         procurement.purchase_price +
         procurement.forwarding_fee +
-        procurement.photo_fee +
+        procurement.option_fee +
         procurement.handling_fee
       end
 
@@ -54,7 +54,7 @@ RSpec.describe Procurement, type: :model do
       subject { procurement.total_cost }
       before do
         procurement.forwarding_fee = nil
-        procurement.photo_fee = nil
+        procurement.option_fee = nil
       end
       let(:expected_total) { procurement.purchase_price + procurement.handling_fee }
 
@@ -67,12 +67,12 @@ RSpec.describe Procurement, type: :model do
 
     it { should respond_to(:purchase_price) }
     it { should respond_to(:forwarding_fee) }
-    it { should respond_to(:photo_fee) }
+    it { should respond_to(:option_fee) }
     it { should respond_to(:handling_fee) }
 
     it { expect(subject.purchase_price).to be_a_kind_of(Numeric) }
     it { expect(subject.forwarding_fee).to be_a_kind_of(Numeric) }
-    it { expect(subject.photo_fee).to be_a_kind_of(Numeric) }
+    it { expect(subject.option_fee).to be_a_kind_of(Numeric) }
     it { expect(subject.handling_fee).to be_a_kind_of(Numeric) }
   end
 end
