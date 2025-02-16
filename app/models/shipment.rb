@@ -6,7 +6,6 @@
 #  customer_international_shipping :decimal(, )
 #  created_at                      :datetime         not null
 #  updated_at                      :datetime         not null
-#  cpass_trade_id                  :integer
 #  order_id                        :bigint
 #  tracking_number                 :string
 #
@@ -15,7 +14,7 @@
 #  index_shipments_on_order_id  (order_id)
 #
 class Shipment < ApplicationRecord
-  belongs_to :order, optional: true
+  belongs_to :order
 
   def self.ransackable_attributes(auth_object = nil)
     %w[
