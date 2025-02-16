@@ -1,14 +1,13 @@
 require "csv"
-require "securerandom"
 
 # CpassDataSheetImporter
 # - CSVからtracking_numberをキーにShipmentを探す
-# - ShipmentにOrderがなければダミーのOrderを作る
 # - 送料と還元金額をチェックしてshipping_costを設定
+# - F列の還元金額が負の値の場合は、最終的な請求金額はA列の金額。還元金額が0の場合は、最終的な請求金額はD列。
+
 class CpassDataSheetImporter
   class PositiveDiscountError < StandardError; end
 
-  DUMMY_DATE = Date.parse("1900-01-01")
 
   def initialize(csv_path, user)
     @csv_path = csv_path
@@ -78,13 +77,11 @@ class CpassDataSheetImporter
 
     Rails.logger.info "[CpassDataSheetImporter] Final shipping_cost for row => #{shipping_cost}"
 
-    shipment = Shipment.find_or_initialize_by(tracking_number: tracking_number)
-    # Orderが未紐づけの場合はダミーOrderを作らず、そのまま shipment.order_id=nil としておく
-    if shipment.order.present?
-      Rails.logger.info "[CpassDataSheetImporter] Found existing Order for tracking_number=#{tracking_number}, order_id=#{shipment.order_id}"
-    else
-      Rails.logger.info "[CpassDataSheetImporter] No existing Order for tracking_number=#{tracking_number}. Leaving shipment.order_id as nil."
-      # shipment.order_id remains nil until a future importer (e.g. eBayTransactionReportImporter) links the actual Order
+    shipment = Shipment.find_by(tracking_number: tracking_number)
+
+    if shipment.nil?
+      Rails.logger.info "[CpassDataSheetImporter] Shipment not found for tracking_number=#{tracking_number}."
+      return
     end
 
     shipment.customer_international_shipping = shipping_cost
