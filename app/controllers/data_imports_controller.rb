@@ -9,24 +9,18 @@ class DataImportsController < ApplicationController
 
     begin
       case import_type
-      when "filtered_data_sheet"
-        FilteredDataSheetImporter.new(file.path, current_user).import
-        flash[:notice] = "Filtered Data Sheetのインポートが完了しました。"
-      when "ebay_sales_report"
-        EbaySalesReportImporter.new(file.path, current_user).import
-        flash[:notice] = "eBay Sales Reportのインポートが完了しました。"
-      when "cpass_shipping_cost"
-        CpassShippingCostImporter.new(file.path, current_user).import
-        flash[:notice] = "Cpass Shipping Costのインポートが完了しました。"
-      when "ebay_transaction_report"
-        EbayTransactionReportImporter.new(file.path, current_user).import
-        flash[:notice] = "eBay Transaction Reportのインポートが完了しました。"
+      when "wisewill_data_sheet"
+        WisewillDataSheetImporter.new(file.path, current_user).import
+        flash[:notice] = "Wisewill委託分シートのインポートが完了しました。"
+      when "cpass_data_sheet"
+        CpassDataSheetImporter.new(file.path, current_user).import
+        flash[:notice] = "CPaSS委託分シートのインポートが完了しました。"
       else
         flash[:alert] = "不明なインポートタイプです。"
       end
-    rescue FilteredDataSheetImporter::MissingSkusError => e
+    rescue WisewillDataSheetImporter::MissingSkusError => e
       flash[:alert] = "インポートエラー: #{e.message}"
-    rescue CpassShippingCostImporter::PositiveDiscountError => e
+    rescue CpassDataSheetImporter::PositiveDiscountError => e
       flash[:alert] = "インポートエラー: #{e.message}"
     rescue StandardError => e
       flash[:alert] = case e.message

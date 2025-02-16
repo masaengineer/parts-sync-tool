@@ -9,7 +9,7 @@
 #        payment_fees: 手数料合計(USD),
 #        shipping_cost: 送料(円),
 #        procurement_cost: 仕入原価(円),      # purchase_price
-#        other_costs: その他原価(円),         # forwarding_fee + photo_fee + handling_fee
+#        other_costs: その他原価(円),         # forwarding_fee + option_fee + handling_fee
 #        quantity: SKUの合計数量,
 #        profit: 利益(円),
 #        profit_rate: 利益率(％),
@@ -83,7 +83,7 @@ class ReportCalculator
   def calculate_procurement_data(order)
     result = {
       procurement_cost: 0,  # 仕入原価（purchase_price）
-      other_costs: 0,      # その他原価（forwarding_fee + photo_fee + handling_fee）
+      other_costs: 0,      # その他原価（forwarding_fee + option_fee + handling_fee）
       total_quantity: 0
     }
 
@@ -91,10 +91,10 @@ class ReportCalculator
       # 仕入原価の計算（商品の実際の仕入れ価格）
       result[:procurement_cost] = safe_decimal_conversion(procurement.purchase_price)
 
-      # その他原価の計算（転送料 + 写真撮影料 + 取扱手数料）
+      # その他原価の計算（転送料 + オプション料 + 取扱手数料）
       result[:other_costs] = [
         safe_decimal_conversion(procurement.forwarding_fee), # 転送料
-        safe_decimal_conversion(procurement.photo_fee),      # 写真撮影料
+        safe_decimal_conversion(procurement.option_fee),      # オプション料
         safe_decimal_conversion(procurement.handling_fee)    # 取扱手数料
       ].sum
     end
